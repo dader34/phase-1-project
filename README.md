@@ -50,3 +50,13 @@ sellCoin() removes a coin from the user's bank
 -
 
 -test
+
+<!-- Requirements -->
+1. HTML/CSS/JS frontend that accesses an API. check
+2. Single page. check
+3. 3 Event listeners:
+    - 'click': open bank
+    - 'change': dropdown selector on graphs
+    - ''
+
+<!-- Credits -->
