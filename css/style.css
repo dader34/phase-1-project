@@ -1,0 +1,14 @@
+body{
+
+    background-color: #11182e;
+    margin: 0px;
+    /* set background color and 0 margin so it doesnt break div */
+}
+
+div.topbar{
+    background-color: #0c1421;
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 50px;
+}
