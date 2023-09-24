@@ -93,3 +93,41 @@ div.filogo {
     background-image: var(--flatironlogo);
 }
 
+select#filter{
+    position: inherit;
+    top:20%;
+    width: 100%;
+    height: 5%;
+    border-radius: 0px;
+}
+
+input#search{
+    position: inherit;
+    top:26%;
+    width: 95%;
+    height: 2%;
+}
+
+ul#results{
+    position: inherit;
+    top:30%;
+    width: 72%;
+    height: 25%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+button#addCoin{
+    position: inherit;
+    top:60%;
+    width: 100%;
+    height: 5%;
+}
+
+button#reset{
+    position: inherit;
+    top:70%;
+    width: 100%;
+    height: 5%;
+}
