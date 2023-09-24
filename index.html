@@ -9,14 +9,26 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="titleHolder">
+        <div class="title">CRYPTO CENTRAL</div>
+    </div>
     <div id="notification" class="notification">
         <p></p>
       </div>
-    <div class="topbar">
+    <div class="leftbar">
         <div class="filogo"></div>
+        <select name="filter" id="filter">
+            <option>Top Performers</option>
+        </select>
+        <input type="text" id="search" placeholder="Coin Name">
+        <ul name="results" id="results"></ul>
+        <button id="addCoin">Add Coin</button>
+        <button id="reset">Reset Coins</button>
     </div>
-    <div class="mainCoins">
+    <div class="coins">
         <div class="coinCard"></div>
     </div>
+    <div class="displayedCoin"></div>
+    <div class="playground"></div>
 </body>
 </html>
