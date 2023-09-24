@@ -10,11 +10,13 @@ body {
 }
 
 div.leftbar{
+    display: flex;
     background-color: #0c1421;
     position: absolute;
     top: 0px;
     width: 10%;
     height: 100%;
+    flex-direction: column;
 }
 
 div.notification {
@@ -90,3 +92,4 @@ div.filogo {
     background-size: contain;
     background-image: var(--flatironlogo);
 }
+
