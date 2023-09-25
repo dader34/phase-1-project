@@ -38,7 +38,7 @@ const renderLi = (coin) => {
   listedCoin.classList.add("listedCoin");
   listedCoin.dataset.id = coin.id;
   listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
-  // listedCoin.addEventListener('click', displayCoinToWindow);
+//   listedCoin.addEventListener('click',()=>{console.log(coin)});
   coinList.appendChild(listedCoin);
 };
 
@@ -73,7 +73,6 @@ const filterByGains = (coinsObj, upOrDown) => {
       return parseFloat(a.changePercent24Hr) - parseFloat(b.changePercent24Hr);
     });
   }
-  console.log(toBeSorted);
   return toBeSorted;
 };
 
@@ -91,9 +90,23 @@ const filterByPrice = (coinsObj,upOrDown) =>{
         return parseFloat(a.priceUsd) - parseFloat(b.priceUsd);
       });
     }
-    console.log(toBeSorted);
     return toBeSorted;
 }
+
+const filterByName = (coinName) =>{
+    coinList.innerHTML=""
+    fetchAllCoins().then(coinsObj =>{
+        coinsObj.forEach(coin => {
+            const lowerCoin = coinName.toLowerCase()
+            if(coin.id.toLowerCase().startsWith(lowerCoin) ||
+            coin.name.toLowerCase().startsWith(lowerCoin) ||
+            coin.symbol.toLowerCase().startsWith(lowerCoin)){
+                renderLi(coin)
+            }
+        }) 
+    })
+}
+
 
 document.querySelector("#filter").addEventListener("change", (e) => {
   coinList.innerHTML = "";
@@ -139,6 +152,15 @@ document.querySelector("#filter").addEventListener("change", (e) => {
       break;
   }
 });
+
+
+document.querySelector("form").addEventListener("submit",(e)=>{
+    e.preventDefault()
+    // console.log(e.target.Name)
+    filterByName(e.target.Name.value)
+})
+
+fetchAllCoins().then(populateCoinList)
 
 // fetchCoin("BTC").then(console.log)
 
