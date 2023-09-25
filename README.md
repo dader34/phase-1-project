@@ -1,6 +1,75 @@
-# phase-1-project
+# **Get Your Day Started Right — Don't Wake Up Virtually Broke!**
 
-<!-- Crypto tracker as name? -->
+## Welcome to Cha-Ching Dannor Dom, your go-to cryptocurrency exchange platform designed to ensure you're financially prepared for the day ahead.
+
+> **What Can You Do with Cha-Ching Dannor Dom?**
+
+* *Buy Crypto with Ease*: Purchase cryptocurrency in quantities that suit your needs.
+* *Effortless Tracking*: Keep an eye on your investments without lifting a finger.
+* *Real-Time Market Insights*: Display an extensive range of cryptocurrencies, complete with real-time market prices.
+* *Social Media Pulse*: Get actionable insights by pulling data from major social media platforms to inform your next purchase.
+
+All this is possible through our dynamic website, powered by cutting-edge API's.
+
+# Installation Instructions
+
+> **Ready to dodge financial pitfalls? Here's how to get started.**
+
+
+* Fork and Clone: Fork this repository and copy the SSH key from your forked repo.> 
+
+* Navigate: Open the directory where you wish to clone the repo.
+To create a new directory, type mkdir "your-new-directory-name".
+
+* Clone: Inside your directory, type git clone followed by pasting the SSH key you copied.
+
+* Launch: Navigate into the git folder with cd, then type Code . to launch the editor.
+
+* Mac Users:
+Launch the HTML file using your preferred method.
+
+* WSL or Windows Users
+Open Ubuntu or the platform you used to create the directory.
+Type explorer.exe index.html to open Cha-Ching Dannor Dom.
+
+
+
+## Visual Operations
+
+1.
+2.
+3.
+4.
+5.
+etc if more.
+
+
+
+## Authors
+
+1. [Dominic DeCelle](https://www.linkedin.com/in/dominic-decelle-376b02292/)
+2. Connor Adams <hyperlink for LinkedIn
+<small photo image of you Connor>
+3. Danner Baumgartner <hyperlink for LinkedIn
+<Small photo of you Danner>
+
+
+## Outstanding API's
+* **API 1.**
+* **API 2.** 
+
+
+
+
+
+## **Licenses**
+
+
+
+
+<>
+
+<!-- Crypto tracker as name?
 A crypto currency display and search website with filtering options, and graphs.
 
 <!-- Returned collection from JSON server or API -->
@@ -46,7 +115,7 @@ exitX() removes a created element from the index.html when the user presses the 
 updatePrice() fires every second?minute? fetches new values from the db and updates data displayed to the user
 viewBank() opens the users bank
 buyCoin() takes a certain coin as an argument and adds it to the user's "bank"
-sellCoin() removes a coin from the user's bank
+sellCoin() removes a coin from the user's bank -->
 -
 
 -test
@@ -60,3 +129,5 @@ sellCoin() removes a coin from the user's bank
     - ''
 
 <!-- Credits -->
+**Credit to giphy.com for our embed GIF! 
+If you would like to add GIF to your README or blog, website, you can check them out!
