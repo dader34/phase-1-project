@@ -16,10 +16,10 @@ All this is possible through our dynamic website, powered by cutting-edge API's.
 > **Ready to dodge financial pitfalls? Here's how to get started.**
 
 
-* Fork and Clone: Fork this repository and copy the SSH key from your forked repo.> 
+* Fork and Clone: Fork this repository and copy the SSH key from your forked repo.
 
 * Navigate: Open the directory where you wish to clone the repo.
-To create a new directory, type mkdir "your-new-directory-name".
+> **To create a new directory, type mkdir "your-new-directory-name".**
 
 * Clone: Inside your directory, type git clone followed by pasting the SSH key you copied.
 
@@ -28,9 +28,9 @@ To create a new directory, type mkdir "your-new-directory-name".
 * Mac Users:
 Launch the HTML file using your preferred method.
 
-* WSL or Windows Users
-Open Ubuntu or the platform you used to create the directory.
-Type explorer.exe index.html to open Cha-Ching Dannor Dom.
+>* WSL Users
+* Open Ubuntu or the platform you used to create the directory.
+* Type explorer.exe index.html to open Cha-Ching Dannor Dom.
 
 
 
@@ -68,6 +68,12 @@ etc if more.
 
 
 <>
+
+## If you would like to follow our growth, feel free to check out our other projects!
+* Dominic DeCelle's Projects:
+* Danner Baumgartner's Projects:
+* Conner Adams Projects:
+
 
 <!-- Crypto tracker as name?
 A crypto currency display and search website with filtering options, and graphs.
