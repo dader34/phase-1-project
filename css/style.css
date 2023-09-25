@@ -110,12 +110,28 @@ input#search{
 
 ul#results{
     position: inherit;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
     top:30%;
     width: 72%;
     height: 25%;
     overflow-y: scroll;
     overflow-x: hidden;
     background-color: white;
+}
+
+li.listedCoin {
+    
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+}
+
+li.listedCoin:hover {
+    background-color: darkblue;
+    color: white;
 }
 
 button#addCoin{

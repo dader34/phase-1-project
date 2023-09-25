@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoinTracker</title>
-    <script src="js/notify.js"></script>
-    <script type="module" src="js/index.js"></script>
+    <title>Crypto Shark</title>
+    <!-- <script src="js/notify.js"></script> -->
+    <script defer src="js/index.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="titleHolder">
-        <div class="title">CRYPTO CENTRAL</div>
+        <div class="title">CRYPTO SHARK</div>
     </div>
     <div id="notification" class="notification">
         <p></p>
-      </div>
+    </div>
     <div class="leftbar">
         <div class="filogo"></div>
         <select name="filter" id="filter">
-            <option>Top Performers</option>
+            <option value="default">Rank</option>
+            <option value="alphabetical">A-Z</option>
+            <option value="biggestDailyGains">Biggest Daily Gains</option>
+            <option value="biggestDailyLosses">Biggest Daily Losses</option>
+            <option value="priceHighest">Price: High to Low</option>
+            <option value="priceLowest">Price: Low to High</option>
         </select>
         <input type="text" id="search" placeholder="Coin Name">
         <ul name="results" id="results"></ul>
