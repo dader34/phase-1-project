@@ -19,7 +19,7 @@ All this is possible through our dynamic website, powered by cutting-edge API's.
 * Fork and Clone: Fork this repository and copy the SSH key from your forked repo.
 
 * Navigate: Open the directory where you wish to clone the repo.
-> **To create a new directory, type mkdir "your-new-directory-name".**
+*  (optional) To create a new directory, type mkdir "your-new-directory-name".
 
 * Clone: Inside your directory, type git clone followed by pasting the SSH key you copied.
 
@@ -73,7 +73,6 @@ etc if more.
 * Dominic DeCelle's Projects:
 * Danner Baumgartner's Projects:
 * Conner Adams Projects:
-
 
 <!-- Crypto tracker as name?
 A crypto currency display and search website with filtering options, and graphs.
