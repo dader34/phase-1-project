@@ -102,7 +102,7 @@ select#filter{
 }
 
 input#search{
-    position: inherit;
+    position: absolute;
     margin: 0;
     padding: 0;
     top:26%;
@@ -115,7 +115,7 @@ ul#results{
     margin: 0;
     padding: 0;
     list-style-type: none;
-    top:30%;
+    top:40%;
     width: 100%;
     height: 25%;
     overflow-y: scroll;
@@ -136,9 +136,9 @@ li.listedCoin:hover {
     color: white;
 }
 
-button#addCoin{
-    position: inherit;
-    top:60%;
+input#submitSearch{
+    position: absolute;
+    top:30%;
     width: 100%;
     height: 5%;
 }

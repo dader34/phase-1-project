@@ -38,7 +38,7 @@ const renderLi = (coin) => {
   listedCoin.classList.add("listedCoin");
   listedCoin.dataset.id = coin.id;
   listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
-  // listedCoin.addEventListener('click', displayCoinToWindow);
+  listedCoin.addEventListener('click',()=>{console.log(coin)});
   coinList.appendChild(listedCoin);
 };
 
@@ -139,6 +139,27 @@ document.querySelector("#filter").addEventListener("change", (e) => {
       break;
   }
 });
+
+const filterByName = (coinName) =>{
+    coinList.innerHTML=""
+    fetchAllCoins().then(coinsObj =>{
+        coinsObj.forEach(coin => {
+            const lowerCoin = coinName.toLowerCase()
+            console.log(lowerCoin)
+            if(coin.id.toLowerCase().startsWith(lowerCoin) ||
+            coin.name.toLowerCase().startsWith(lowerCoin) ||
+            coin.symbol.toLowerCase().startsWith(lowerCoin)){
+                renderLi(coin)
+            }
+        }) 
+    })
+}
+
+document.querySelector("form").addEventListener("submit",(e)=>{
+    e.preventDefault()
+    // console.log(e.target.Name)
+    filterByName(e.target.Name.value)
+})
 
 // fetchCoin("BTC").then(console.log)
 

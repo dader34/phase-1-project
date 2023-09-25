@@ -25,9 +25,11 @@
             <option value="priceHighest">Price: High to Low</option>
             <option value="priceLowest">Price: Low to High</option>
         </select>
-        <input type="search" id="search" placeholder="Coin Name">
+        <form>
+            <input type="search" id="search" name="Name">
+            <input type="submit" id="submitSearch" value="Search">
+        </form>
         <ul name="results" id="results"></ul>
-        <button id="addCoin">Add Coin</button>
         <button id="reset">Reset Coins</button>
     </div>
     <div class="coins">
