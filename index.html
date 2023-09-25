@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoinTracker</title>
-    <script src="js/notify.js"></script>
-    <script type="module" src="js/index.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crypto Central</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="titleHolder">
-        <div class="title">CRYPTO CENTRAL</div>
+  </head>
+  <body>
+    <div id="wrapper">
+        <div id="header"></div>
+
+        <div id="main-container">
+            <div id="sidebar">
+                <img src="" alt="" id="logo-img">
+                <button class="sidebar-button unselected" id="filter-options-button">FILTER OPTIONS</button>
+                <select name="presets" id="preset-filters">
+                    <option value="no-choice">Choose a Preset Filter</option>
+                    <option value="top-performers">Top Performers</option>
+                    <option value="biggest-daily-gains">Biggest Daily Gains</option>
+                    <option value="newest-coins">Newest Coins</option>
+                </select>
+                <form action="" method="get" class="search-coins-form">
+                  <label for="searched-coin">Search for a coin</label>
+                  <input type="text" name="searched-coin" id="searched-coin" required/>
+                </form>
+                <ol id="coin-list">
+
+                </ol>
+                <button type="button" disabled class="sidebar-button" id="add-coin-button">ADD COIN</button>
+                <button type="button" disabled class="sidebar-button" id="reset-coins-button">RESET COINS</button>
+              </div>
+        </div>
+        
+        <div id="footer"></div>
     </div>
-    <div id="notification" class="notification">
-        <p></p>
-      </div>
-    <div class="leftbar">
-        <div class="filogo"></div>
-        <select name="filter" id="filter">
-            <option>Top Performers</option>
-        </select>
-        <input type="text" id="search" placeholder="Coin Name">
-        <ul name="results" id="results"></ul>
-        <button id="addCoin">Add Coin</button>
-        <button id="reset">Reset Coins</button>
-    </div>
-    <div class="coins">
-        <div class="coinCard"></div>
-    </div>
-    <div class="displayedCoin"></div>
-    <div class="playground"></div>
-</body>
+	<script src="js/index.js"></script>
+  </body>
 </html>
