@@ -77,15 +77,35 @@ const filterByGains = (coinsObj, upOrDown) => {
   return toBeSorted;
 };
 
+const filterByPrice = (coinsObj,upOrDown) =>{
+    const toBeSorted = [];
+    for (let coin of coinsObj) {
+      toBeSorted.push(coin);
+    }
+    if (upOrDown === 0) {
+      toBeSorted.sort((a, b) => {
+        return parseFloat(b.priceUsd) - parseFloat(a.priceUsd);
+      });
+    } else {
+      toBeSorted.sort((a, b) => {
+        return parseFloat(a.priceUsd) - parseFloat(b.priceUsd);
+      });
+    }
+    console.log(toBeSorted);
+    return toBeSorted;
+}
+
 document.querySelector("#filter").addEventListener("change", (e) => {
   coinList.innerHTML = "";
   switch (e.target.value) {
     case "default":
       fetchAllCoins().then(populateCoinList);
       break;
+
     case "alphabetical":
       fetchAllCoins().then(filterByAZ).then(populateCoinList);
       break;
+
     case "biggestDailyGains":
       fetchAllCoins()
         .then((coinsObj) => {
@@ -93,10 +113,27 @@ document.querySelector("#filter").addEventListener("change", (e) => {
         })
         .then(populateCoinList);
       break;
-    case "biggestDailyLosses":
+
+      case "biggestDailyLosses":
+        fetchAllCoins()
+          .then((coinsObj) => {
+            return filterByGains(coinsObj, 1);
+          })
+          .then(populateCoinList);
+        break;
+
+        case "priceHighest":
       fetchAllCoins()
         .then((coinsObj) => {
-          return filterByGains(coinsObj, 1);
+          return filterByPrice(coinsObj, 0);
+        })
+        .then(populateCoinList);
+      break;
+
+      case "priceLowest":
+      fetchAllCoins()
+        .then((coinsObj) => {
+          return filterByPrice(coinsObj, 1);
         })
         .then(populateCoinList);
       break;
