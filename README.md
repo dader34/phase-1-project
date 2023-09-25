@@ -62,10 +62,10 @@ etc if more.
 
 ## **Licenses**
 
+[MIT](https://github.com/dader34/phase-1-project/blob/main/LICENSE)
 
 
 
-<>
 
 ## If you would like to follow our growth, feel free to check out our other projects!
 * Dominic DeCelle's Projects:
