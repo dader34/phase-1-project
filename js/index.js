@@ -38,7 +38,7 @@ const renderLi = (coin) => {
   listedCoin.classList.add("listedCoin");
   listedCoin.dataset.id = coin.id;
   listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
-//   listedCoin.addEventListener('click',()=>{console.log(coin)});
+  listedCoin.addEventListener('click',()=>{displayCoin(coin)});
   coinList.appendChild(listedCoin);
 };
 
@@ -105,6 +105,16 @@ const filterByName = (coinName) =>{
             }
         }) 
     })
+}
+
+const displayCoin = (coin) =>{
+    const title = document.querySelector("#coinName")
+    const price = document.querySelector("#coinPrice")
+    const img = document.querySelector("#coinImg")
+    title.textContent = coin.name
+    price.textContent = coin.priceUsd
+    // img.src = 
+
 }
 
 
