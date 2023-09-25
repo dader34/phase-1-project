@@ -1,1 +1,1 @@
-notify(api_key,"error")
+// notify("test","warn")
