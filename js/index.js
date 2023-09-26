@@ -51,6 +51,7 @@ const populateCoinList = (coinsObj) => {
     for (let coin of coinsObj) {
         renderLi(coin);
     }
+    return coinsObj
 };
 
 const filterByAZ = (coinsObj) => {
@@ -291,13 +292,26 @@ document.querySelector("form").addEventListener("submit", (e) => {
     filterByName(e.target.Name.value)
 })
 
-fetchAllCoins().then(populateCoinList)
+// ! Page Load functions --
 
-// fetchCoin("BTC").then(console.log)
+// fetchAllCoins().then(populateCoinList)
 
-// getCoinHistory("bitcoin").then(console.log)
+// // fetchCoin("BTC").then(console.log)
 
-fetchAllCoins().then(coins => displayCoin(coins[0]))
+// // getCoinHistory("bitcoin").then(console.log)
+
+// fetchAllCoins().then(coins => displayCoin(coins[0]))
+
+// fetchAllCoins().then(coinsObj => populateTopCoins(coinsObj))
+
+fetchAllCoins()
+.then((coinsObj) => {
+  populateCoinList(coinsObj)
+  displayCoin(coinsObj[0])
+  populateTopCoins(coinsObj)
+})
+
+// })
 
 // ! -- Connor's Code --
 
@@ -325,9 +339,7 @@ const renderCoinBadge = () => {
   return coinBadge;
 }
 
-const populateTopCoins = () => {
-  fetchAllCoins()
-  .then((coinsObj) => {
+const populateTopCoins = (coinsObj) => {
     const topFive = filterByPrice(coinsObj, 0).slice(0, 5)
     topFive.forEach((topCoin) => {
       const newBadge = renderCoinBadge()
@@ -336,7 +348,7 @@ const populateTopCoins = () => {
       newBadge.querySelector('p:nth-child(2)').textContent = topCoin.changePercent24Hr //TODO
       newBadge.querySelector('img')
       document.querySelector('#fiveCoins').appendChild(newBadge)
-     
+    
       fetchCoinImages(topCoin)
         .then(coinObj => {
             if (coinObj) {
@@ -347,10 +359,8 @@ const populateTopCoins = () => {
             image.alt = coin.symbol
         })
       })
-  })
-}
+  }
 
-populateTopCoins()
 
 // const addCoinToNav = () => {
 //         return fetchCoin(document.querySelector('#featuredCoinName').textContent.toLowerCase())
