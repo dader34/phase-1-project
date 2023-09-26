@@ -238,7 +238,6 @@ const createLineGraph = (data, divId) => {
 const displayCoinGraph = (coin) => {
     fetchCoinHistory(coin.id.toLowerCase()).then(data => {
         createLineGraph(data, "#displayCoinGraphDiv")
-        console.log(data)
     })
 }
 
@@ -333,35 +332,40 @@ const renderCoinBadge = () => {
     return coinBadge;
 }
 
+const createTopCoin = (topCoin) => {
+    const fiveCoins = document.querySelector('#fiveCoins')
+    const newBadge = renderCoinBadge()
+    const coinSymbol = newBadge.querySelector('h3')
+    const coinPrice = newBadge.querySelector('p:nth-child(1)')
+    const newBadgeChange = newBadge.querySelector('p:nth-child(2)')
+    coinSymbol.textContent = topCoin.symbol
+    coinPrice.textContent = formatPrice(topCoin.priceUsd)
+    newBadgeChange.textContent = formatDailyChange(topCoin.changePercent24Hr)
+    if (newBadgeChange.textContent.startsWith('↑')) {
+        newBadgeChange.style.color = 'green'
+    } else {
+        newBadgeChange.style.color = 'red'
+    }
+    fiveCoins.appendChild(newBadge)
+
+    fetchCoinImages(topCoin)
+    .then(coinObj => {
+        if (coinObj) {
+            newBadge.querySelector('img').src = coinObj.url
+        } else {
+            newBadge.querySelector('img').src = 'src/download.jpeg'
+        }
+        newBadge.querySelector('img').alt = coinObj.symbol
+    })
+}
+
 const populateTopCoins = (coinsObj) => {
     const topFive = filterByPrice(coinsObj, 0).slice(0, 5)
     topFive.forEach((topCoin) => {
-        const fiveCoins = document.querySelector('#fiveCoins')
-        const newBadge = renderCoinBadge()
-        const coinSymbol = newBadge.querySelector('h3')
-        const coinPrice = newBadge.querySelector('p:nth-child(1)')
-        const newBadgeChange = newBadge.querySelector('p:nth-child(2)')
-        coinSymbol.textContent = topCoin.symbol
-        coinPrice.textContent = formatPrice(topCoin.priceUsd)
-        newBadgeChange.textContent = formatDailyChange(topCoin.changePercent24Hr)
-        if (newBadgeChange.textContent.startsWith('↑')) {
-            newBadgeChange.style.color = 'green'
-        } else {
-            newBadgeChange.style.color = 'red'
-        }
-        fiveCoins.appendChild(newBadge)
-
-        fetchCoinImages(topCoin)
-            .then(coinObj => {
-                if (coinObj) {
-                    newBadge.querySelector('img').src = coinObj.url
-                } else {
-                    newBadge.querySelector('img').src = 'src/download.jpeg'
-                }
-                newBadge.querySelector('img').alt = coinObj.symbol
-            })
+        createTopCoin(topCoin)
     })
 }
+
 
 
 const addCoinButton = document.querySelector('#addCoinButton')
