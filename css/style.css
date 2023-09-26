@@ -155,6 +155,33 @@ button#reset{
     max-width: 64px;
 }
 
+#priceChange{
+    position: absolute;
+    top: 50%;
+    left:45%
+}
+
+div > span{
+    position: absolute;
+    top: 50%;
+    left:30%
+}
+#coinPrice{
+    position: relative;
+    top: 10%;
+}
+
+#displayCoinDiv{
+    position: relative;
+    place-content: center;
+    align-items: center;
+    text-align: center;
+    width : 30%;
+    height: 50%;
+    color: white;
+    background-color: black;
+}
+
 .upArrow{
     color:green;
     font-size: 300%;

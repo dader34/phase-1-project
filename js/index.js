@@ -155,7 +155,7 @@ const displayCoin = (coin) => {
     const price = document.querySelector("#coinPrice")
     const image = document.querySelector("#coinImg")
     const priceChange = document.querySelector("#priceChange")
-    title.textContent = coin.name
+    title.textContent = coin.symbol
     price.textContent = formatPrice(coin.priceUsd)
     fetchDailyChange(coin.name).then(data => priceChange.textContent = formatDailyChange(data))
     fetchCoinImages(coin)
@@ -229,3 +229,5 @@ fetchAllCoins().then(populateCoinList)
 // fetchCoin("BTC").then(console.log)
 
 // getCoinHistory("bitcoin").then(console.log)
+
+fetchAllCoins().then(coins => displayCoin(coins[0]))
