@@ -132,17 +132,14 @@ const fetchDailyChange = (coinName) => {
 const formatDailyChange = (priceChange) => {
     const slice = priceChange.slice(0, 4);
     const noNegativeSlice = priceChange.replace("-", "").slice(0, 4)
-    const arrowIcon = document.querySelector(".material-symbols-outlined");
-    arrowIcon.classList.remove("upArrow", "downArrow");
 
     if (slice > 0) {
-        arrowIcon.classList.add("upArrow");
-        arrowIcon.textContent = "arrow_drop_up";
+        const newSlice = '↑' + noNegativeSlice + "%";
+        return newSlice;
     } else {
-        arrowIcon.classList.add("downArrow");
-        arrowIcon.textContent = "arrow_drop_down";
+        const newSlice = '↓' + noNegativeSlice + "%";
+        return newSlice;
     }
-    return noNegativeSlice + "%";
 };
 
 
@@ -157,6 +154,12 @@ const displayCoin = (coin) => {
     // title.textContent = coin.symbol
     document.querySelector('#featuredPrice').textContent = formatPrice(coin.priceUsd)
     fetchDailyChange(coin.name).then(data => priceChange.textContent = formatDailyChange(data))
+    if (priceChange.textContent.includes('↑')) {
+        priceChange.style.color = 'green'
+      } else {
+        priceChange.style.color = 'red'
+        console.log('red')
+      }
     fetchCoinImages(coin)
         .then(coinObj => {
             if (coinObj) {
@@ -326,7 +329,6 @@ const renderCoinBadge = () => {
   const badgeImg = document.createElement('img')
   const badgePrice = document.createElement('p')
   const badgeChange = document.createElement('p')
-  badgeChange.classList.add('material-symbols-outlined')
 
   leftBadge.append(badgeImg, badgeSymbol)
   rightBadge.append(badgePrice, badgeChange)
@@ -342,10 +344,17 @@ const populateTopCoins = (coinsObj) => {
       const newBadge = renderCoinBadge()
       newBadge.querySelector('h3').textContent = topCoin.symbol
       newBadge.querySelector('p:nth-child(1)').textContent = formatPrice(topCoin.priceUsd)
-      newBadge.querySelector('p:nth-child(2)').textContent = formatDailyChange(topCoin.changePercent24Hr) //TODO
+      const newBadgeChange = newBadge.querySelector('p:nth-child(2)')
+      newBadgeChange.textContent = formatDailyChange(topCoin.changePercent24Hr)
+      if (newBadgeChange.textContent.startsWith('↑')) {
+        newBadgeChange.style.color = 'green'
+      } else {
+        newBadgeChange.style.color = 'red'
+      }
+      
       newBadge.querySelector('img')
       document.querySelector('#fiveCoins').appendChild(newBadge)
-    
+
       fetchCoinImages(topCoin)
         .then(coinObj => {
             if (coinObj) {

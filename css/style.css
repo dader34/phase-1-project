@@ -1,3 +1,7 @@
+:root {
+    --flatironlogo: url("https://instructure-uploads.s3.amazonaws.com/account_158020000000000001/attachments/43703/flatiron-icon.png")
+}
+
 body {
     margin: 0;
 }
@@ -31,7 +35,9 @@ h3 {
 }
 
 #filogo {
+    display: inherit;
     flex-grow: 2;
+    background-image: var(--flatironlogo);
 }
 
 #search {
@@ -70,6 +76,7 @@ li.listedCoin {
 li.listedCoin:hover {
     background-color: darkblue;
     color: white;
+    cursor: pointer;
 }
 
 #filter {
@@ -301,19 +308,15 @@ h1 {
     position: absolute;
     width: 60%;
     height: 50%;
-    top:5%;
+    top:15%;
     left: 35%;
     background-color: black;
 }
 
-
-
 .upArrow{
     color:green;
-    font-size: 300%;
 }
 
 .downArrow{
     color: red;
-    font-size: 300%;
 }
