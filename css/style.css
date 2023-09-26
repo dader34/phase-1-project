@@ -153,6 +153,53 @@ button#reset{
 #coinImg {
     max-height: 64px;
     max-width: 64px;
+    width: 100%;
+    height: 100%;
+}
+
+#priceChange{
+    position: absolute;
+    top: 50%;
+    left:45%;
+    transform: translate(15%, 0%);
+}
+
+div > span{
+    position: absolute;
+    top: 50%;
+    left:30%;
+    transform: translate(-5%, 0%);
+}
+#coinPrice{
+    position: inherit;
+    top: 30%;
+}
+
+#displayCoinDiv{
+    position: relative;
+    place-content: center;
+    align-items: center;
+    text-align: center;
+    width : 30%;
+    height: 50%;
+    color: white;
+    background-color: black;
+}
+
+#displayCoinGraphDiv{
+    position: absolute;
+    width: 60%;
+    height: 50%;
+    top:5%;
+    left: 35%;
+    background-color: black;
+}
+
+#container{
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    height: 30%;
 }
 
 .upArrow{

@@ -1,7 +1,5 @@
-//notify(api_key,"error")
-
 "use strict"
-
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 // ! -- Connor's Code --
 
 const coinList = document.querySelector("#results");
@@ -26,7 +24,7 @@ const fetchCoin = async (coinName) => {
     }
 };
 
-const getCoinHistory = (coin, interval = "m1") => {
+const fetchCoinHistory = (coin, interval = "m1") => {
     const url = `https://api.coincap.io/v2/assets/${coin}/history?interval=${interval}`;
     return fetch(url)
         .then((resp) => resp.json())
@@ -38,7 +36,7 @@ const renderLi = (coin) => {
     listedCoin.classList.add("listedCoin");
     listedCoin.dataset.id = coin.id;
     listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
-    listedCoin.addEventListener('click', () => displayCoin(coin));
+    listedCoin.addEventListener('click', () => {displayCoin(coin)});
     coinList.appendChild(listedCoin);
 };
 
@@ -123,31 +121,31 @@ const formatPrice = (price) => {
     });
 }
 
-const fetchDailyChange = (coinName) =>{
+const fetchDailyChange = (coinName) => {
     return fetchCoin(coinName)
-    .then(coin =>{
-        formatDailyChange(coin.changePercent24Hr)
-        return coin.changePercent24Hr
-    })
+        .then(coin => {
+            formatDailyChange(coin.changePercent24Hr)
+            return coin.changePercent24Hr
+        })
 }
 
 const formatDailyChange = (priceChange) => {
     const slice = priceChange.slice(0, 4);
-    const noNegativeSlice = priceChange.replace("-","").slice(0, 4)
+    const noNegativeSlice = priceChange.replace("-", "").slice(0, 4)
     const arrowIcon = document.querySelector(".material-symbols-outlined");
-    
+
     arrowIcon.classList.remove("upArrow", "downArrow");
-    
+
     if (slice > 0) {
-      arrowIcon.classList.add("upArrow");
-      arrowIcon.textContent = "arrow_drop_up";
+        arrowIcon.classList.add("upArrow");
+        arrowIcon.textContent = "arrow_drop_up";
     } else {
-      arrowIcon.classList.add("downArrow");
-      arrowIcon.textContent = "arrow_drop_down";
+        arrowIcon.classList.add("downArrow");
+        arrowIcon.textContent = "arrow_drop_down";
     }
     console.log(slice)
     return noNegativeSlice + "%";
-  };
+};
 
 
 const displayCoin = (coin) => {
@@ -155,7 +153,7 @@ const displayCoin = (coin) => {
     const price = document.querySelector("#coinPrice")
     const image = document.querySelector("#coinImg")
     const priceChange = document.querySelector("#priceChange")
-    title.textContent = coin.name
+    title.textContent = coin.symbol
     price.textContent = formatPrice(coin.priceUsd)
     fetchDailyChange(coin.name).then(data => priceChange.textContent = formatDailyChange(data))
     fetchCoinImages(coin)
@@ -168,9 +166,76 @@ const displayCoin = (coin) => {
             }
             image.alt = coin.symbol
         })
+    displayCoinGraph(coin)
 }
 
+const createLineGraph = (data, divId) => {
+    const parentDiv = document.querySelector(divId);
+    //variable that lets the graph know how low it needs to start
+    const minYValue = d3.min(data, d => d.priceUsd);
+    //first and last prices of the day to check if price was 
+    //positive or negative for the day
+    const firstPoint = data[0].priceUsd
+    const lastPoint = data[data.length - 1].priceUsd
+    //function to update graph dimensions on window resize
+    //updateDimensions() -> Void
+    const updateDimensions = () => {
+        //use requestAnimationFrame to redraw graphs every frame of resize
+        window.requestAnimationFrame(() => {
+            const parentWidth = parentDiv.clientWidth;
+            const parentHeight = parentDiv.clientHeight;
+            // const svgWidth = parentWidth; 
+            // const svgHeight = parentHeight;
 
+            //if svg exists, delete so we can redraw
+            if (parentDiv.querySelector("svg")) parentDiv.querySelector("svg").remove()
+            //create SVG to draw graph on inside of div
+            const svg = d3.select(divId)
+                .append('svg')
+                .attr('width', parentWidth)
+                .attr('height', parentHeight)
+                .append('g')
+
+            //creates x axis scalar given time
+            const xScale = d3.scaleTime()
+                .domain(d3.extent(data, d => new Date(d.time))) // Use d3.extent to get the min and max dates
+                .range([0, parentWidth]);
+
+            //creates y axis scalar given data points
+            const yScale = d3.scaleLinear()
+                .domain([minYValue, d3.max(data, d => d.priceUsd)])
+                .range([parentHeight, 0]);
+
+            //draw line with given x and y data points
+            const line = d3.line()
+                .x(d => xScale(new Date(d.time)))
+                .y(d => yScale(d.priceUsd));
+
+            //append line to svg with css styling attributes
+            svg.append('path')
+                .datum(data)
+                .attr('class', 'line')
+                .attr('d', line)
+                .attr('fill', 'none')
+                //turn graph green/red depending on beginning and ending price
+                .attr('stroke', (lastPoint > firstPoint ? "green" : "red"))
+                .attr('stroke-width', 2);
+
+        });
+    }
+
+    //initial call to scale/create graph
+    updateDimensions();
+    //event listener to call resize function on window resize
+    window.addEventListener('resize', updateDimensions);
+}
+
+const displayCoinGraph = (coin) =>{
+    fetchCoinHistory(coin.id.toLowerCase()).then(data => {
+        createLineGraph(data, "#displayCoinGraphDiv")
+        console.log(data)
+    })
+}
 
 document.querySelector("#filter").addEventListener("change", (e) => {
     coinList.innerHTML = "";
@@ -229,3 +294,5 @@ fetchAllCoins().then(populateCoinList)
 // fetchCoin("BTC").then(console.log)
 
 // getCoinHistory("bitcoin").then(console.log)
+
+fetchAllCoins().then(coins => displayCoin(coins[0]))
