@@ -4,6 +4,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 const coinList = document.querySelector("#results");
 const fiveCoins = document.querySelector('#fiveCoins')
 const dropDownSelect = document.querySelector("#chrono")
+const topCoinsBtn = document.querySelector('#topCoinsButton')
 let currentCoin;
 
 //
@@ -409,15 +410,13 @@ const populateTopCoins = (coinsObj) => {
         console.log(topFiveCoins.includes(currentCoin))
     })
 }
-// const populateMyCoins = (coinsObj) => {
-//     fiveCoins.innerHTML=""
-//     const myCoins = filterByPrice(coinsObj, 0).slice(0, 5)
-//     topFive.forEach((topCoin) => {
-//         topFiveCoins.push(topCoin)
-//         createTopCoin(topCoin)
-//         console.log(topFiveCoins.includes(currentCoin))
-//     })
-// }
+
+const populateMyCoins = (coinsObj) => {
+    fiveCoins.innerHTML=""
+    coinsObj.forEach((myCoin) => {
+        createTopCoin(myCoin)
+    })
+}
 
 
 
@@ -426,9 +425,10 @@ const addCoinButton = document.querySelector('#addCoinButton')
 
 
 addCoinButton.addEventListener("click",()=>{
-    if(!myCoins.includes(currentCoin) && myCoins.length<=5){
+    if(!myCoins.includes(currentCoin) && myCoins.length<5){
+        fiveCoins.innerHTML = ''
         myCoins.push(currentCoin)
-        createTopCoin(currentCoin)
+        populateMyCoins(myCoins)      
     }else{
         console.log("test")
         notify("You already have 5 personal coins","error")
