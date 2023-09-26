@@ -1,6 +1,5 @@
 "use strict"
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-// ! -- Connor's Code --
 
 const coinList = document.querySelector("#results");
 
@@ -30,6 +29,14 @@ const fetchCoinHistory = (coin, interval = "m1") => {
         .then((resp) => resp.json())
         .then((body) => body.data);
 };
+
+const fetchCoinImages = (coin) => {
+  return fetch('src/CoinAssets.json')
+      .then(resp => resp.json())
+      .then(data => {
+          return data.find(element => element['asset_id'] === coin.symbol)
+      })
+}
 
 const renderLi = (coin) => {
     const listedCoin = document.createElement("li");
@@ -105,14 +112,6 @@ const filterByName = (coinName) => {
     })
 }
 
-const fetchCoinImages = (coin) => {
-    return fetch('src/CoinAssets.json')
-        .then(resp => resp.json())
-        .then(data => {
-            return data.find(element => element['asset_id'] === coin.symbol)
-        })
-}
-
 const formatPrice = (price) => {
     return parseFloat(price).toLocaleString('en-US', {
         style: 'currency',
@@ -149,12 +148,15 @@ const formatDailyChange = (priceChange) => {
 
 
 const displayCoin = (coin) => {
-    const title = document.querySelector("#coinName")
-    const price = document.querySelector("#coinPrice")
+    document.querySelector("#featuredCoinSpan > h2").textContent = coin.symbol
+    document.querySelector("#featuredCoinSpan > h4").textContent = coin.name;
+    
+    // const title = document.querySelector("#coinName")
+    // const price = document.querySelector("#coinPrice")
     const image = document.querySelector("#coinImg")
-    const priceChange = document.querySelector("#priceChange")
-    title.textContent = coin.symbol
-    price.textContent = formatPrice(coin.priceUsd)
+    const priceChange = document.querySelector("#featuredChange")
+    // title.textContent = coin.symbol
+    document.querySelector('#featuredPrice').textContent = formatPrice(coin.priceUsd)
     fetchDailyChange(coin.name).then(data => priceChange.textContent = formatDailyChange(data))
     fetchCoinImages(coin)
         .then(coinObj => {
@@ -162,11 +164,11 @@ const displayCoin = (coin) => {
                 image.src = coinObj.url
             } else {
                 image.src = 'src/download.jpeg'
-                console.log(coin.symbol)
             }
             image.alt = coin.symbol
         })
-    displayCoinGraph(coin)
+        
+        .then(displayCoinGraph(coin))
 }
 
 const createLineGraph = (data, divId) => {
@@ -296,3 +298,68 @@ fetchAllCoins().then(populateCoinList)
 // getCoinHistory("bitcoin").then(console.log)
 
 fetchAllCoins().then(coins => displayCoin(coins[0]))
+
+// ! -- Connor's Code --
+
+const renderCoinBadge = () => {
+  document.createElement('span');
+}
+
+const renderMyCoinBadge = (coin) => {
+  // const coinBadge = document.createElement('span')
+  // const leftBadge = document.createElement('div')
+  // const rightBadge = document.createElement('div')
+  // const badgeSymbol = document.createElement('h3')
+  // const badgeDelete = document.createElement('span')
+  // // badgeDelete.addEventListener('click', deleteCoin)
+  // const badgeImg = document.createElement('img')
+  // const badgePrice = document.createElement('p')
+  // const badgeChange = document.createElement('p')
+  // leftBadge.append(badgeSymbol, badgeDelete, badgeImg)
+  // rightBadge.append(badgePrice, badgeChange)
+  // coinBadge.append(leftBadge, rightBadge)
+  // return coinBadge;
+
+
+}
+
+const addCoinToNav = (e) => {
+  const myCoins = document.querySelectorAll('.coinSpan')
+
+  myCoins.forEach(element => {
+    const symbol = element.querySelector('h3')
+    if (symbol.textContent.toUpperCase() === document.querySelector('#featuredCoinSymbol').textContent.toUpperCase())
+  })
+  
+  fetchCoin(document.querySelector('#featuredCoinName').textContent.toLowerCase())
+  .then((coin) => {
+    const coinBadge = document.createElement('span')
+    coinBadge.classList.add('coinSpan')
+    const leftBadge = document.createElement('div')
+    leftBadge.classList.add('leftCoinBadge')
+    const rightBadge = document.createElement('div')
+    rightBadge.classList.add('rightCoinBadge')
+    const badgeSymbol = document.createElement('h3')
+    const badgeDelete = document.createElement('span')
+    badgeDelete.classList.add('delete')
+    // badgeDelete.addEventListener('click', deleteCoin)
+    const badgeImg = document.createElement('img')
+    const badgePrice = document.createElement('p')
+    const badgeChange = document.createElement('p')
+    
+    badgeSymbol.textContent = coin.symbol
+    badgeDelete.textContent = 'X'
+    badgeImg.alt = coin.symbol
+
+    leftBadge.append(badgeSymbol, badgeDelete, badgeImg)
+    rightBadge.append(badgePrice, badgeChange)
+    coinBadge.append(leftBadge, rightBadge)
+
+    document.querySelector('#fiveCoins').appendChild(coinBadge)
+
+  })
+
+}
+
+const addCoinButton = document.querySelector('#addCoinButton')
+addCoinButton.addEventListener('click', addCoinToNav)

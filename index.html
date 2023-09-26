@@ -10,48 +10,170 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="titleHolder">
-        <div class="title">CRYPTO SHARK</div>
-    </div>
-    <div id="notification" class="notification">
-        <p></p>
-    </div>
-    <div class="leftbar">
-        <div class="filogo"></div>
-        <select name="filter" id="filter">
-            <option value="default">Rank</option>
-            <option value="alphabetical">A-Z</option>
-            <option value="biggestDailyGains">Biggest Daily Gains</option>
-            <option value="biggestDailyLosses">Biggest Daily Losses</option>
-            <option value="priceHighest">Price: High to Low</option>
-            <option value="priceLowest">Price: Low to High</option>
-        </select>
-        <form>
-            <input type="search" id="search" name="Name" placeholder="Search">
-            <input type="submit" id="submitSearch" value="Search">
-        </form>
-        <ul name="results" id="results"></ul>
-        <button id="reset">Reset Coins</button>
-    </div>
-    <div class="coins">
-        <div class="coinCard">
+    <div id="wrapper">
+        <!-- <div id="notification" class="notification">
+            <p></p>
+        </div> -->
+        <div id="sidebar">
+            <div id="filogo">
+            </div>
+            <div id="FilterBox">
+                <h3 >FILTER COINS</h3>
+                <select name="filter" id="filter">
+                    <option value="default">Rank</option>
+                    <option value="alphabetical">A-Z</option>
+                    <option value="biggestDailyGains">Biggest Daily Gains</option>
+                    <option value="biggestDailyLosses">Biggest Daily Losses</option>
+                    <option value="priceHighest">Price: High to Low</option>
+                    <option value="priceLowest">Price: Low to High</option>
+                </select>
+            </div>
+            <div id="searchBox">
+                <h3>SEARCH COINS</h3>
+                <form>
+                    <input type="search" id="search" name="Name">
+                    <input type="submit" id="submitSearch" value="SEARCH">
+                </form>
+            </div>
+            <ul name="results" id="results"></ul>
+            <button id="reset">Reset Coins</button>
+        </div>
+
+        <div id="titleBar">
+            <div class="title">CRYPTO SHARK</div>
+        </div>
+
+        <div id="fiveCoinNav">
+            <div id="fiveCoinButtons">
+                <button id="myCoinsButton">MY COINS</button>
+                <button id="topCoinsButton">TOP COINS</button>
+            </div>
+            <div id="fiveCoins">
+                <!-- <span class="coinSpan">
+                    <div class="leftCoinBadge">
+                        <h3>SYMB</h3> 
+                        <span class="delete">X</span>
+                        <img src="src/download.jpeg">
+                    </div>
+                    <div class="rightCoinBadge">
+                        <p>change</p>
+                        <p>price</p>
+                    </div>
+                </span>
+                <span class="coinSpan">
+                    <div class="leftCoinBadge">
+                        <h3>SYMB</h3> 
+                        <span class="delete">X</span>
+                        <img src="src/download.jpeg">
+                    </div>
+                    <div class="rightCoinBadge">
+                        <p>change</p>
+                        <p>price</p>
+                    </div>
+                </span>
+                <span class="coinSpan">
+                    <div class="leftCoinBadge">
+                        <h3>SYMB</h3> 
+                        <span class="delete">X</span>
+                        <img src="src/download.jpeg">
+                    </div>
+                    <div class="rightCoinBadge">
+                        <p>change</p>
+                        <p>price</p>
+                    </div>
+                </span>
+                <span class="coinSpan">
+                    <div class="leftCoinBadge">
+                        <h3>SYMB</h3> 
+                        <span class="delete">X</span>
+                        <img src="src/download.jpeg">
+                    </div>
+                    <div class="rightCoinBadge">
+                        <p>change</p>
+                        <p>price</p>
+                    </div>
+                </span>
+                <span class="coinSpan">
+                    <div class="leftCoinBadge">
+                        <h3>SYMB</h3> 
+                        <span class="delete">X</span>
+                        <img src="src/download.jpeg">
+                    </div>
+                    <div class="rightCoinBadge">
+                        <p>change</p>
+                        <p>price</p>
+                    </div>
+                </span> -->
+            </div>
+        </div>
+
+            <div id="featuredCoin">
+                <div id="coinAndGraph">
+                    <span id="featuredCoinSpan">  
+                        <h2 id="featuredCoinSymbol"></h2>
+                        <h4 id="featuredCoinName"></h4>                 
+                        <img id="coinImg">
+                        <button id="addCoinButton">ADD COIN</button>
+                    </span>
+                    
+                    <span id="graphDiv">
+                        <span id="mainStats">
+                            <span id="featuredPrice"></span>
+                            <span id="featuredChange"></span>
+                        </span>
+                        <div id="displayCoinGraphDiv"></div>
+                        <select name="chrono" id="chrono">
+                            <option value="day">Day</option>
+                            <option value="alphabetical">Week</option>
+                            <option value="biggestDailyGains">Month</option>
+                            <option value="biggestDailyLosses">Year</option>
+                        </select>
+                    </span>
+                </div>
+                <div id="stats">
+                    <span class="statSpan">                    
+                        <h2>MKT CAP</h2>
+                        <p>arrow</p>
+                        <p>price</p>
+                    </span>
+                    <span class="statSpan">                    
+                        <h2>VOLUME</h2>
+                        <p>arrow</p>
+                        <p>volume</p>
+                    </span>
+                    <span class="statSpan">                    
+                        <h2>RANK</h2>
+                        <p>arrow</p>
+                        <p>rank</p>
+                    </span>
+                    <span class="statSpan">                    
+                        <h2>ADVISOR</h2>
+                        <h1>&#128077</h1>
+                    </span>
+                </div>
+            </div>
+        </div>        
+
+        <!-- <div class="coins">
+            <div class="coinCard">
+                
+            </div>
+        </div>
+        <div class="displayedCoin">
+            <div id="displayCoinDiv">
+                <h2 id="coinName"></h2>
+                <div id="container">
+                    <img src="" alt="" id="coinImg">
+                </div>
+                <br>
+                <span class="material-symbols-outlined"></span>
+                <p id="priceChange"></p>
+                <h2 id="coinPrice"></h2>
+            </div>
+            <div id="displayCoinGraphDiv"></div>
             
         </div>
+        <div class="playground"></div> -->
     </div>
-    <div class="displayedCoin">
-        <div id="displayCoinDiv">
-            <h2 id="coinName"></h2>
-            <div id="container">
-                <img src="" alt="" id="coinImg">
-            </div>
-            <br>
-            <span class="material-symbols-outlined"></span>
-            <p id="priceChange"></p>
-            <h2 id="coinPrice"></h2>
-        </div>
-        <div id="displayCoinGraphDiv"></div>
-        
-    </div>
-    <div class="playground"></div>
 </body>
 </html>
