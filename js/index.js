@@ -5,6 +5,7 @@ const coinList = document.querySelector("#results");
 const fiveCoins = document.querySelector('#fiveCoins')
 const dropDownSelect = document.querySelector("#chrono")
 const topCoinsBtn = document.querySelector('#topCoinsButton')
+const myCoinsBtn = document.querySelector('#myCoinsButton')
 let currentCoin;
 
 //
@@ -338,24 +339,15 @@ dropDownSelect.addEventListener("change",(e)=>{
 
 // ! Page Load functions --
 
-// fetchAllCoins().then(populateCoinList)
-
-// // fetchCoin("BTC").then(console.log)
-
-// // getCoinHistory("bitcoin").then(console.log)
-
-// fetchAllCoins().then(coins => displayCoin(coins[0]))
-
-// fetchAllCoins().then(coinsObj => populateTopCoins(coinsObj))
-
 fetchAllCoins()
     .then((coinsObj) => {
         populateCoinList(coinsObj)
         displayCoin(coinsObj[0])
         populateTopCoins(coinsObj)
+        filterByPrice(coinsObj, 0).slice(0, 5).forEach(topCoin => {
+            topFiveCoins.push(topCoin)
+        })
     })
-
-// ! -- Connor's Code --
 
 const renderCoinBadge = () => {
     const coinBadge = document.createElement('span')
@@ -375,7 +367,7 @@ const renderCoinBadge = () => {
     return coinBadge;
 }
 
-const createTopCoin = (topCoin) => {
+const createTopCoin = (topCoin, loadingMyCoins = 0) => {
     const newBadge = renderCoinBadge()
     const coinSymbol = newBadge.querySelector('h3')
     const coinPrice = newBadge.querySelector('p:nth-child(1)')
@@ -387,6 +379,18 @@ const createTopCoin = (topCoin) => {
         newBadgeChange.style.color = 'green'
     } else {
         newBadgeChange.style.color = 'red'
+    }
+    if (loadingMyCoins === 1) {
+        const deleteButton = document.createElement('button')
+        deleteButton.addEventListener('click', e => {
+            myCoins.forEach(coin => {
+                if (coin.symbol === coinSymbol.textContent) {
+                    myCoins.splice(myCoins.indexOf(coin), 1)
+                }
+            })
+            e.target.parentNode.remove()
+        })
+        newBadge.appendChild(deleteButton)
     }
     fiveCoins.appendChild(newBadge)
 
@@ -401,11 +405,19 @@ const createTopCoin = (topCoin) => {
     })
 }
 
+const removeMyCoin = (e) => {
+    e.target.parentNode.remove()
+    myCoins.forEach(element => {
+        if (element.symbol === coinSymbol.textContent) {
+            console.log('y')
+        }
+    })
+}
+
 const populateTopCoins = (coinsObj) => {
     fiveCoins.innerHTML=""
-    const topFive = filterByPrice(coinsObj, 0).slice(0, 5)
+    const topFive = filterByPrice(coinsObj, 0).slice(0, 20)
     topFive.forEach((topCoin) => {
-        topFiveCoins.push(topCoin)
         createTopCoin(topCoin)
         console.log(topFiveCoins.includes(currentCoin))
     })
@@ -414,11 +426,9 @@ const populateTopCoins = (coinsObj) => {
 const populateMyCoins = (coinsObj) => {
     fiveCoins.innerHTML=""
     coinsObj.forEach((myCoin) => {
-        createTopCoin(myCoin)
+        createTopCoin(myCoin, 1)
     })
 }
-
-
 
 const addCoinButton = document.querySelector('#addCoinButton')
 
@@ -434,4 +444,7 @@ addCoinButton.addEventListener("click",()=>{
         notify("You already have 5 personal coins","error")
     }
 })
+
+topCoinsBtn.addEventListener('click', () => populateTopCoins(topFiveCoins))
+myCoinsBtn.addEventListener('click', () => populateMyCoins(myCoins))
 // addCoinButton.addEventListener('click', addCoinToNav)
