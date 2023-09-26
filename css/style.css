@@ -296,3 +296,24 @@ h1 {
 .statSpan h1 {
     font-size: xxx-large;
 }
+
+#displayCoinGraphDiv{
+    position: absolute;
+    width: 60%;
+    height: 50%;
+    top:5%;
+    left: 35%;
+    background-color: black;
+}
+
+
+
+.upArrow{
+    color:green;
+    font-size: 300%;
+}
+
+.downArrow{
+    color: red;
+    font-size: 300%;
+}

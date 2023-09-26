@@ -133,7 +133,6 @@ const formatDailyChange = (priceChange) => {
     const slice = priceChange.slice(0, 4);
     const noNegativeSlice = priceChange.replace("-", "").slice(0, 4)
     const arrowIcon = document.querySelector(".material-symbols-outlined");
-
     arrowIcon.classList.remove("upArrow", "downArrow");
 
     if (slice > 0) {
@@ -143,7 +142,6 @@ const formatDailyChange = (priceChange) => {
         arrowIcon.classList.add("downArrow");
         arrowIcon.textContent = "arrow_drop_down";
     }
-    console.log(slice)
     return noNegativeSlice + "%";
 };
 
@@ -311,8 +309,6 @@ fetchAllCoins()
   populateTopCoins(coinsObj)
 })
 
-// })
-
 // ! -- Connor's Code --
 
 const renderCoinBadge = () => {
@@ -330,6 +326,7 @@ const renderCoinBadge = () => {
   const badgeImg = document.createElement('img')
   const badgePrice = document.createElement('p')
   const badgeChange = document.createElement('p')
+  badgeChange.classList.add('material-symbols-outlined')
 
   leftBadge.append(badgeImg, badgeSymbol)
   rightBadge.append(badgePrice, badgeChange)
@@ -345,7 +342,7 @@ const populateTopCoins = (coinsObj) => {
       const newBadge = renderCoinBadge()
       newBadge.querySelector('h3').textContent = topCoin.symbol
       newBadge.querySelector('p:nth-child(1)').textContent = formatPrice(topCoin.priceUsd)
-      newBadge.querySelector('p:nth-child(2)').textContent = topCoin.changePercent24Hr //TODO
+      newBadge.querySelector('p:nth-child(2)').textContent = formatDailyChange(topCoin.changePercent24Hr) //TODO
       newBadge.querySelector('img')
       document.querySelector('#fiveCoins').appendChild(newBadge)
     
@@ -354,9 +351,9 @@ const populateTopCoins = (coinsObj) => {
             if (coinObj) {
               newBadge.querySelector('img').src = coinObj.url
             } else {
-                image.src = 'src/download.jpeg'
+                newBadge.querySelector('img').src = 'src/download.jpeg'
             }
-            image.alt = coin.symbol
+            newBadge.querySelector('img').alt = coinObj.symbol
         })
       })
   }
