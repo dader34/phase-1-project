@@ -126,6 +126,15 @@ const formatPrice = (price) => {
     });
 }
 
+const formatLargeNum = (price) =>{
+    const newPrice = parseFloat(price).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+    })
+    return newPrice.slice(0,newPrice.length-3)
+}
+
 const fetchDailyChange = (coinName) => {
     return fetchCoin(coinName)
         .then(coin => {
@@ -154,6 +163,12 @@ const displayCoin = (coin) => {
     const image = document.querySelector("#coinImg")
     const priceChange = document.querySelector("#featuredChange")
     const coinPrice = document.querySelector('#featuredPrice')
+    const coinCap = document.querySelector("#stats > span:nth-child(1) > p")
+    const coinVolume = document.querySelector("#stats > span:nth-child(2) > p")
+    const coinRank = document.querySelector("#stats > span:nth-child(3) > p")
+    coinCap.textContent = formatLargeNum(coin.marketCapUsd)
+    coinVolume.textContent = formatLargeNum(coin.volumeUsd24Hr)
+    coinRank.textContent = coin.rank
     coinSymbol.textContent = coin.symbol
     coinName.textContent = coin.name;
     coinPrice.textContent = formatPrice(coin.priceUsd)
