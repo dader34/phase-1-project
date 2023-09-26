@@ -115,12 +115,21 @@ const fetchCoinImages = (coin) => {
     })
 }
 
+const formatPrice = (price) =>{
+    return parseFloat(price).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD', 
+        minimumFractionDigits: (price > 1) ? 2 : 8 ,
+      });
+      
+  }
+
 const displayCoin = (coin) => {
     const title = document.querySelector("#coinName")
     const price = document.querySelector("#coinPrice")
     const image = document.querySelector("#coinImg")
     title.textContent = coin.name
-    price.textContent = coin.priceUsd
+    price.textContent = formatPrice(coin.priceUsd)
     fetchCoinImages(coin)
     .then(coinObj => {
         if (coinObj) {
