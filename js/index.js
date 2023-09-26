@@ -2,8 +2,15 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const coinList = document.querySelector("#results");
+const fiveCoins = document.querySelector('#fiveCoins')
 const dropDownSelect = document.querySelector("#chrono")
 let currentCoin;
+
+//
+let topFiveCoins = []
+let myCoins = []
+//
+
 
 const fetchAllCoins = () => {
     return fetch("https://api.coincap.io/v2/assets/")
@@ -350,7 +357,6 @@ fetchAllCoins()
 // ! -- Connor's Code --
 
 const renderCoinBadge = () => {
-    const fiveCoins = document.querySelector("#fiveCoins")
     const coinBadge = document.createElement('span')
     const leftBadge = document.createElement('div')
     const rightBadge = document.createElement('div')
@@ -369,7 +375,6 @@ const renderCoinBadge = () => {
 }
 
 const createTopCoin = (topCoin) => {
-    const fiveCoins = document.querySelector('#fiveCoins')
     const newBadge = renderCoinBadge()
     const coinSymbol = newBadge.querySelector('h3')
     const coinPrice = newBadge.querySelector('p:nth-child(1)')
@@ -396,13 +401,37 @@ const createTopCoin = (topCoin) => {
 }
 
 const populateTopCoins = (coinsObj) => {
+    fiveCoins.innerHTML=""
     const topFive = filterByPrice(coinsObj, 0).slice(0, 5)
     topFive.forEach((topCoin) => {
+        topFiveCoins.push(topCoin)
         createTopCoin(topCoin)
+        console.log(topFiveCoins.includes(currentCoin))
     })
 }
+// const populateMyCoins = (coinsObj) => {
+//     fiveCoins.innerHTML=""
+//     const myCoins = filterByPrice(coinsObj, 0).slice(0, 5)
+//     topFive.forEach((topCoin) => {
+//         topFiveCoins.push(topCoin)
+//         createTopCoin(topCoin)
+//         console.log(topFiveCoins.includes(currentCoin))
+//     })
+// }
 
 
 
 const addCoinButton = document.querySelector('#addCoinButton')
+
+
+
+addCoinButton.addEventListener("click",()=>{
+    if(!myCoins.includes(currentCoin) && myCoins.length<=5){
+        myCoins.push(currentCoin)
+        createTopCoin(currentCoin)
+    }else{
+        console.log("test")
+        notify("You already have 5 personal coins","error")
+    }
+})
 // addCoinButton.addEventListener('click', addCoinToNav)
