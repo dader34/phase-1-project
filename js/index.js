@@ -153,13 +153,15 @@ const displayCoin = (coin) => {
     const priceChange = document.querySelector("#featuredChange")
     // title.textContent = coin.symbol
     document.querySelector('#featuredPrice').textContent = formatPrice(coin.priceUsd)
-    fetchDailyChange(coin.name).then(data => priceChange.textContent = formatDailyChange(data))
-    if (priceChange.textContent.includes('↑')) {
-        priceChange.style.color = 'green'
-      } else {
-        priceChange.style.color = 'red'
-        console.log('red')
-      }
+    fetchDailyChange(coin.name).then(data => {
+        priceChange.textContent = formatDailyChange(data)
+        if (priceChange.textContent.includes('↑')) {
+            priceChange.style.color = 'green'
+          } else {
+            priceChange.style.color = 'red'
+          }
+    })
+    
     fetchCoinImages(coin)
         .then(coinObj => {
             if (coinObj) {
@@ -323,6 +325,7 @@ const renderCoinBadge = () => {
   const rightBadge = document.createElement('div')
   rightBadge.classList.add('rightCoinBadge')
   const badgeSymbol = document.createElement('h3')
+  badgeSymbol.name = "badge"
   // const badgeDelete = document.createElement('span')
   // badgeDelete.classList.add('delete')
   // // badgeDelete.addEventListener('click', deleteCoin)
