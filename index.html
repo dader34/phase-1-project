@@ -27,7 +27,7 @@
             <option value="priceLowest">Price: Low to High</option>
         </select>
         <form>
-            <input type="search" id="search" name="Name">
+            <input type="search" id="search" name="Name" placeholder="Search">
             <input type="submit" id="submitSearch" value="Search">
         </form>
         <ul name="results" id="results"></ul>
@@ -41,13 +41,15 @@
     <div class="displayedCoin">
         <div id="displayCoinDiv">
             <h2 id="coinName"></h2>
-            <img src="" alt="" id="coinImg">
+            <div id="container">
+                <img src="" alt="" id="coinImg">
+            </div>
             <br>
             <span class="material-symbols-outlined"></span>
             <p id="priceChange"></p>
             <h2 id="coinPrice"></h2>
         </div>
-        
+        <div id="displayCoinGraphDiv"></div>
         
     </div>
     <div class="playground"></div>
