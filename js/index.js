@@ -131,29 +131,33 @@ const fetchDailyChange = (coinName) =>{
     })
 }
 
-const formatDailyChange = (priceChange) =>{
-    const slice = (priceChange.slice(0,4))
-    if(slice > 0){
-        document.querySelector(".material-symbols-outlined").classList.remove("downArrow")
-        document.querySelector(".material-symbols-outlined").classList.toggle("upArrow")
-        document.querySelector(".material-symbols-outlined").textContent = "arrow_drop_up"
-
-    }else{
-        document.querySelector(".material-symbols-outlined").classList.remove("upArrow")
-        document.querySelector(".material-symbols-outlined").classList.toggle("downArrow")
-        document.querySelector(".material-symbols-outlined").textContent = "arrow_drop_down"
+const formatDailyChange = (priceChange) => {
+    const slice = priceChange.slice(0, 4);
+    const noNegativeSlice = priceChange.replace("-","").slice(0, 4)
+    const arrowIcon = document.querySelector(".material-symbols-outlined");
+    
+    arrowIcon.classList.remove("upArrow", "downArrow");
+    
+    if (slice > 0) {
+      arrowIcon.classList.add("upArrow");
+      arrowIcon.textContent = "arrow_drop_up";
+    } else {
+      arrowIcon.classList.add("downArrow");
+      arrowIcon.textContent = "arrow_drop_down";
     }
-    return slice
-}
+    console.log(slice)
+    return noNegativeSlice + "%";
+  };
 
 
 const displayCoin = (coin) => {
     const title = document.querySelector("#coinName")
     const price = document.querySelector("#coinPrice")
     const image = document.querySelector("#coinImg")
+    const priceChange = document.querySelector("#priceChange")
     title.textContent = coin.name
     price.textContent = formatPrice(coin.priceUsd)
-    fetchDailyChange(coin.name).then(console.log)
+    fetchDailyChange(coin.name).then(data => priceChange.textContent = formatDailyChange(data))
     fetchCoinImages(coin)
         .then(coinObj => {
             if (coinObj) {
