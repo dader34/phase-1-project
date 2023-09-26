@@ -7,7 +7,8 @@ const coinList = document.querySelector("#results");
 const fetchAllCoins = () => {
     return fetch("https://api.coincap.io/v2/assets/")
         .then((resp) => resp.json())
-        .then((body) => body.data);
+        .then((body) => body.data)
+        .catch(e => {notify("Error fetching data, please reload","error")})
 };
 
 const fetchCoin = async (coinName) => {
@@ -28,7 +29,8 @@ const fetchCoinHistory = (coin, interval = "m1") => {
     const url = `https://api.coincap.io/v2/assets/${coin}/history?interval=${interval}`;
     return fetch(url)
         .then((resp) => resp.json())
-        .then((body) => body.data);
+        .then((body) => body.data)
+        .catch(e => {notify("Error fetching graph, please reload","error")})
 };
 
 const renderLi = (coin) => {
