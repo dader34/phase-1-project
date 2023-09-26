@@ -1,7 +1,7 @@
 [
     {
-        "asset_id": "USD",
-        "url": "https://s3.eu-central-1.amazonaws.com/bbxt-static-icons/type-id/png_64/0a4185f21a034a7cb866ba7076d8c73b.png"
+        "asset_id": "USDC",
+        "url": "https://cryptologos.cc/logos/usd-coin-usdc-logo.png"
     },
     {
         "asset_id": "BTC",
@@ -11290,5 +11290,209 @@
     {
         "asset_id": "USERV",
         "url": "https://s3.eu-central-1.amazonaws.com/bbxt-static-icons/type-id/png_64/9a4bff6434f84fbd94e254810f2a4233.png"
+    },
+    {
+        "asset_id": "BNB",
+        "url": "https://cryptologos.cc/logos/bnb-bnb-logo.png?v=026"
+    },
+    {
+        "asset_id": "SOL",
+        "url": "https://cryptologos.cc/logos/solana-sol-logo.png?v=026"
+    },
+    {
+        "asset_id": "MATIC",
+        "url": "https://cryptologos.cc/logos/polygon-matic-logo.png?v=026"
+    },
+    {
+        "asset_id": "SHIB",
+        "url": "https://cryptologos.cc/logos/shiba-inu-shib-logo.png?v=026"
+    },
+    {
+        "asset_id": "LEO",
+        "url": "https://cryptologos.cc/logos/unus-sed-leo-leo-logo.png?v=026"
+    },
+    {
+        "asset_id": "AVAX",
+        "url": "https://cryptologos.cc/logos/avalanche-avax-logo.png?v=026"
+    },
+    {
+        "asset_id": "UNI",
+        "url": "https://cryptologos.cc/logos/uniswap-uni-logo.png?v=026"
+    },
+    {
+        "asset_id": "ICP",
+        "url": "https://cryptologos.cc/logos/internet-computer-icp-logo.png?v=026"
+    },
+    {
+        "asset_id": "LDO",
+        "url": "https://cryptologos.cc/logos/lido-dao-ldo-logo.png?v=026"
+    },
+    {
+        "asset_id": "CRO",
+        "url": "https://cryptologos.cc/logos/cronos-cro-logo.png?v=026"
+    },
+    {
+        "asset_id": "QNT",
+        "url": "https://cryptologos.cc/logos/quant-qnt-logo.png?v=026"
+    },
+    {
+        "asset_id": "NEAR",
+        "url": "https://cryptologos.cc/logos/near-protocol-near-logo.png?v=026"
+    },
+    {
+        "asset_id": "AAVE",
+        "url": "https://cryptologos.cc/logos/aave-aave-logo.png?v=026"
+    },
+    {
+        "asset_id": "ALGO",
+        "url": "https://cryptologos.cc/logos/algorand-algo-logo.png?v=026"
+    },
+    {
+        "asset_id": "HBAR",
+        "url": "https://cryptologos.cc/logos/hedera-hbar-logo.png?v=026"
+    },
+    {
+        "asset_id": "AXS",
+        "url": "https://cryptologos.cc/logos/axie-infinity-axs-logo.png?v=026"
+    },
+    {
+        "asset_id": "EGLD",
+        "url": "https://cryptologos.cc/logos/multiversx-egld-egld-logo.png?v=026"
+    },
+    {
+        "asset_id": "RUNE",
+        "url": "https://cryptologos.cc/logos/thorchain-rune-logo.png?v=026"
+    },
+    {
+        "asset_id": "RNDR",
+        "url": "https://altcoinsbox.com/wp-content/uploads/2023/03/render-token-logo.png"
+    },
+    {
+        "asset_id": "FTM",
+        "url": "https://cryptologos.cc/logos/fantom-ftm-logo.png?v=026"
+    },
+    {
+        "asset_id": "INJ",
+        "url": "https://cryptologos.cc/logos/injective-inj-logo.png?v=026"
+    },
+    {
+        "asset_id": "USDP",
+        "url": "https://cryptologos.cc/logos/paxos-standard-usdp-logo.png?v=026"
+    },
+    {
+        "asset_id": "KAVA",
+        "url": "https://cryptologos.cc/logos/kava-kava-logo.png?v=026"
+    },
+    {
+        "asset_id": "XEC",
+        "url": "https://cryptologos.cc/logos/ecash-xec-logo.png?v=026"
+    },
+    {
+        "asset_id": "SNX",
+        "url": "https://cryptologos.cc/logos/synthetix-snx-logo.png?v=026"
+    },
+    {
+        "asset_id": "FLOW",
+        "url": "https://cryptologos.cc/logos/flow-flow-logo.png?v=026"
+    },
+    {
+        "asset_id": "CHZ",
+        "url": "https://seeklogo.com/images/C/chiliz-chz-logo-605C6C40F6-seeklogo.com.png"
+    },
+    {
+        "asset_id": "MIOTA",
+        "url": "https://cryptologos.cc/logos/iota-miota-logo.png?v=026"
+    },
+    {
+        "asset_id": "FXS",
+        "url": "https://cryptologos.cc/logos/frax-share-fxs-logo.png?v=026"
+    },
+    {
+        "asset_id": "CFX",
+        "url": "https://s2.coinmarketcap.com/static/img/coins/64x64/7334.png"
+    },
+    {
+        "asset_id": "FTT",
+        "url": "https://cryptologos.cc/logos/ftx-token-ftt-logo.png?v=026"
+    },
+    {
+        "asset_id": "GT",
+        "url": "https://seeklogo.com/images/G/gatetoken-gt-logo-BDC943ACD9-seeklogo.com.png"
+    },
+    {
+        "asset_id": "MINA",
+        "url": "https://cryptologos.cc/logos/mina-mina-logo.png?v=026"
+    },
+    {
+        "asset_id": "KLAY",
+        "url": "https://cryptologos.cc/logos/klaytn-klay-logo.png?v=026"
+    },
+    {
+        "asset_id": "CSPR",
+        "url": "https://cryptologos.cc/logos/casper-cspr-logo.png?v=026"
+    },
+    {
+        "asset_id": "GALA",
+        "url": "https://cryptologos.cc/logos/gala-gala-logo.png?v=026"
+    },
+    {
+        "asset_id": "TWT",
+        "url": "https://trustwallet.com/assets/images/media/assets/TWT.png"
+    },
+    {
+        "asset_id": "COMP",
+        "url": "https://cryptologos.cc/logos/compound-comp-logo.png?v=026"
+    },
+    {
+        "asset_id": "DYDX",
+        "url": "https://cryptologos.cc/logos/dydx-dydx-logo.png?v=026"
+    },
+    {
+        "asset_id": "WOO",
+        "url": "https://cryptologos.cc/logos/wootrade-woo-logo.png?v=026"
+    },
+    {
+        "asset_id": "1INCH",
+        "url": "https://cryptologos.cc/logos/1inch-1inch-logo.png?v=026"
+    },
+    {
+        "asset_id": "AR",
+        "url": "https://cryptologos.cc/logos/arweave-ar-logo.png?v=026"
+    },
+    {
+        "asset_id": "ROSE",
+        "url": "https://cryptologos.cc/logos/oasis-network-rose-logo.png?v=026"
+    },
+    {
+        "asset_id": "CAKE",
+        "url": "https://cryptologos.cc/logos/pancakeswap-cake-logo.png?v=026"
+    },
+    {
+        "asset_id": "CELO",
+        "url": "https://cryptologos.cc/logos/celo-celo-logo.png?v=026"
+    },
+    {
+        "asset_id": "XEM",
+        "url": "https://cryptologos.cc/logos/nem-xem-logo.png?v=026"
+    },
+    {
+        "asset_id": "AGIX",
+        "url": "https://cryptologos.cc/logos/singularitynet-agix-logo.png?v=026"
+    },
+    {
+        "asset_id": "MASK",
+        "url": "https://cryptologos.cc/logos/mask-network-mask-logo.png?v=026"
+    },
+    {
+        "asset_id": "HNT",
+        "url": "https://cryptologos.cc/logos/helium-hnt-logo.png?v=026"
+    },
+    {
+        "asset_id": "TFUEL",
+        "url": "https://cryptologos.cc/logos/theta-fuel-tfuel-logo.png?v=026"
+    },
+    {
+        "asset_id": "JST",
+        "url": "https://cryptologos.cc/logos/just-jst-logo.png?v=026"
     }
 ]

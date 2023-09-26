@@ -149,3 +149,8 @@ button#reset{
     width: 100%;
     height: 5%;
 }
+
+#coinImg {
+    max-height: 64px;
+    max-width: 64px;
+}

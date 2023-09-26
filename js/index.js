@@ -38,7 +38,7 @@ const renderLi = (coin) => {
   listedCoin.classList.add("listedCoin");
   listedCoin.dataset.id = coin.id;
   listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
-  listedCoin.addEventListener('click',()=>{displayCoin(coin)});
+  listedCoin.addEventListener('click',() => displayCoin(coin));
   coinList.appendChild(listedCoin);
 };
 
@@ -107,15 +107,32 @@ const filterByName = (coinName) =>{
     })
 }
 
-const displayCoin = (coin) =>{
+const fetchCoinImages = (coin) => {
+    return fetch('src/CoinAssets.json')
+    .then(resp => resp.json())
+    .then(data => {
+        return data.find(element => element['asset_id'] === coin.symbol)
+    })
+}
+
+const displayCoin = (coin) => {
     const title = document.querySelector("#coinName")
     const price = document.querySelector("#coinPrice")
-    const img = document.querySelector("#coinImg")
+    const image = document.querySelector("#coinImg")
     title.textContent = coin.name
     price.textContent = coin.priceUsd
-    // img.src = 
-
+    fetchCoinImages(coin)
+    .then(coinObj => {
+        if (coinObj) {
+          image.src = coinObj.url
+        } else {
+          image.src = 'src/download.jpeg'
+          console.log(coin.symbol)
+        }
+        image.alt = coin.symbol
+  })
 }
+
 
 
 document.querySelector("#filter").addEventListener("change", (e) => {
