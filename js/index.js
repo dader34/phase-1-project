@@ -510,7 +510,7 @@ addCoinButton.addEventListener("click", () => {
 
 topCoinsBtn.addEventListener('click', () => populateTopCoins(topFiveCoins))
 myCoinsBtn.addEventListener('click', () => populateMyCoins(myCoins))
-resetCoins.addEventListener('click',()=>{myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})
+resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})
 // addCoinButton.addEventListener('click', addCoinToNav)
 // getCoinsFromCookie(cookie)
 // populateMyCoins(myCoins)
