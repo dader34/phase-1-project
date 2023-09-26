@@ -154,3 +154,13 @@ button#reset{
     max-height: 64px;
     max-width: 64px;
 }
+
+.upArrow{
+    color:green;
+    font-size: 300%;
+}
+
+.downArrow{
+    color: red;
+    font-size: 300%;
+}
