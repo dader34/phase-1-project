@@ -9,9 +9,8 @@ const myCoinsBtn = document.querySelector('#myCoinsButton')
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
 const cookie = document.cookie
-console.log(cookie)
 let currentCoin;
-
+console.log(document.cookie)
 //
 let topFiveCoins = []
 let myCoins = []
@@ -405,7 +404,7 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
         } else {
             newBadge.querySelector('img').src = 'src/download.jpeg'
         }
-        newBadge.querySelector('img').alt = coinObj.symbol
+        // newBadge.querySelector('img').alt = coinObj.symbol
     })
 }
 
@@ -413,7 +412,6 @@ const removeMyCoin = (e) => {
     e.target.parentNode.remove()
     myCoins.forEach(element => {
         if (element.symbol === coinSymbol.textContent) {
-            console.log('y')
         }
     })
 }
@@ -423,55 +421,92 @@ const populateTopCoins = (coinsObj) => {
     const topFive = filterByPrice(coinsObj, 0).slice(0, 20)
     topFive.forEach((topCoin) => {
         createTopCoin(topCoin)
-        console.log(topFiveCoins.includes(currentCoin))
     })
 }
 
-const populateMyCoins = (coinsObj) => {
-    fiveCoins.innerHTML=""
+const populateMyCoins = async (coinsObj) => {
+    // Clear the existing content in the 'fiveCoins' container.
+    fiveCoins.innerHTML = "";
 
-    let cookieCoins = []
-    console.log(myCoins)
-    myCoins.forEach(coin =>{
-        console.log(coin)
-        cookieCoins.push(coin.name)
-    })
-    const beforeCookie = cookieCoins.join(",")
-    const newCookie = "cookie=" + beforeCookie
-    console.log(newCookie)
-    document.cookie = newCookie
+    // Retrieve coin names from the 'myCoins' array and join them into a comma-separated string.
+    const coinNames = myCoins.filter(coin => coin).map(coin => coin.name).join(",");
+
+    // Update the 'cookie' with the updated list of coin names.
+    updateCookie(coinNames);
+
+    // Create coin badges for each coin in 'coinsObj'.
     coinsObj.forEach((myCoin) => {
-        createTopCoin(myCoin, 1)
-    })
-}
+        createTopCoin(myCoin, 1);
+    });
+};
 
-const getCoinsFromCookie = (cook) =>{
-    console.log(cook)
-    const beforeArray = cook.split("=")
-    if(beforeArray.length>1){
-        const coinsArray = beforeArray[1].split(",")
-        coinsArray.forEach(coin =>{
-            fetchCoin(coin).then(data => {myCoins.push(data);})
-        })
+const updateCookie = (coinNames) => {
+    // Create a new cookie string with the updated list of coin names.
+    const newCookie = "cookie=" + coinNames;
+
+    // Update the 'cookie' in the document.
+    document.cookie = newCookie;
+};
+
+const getCoinsFromCookie = (cook) => {
+    // If the 'cookie' is not present, set an empty 'cookie'.
+    if (!document.cookie) {
+        document.cookie = "cookie=";
     }
-    
-    
-    
-}
 
-getCoinsFromCookie(cookie)
+    // Split the 'cookie' to retrieve the list of coin names.
+    const beforeArray = cook.split("=");
 
-
-addCoinButton.addEventListener("click",()=>{
-    if(!myCoins.includes(currentCoin) && myCoins.length<5){
-        fiveCoins.innerHTML = ''
-        myCoins.push(currentCoin)
-        populateMyCoins(myCoins)      
-    }else{
-        console.log("test")
-        notify("You already have 5 personal coins","error")
+    // If there are coin names in the 'cookie', fetch and add them to the 'myCoins' array.
+    if (beforeArray.length > 1) {
+        const coinsArray = beforeArray[1].split(",");
+        coinsArray.forEach((coin) => {
+            if (coin) {
+                // Fetch coins using the parsed names from the cookie and add them to 'myCoins'.
+                fetchCoin(coin).then((data) => {
+                    console.log(data);
+                    myCoins.push(data);
+                });
+            }
+        });
     }
-})
+};
+
+// Call 'getCoinsFromCookie' to retrieve coins from the cookie when the page loads.
+getCoinsFromCookie(cookie);
+
+
+
+addCoinButton.addEventListener("click", () => {
+    if (!myCoins.includes(currentCoin)) {
+        if( myCoins.length < 5){
+            const existingCookie = document.cookie.split("cookie=")[1] || ""; // Parse the existing cookie or use an empty string.
+            const existingCoins = existingCookie ? existingCookie.split(",") : [];
+    
+            // Add the new coin name to the array if it doesn't already exist.
+            if (!existingCoins.includes(currentCoin.name)) {
+                existingCoins.push(currentCoin.name);
+    
+                // only do if coins length less than 5
+                if (existingCoins.length <= 5) {
+                    // update the changed array back to a string and update the cookie.
+                    const updatedCookie = "cookie=" + existingCoins.join(",");
+                    document.cookie = updatedCookie;
+    
+                    // Update the myCoins array and UI.
+                    myCoins.push(currentCoin);
+                    populateMyCoins(myCoins);
+                } 
+            }
+        }else {
+            notify("You already have 5 coins chosen", "error");
+            
+        }
+    } else {
+        console.log("test");
+        notify("You have already chose this coin", "warn");
+    }
+});
 
 topCoinsBtn.addEventListener('click', () => populateTopCoins(topFiveCoins))
 myCoinsBtn.addEventListener('click', () => populateMyCoins(myCoins))
