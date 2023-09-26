@@ -160,6 +160,7 @@ h1 {
 .coinSpan h3 {
     display: inherit;
     margin-left: 10px;
+    margin-top: 10px
     margin-right: auto;
     background-color: aliceblue;
 }

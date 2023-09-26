@@ -303,46 +303,95 @@ fetchAllCoins().then(coins => displayCoin(coins[0]))
 
 const renderCoinBadge = () => {
   document.createElement('span');
+  const coinBadge = document.createElement('span')
+  coinBadge.classList.add('coinSpan')
+  const leftBadge = document.createElement('div')
+  leftBadge.classList.add('leftCoinBadge')
+  const rightBadge = document.createElement('div')
+  rightBadge.classList.add('rightCoinBadge')
+  const badgeSymbol = document.createElement('h3')
+  // const badgeDelete = document.createElement('span')
+  // badgeDelete.classList.add('delete')
+  // // badgeDelete.addEventListener('click', deleteCoin)
+  const badgeImg = document.createElement('img')
+  const badgePrice = document.createElement('p')
+  const badgeChange = document.createElement('p')
+
+  leftBadge.append(badgeImg, badgeSymbol)
+  rightBadge.append(badgePrice, badgeChange)
+
+  coinBadge.append(leftBadge, rightBadge)
+  document.querySelector("#fiveCoins").appendChild(coinBadge)
+  return coinBadge;
 }
 
-const addCoinToNav = () => {
-        return fetchCoin(document.querySelector('#featuredCoinName').textContent.toLowerCase())
-        .then((coin) => {
-          const coinBadge = document.createElement('span')
-          coinBadge.classList.add('coinSpan')
-          const leftBadge = document.createElement('div')
-          leftBadge.classList.add('leftCoinBadge')
-          const rightBadge = document.createElement('div')
-          rightBadge.classList.add('rightCoinBadge')
-          const badgeSymbol = document.createElement('h3')
-          const badgeDelete = document.createElement('span')
-          badgeDelete.classList.add('delete')
-          // badgeDelete.addEventListener('click', deleteCoin)
-          const badgeImg = document.createElement('img')
-          const badgePrice = document.createElement('p')
-          const badgeChange = document.createElement('p')
-          // badgePrice = 
+const populateTopCoins = () => {
+  fetchAllCoins()
+  .then((coinsObj) => {
+    const topFive = filterByPrice(coinsObj, 0).slice(0, 5)
+    topFive.forEach((topCoin) => {
+      const newBadge = renderCoinBadge()
+      newBadge.querySelector('h3').textContent = topCoin.symbol
+      newBadge.querySelector('p:nth-child(1)').textContent = formatPrice(topCoin.priceUsd)
+      newBadge.querySelector('p:nth-child(2)').textContent = topCoin.changePercent24Hr //TODO
+      newBadge.querySelector('img')
+      document.querySelector('#fiveCoins').appendChild(newBadge)
+     
+      fetchCoinImages(topCoin)
+        .then(coinObj => {
+            if (coinObj) {
+              newBadge.querySelector('img').src = coinObj.url
+            } else {
+                image.src = 'src/download.jpeg'
+            }
+            image.alt = coin.symbol
+        })
+      })
+  })
+}
 
-          badgePrice.textContent = formatPrice(coin.priceUsd)
+populateTopCoins()
 
-          leftBadge.append(badgeSymbol, badgeDelete, badgeImg)
-          rightBadge.append(badgePrice, badgeChange)
-          coinBadge.append(leftBadge, rightBadge)
+// const addCoinToNav = () => {
+//         return fetchCoin(document.querySelector('#featuredCoinName').textContent.toLowerCase())
+//         .then((coin) => {
+//           const coinBadge = document.createElement('span')
+//           coinBadge.classList.add('coinSpan')
+//           const leftBadge = document.createElement('div')
+//           leftBadge.classList.add('leftCoinBadge')
+//           const rightBadge = document.createElement('div')
+//           rightBadge.classList.add('rightCoinBadge')
+//           const badgeSymbol = document.createElement('h3')
+//           const badgeDelete = document.createElement('span')
+//           badgeDelete.classList.add('delete')
+//           // badgeDelete.addEventListener('click', deleteCoin)
+//           const badgeImg = document.createElement('img')
+//           const badgePrice = document.createElement('p')
+//           const badgeChange = document.createElement('p')
 
-          fetchCoinImages(coin)
-          .then(coinObj => {
-              if (coinObj) {
-                  badgeImg.src = coinObj.url
-              } else {
-                  badgeImg.src = 'src/download.jpeg'
-              }
-              badgeImg.alt = coin.symbol
-          })
+//           badgePrice.textContent = formatPrice(coin.priceUsd)
+          
 
-          document.querySelector('#fiveCoins').appendChild(coinBadge)
-          })
-        }
-const watchedCoins = addCoinToNav()
+//           leftBadge.append(badgeSymbol, badgeDelete, badgeImg)
+//           rightBadge.append(badgePrice, badgeChange)
+//           coinBadge.append(leftBadge, rightBadge)
+
+//           fetchCoinImages(coin)
+//           .then(coinObj => {
+//               if (coinObj) {
+//                   badgeImg.src = coinObj.url
+//               } else {
+//                   badgeImg.src = 'src/download.jpeg'
+//               }
+//               badgeImg.alt = coin.symbol
+//           })
+
+
+
+//           document.querySelector('#fiveCoins').appendChild(coinBadge)
+//           })
+//         }
+// const watchedCoins = addCoinToNav()
 
 const addCoinButton = document.querySelector('#addCoinButton')
-addCoinButton.addEventListener('click', addCoinToNav)
+// addCoinButton.addEventListener('click', addCoinToNav)
