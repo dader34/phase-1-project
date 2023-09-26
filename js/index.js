@@ -6,6 +6,10 @@ const fiveCoins = document.querySelector('#fiveCoins')
 const dropDownSelect = document.querySelector("#chrono")
 const topCoinsBtn = document.querySelector('#topCoinsButton')
 const myCoinsBtn = document.querySelector('#myCoinsButton')
+const addCoinButton = document.querySelector('#addCoinButton')
+const resetCoins = document.querySelector("#reset")
+const cookie = document.cookie
+console.log(cookie)
 let currentCoin;
 
 //
@@ -425,13 +429,37 @@ const populateTopCoins = (coinsObj) => {
 
 const populateMyCoins = (coinsObj) => {
     fiveCoins.innerHTML=""
+
+    let cookieCoins = []
+    console.log(myCoins)
+    myCoins.forEach(coin =>{
+        console.log(coin)
+        cookieCoins.push(coin.name)
+    })
+    const beforeCookie = cookieCoins.join(",")
+    const newCookie = "cookie=" + beforeCookie
+    console.log(newCookie)
+    document.cookie = newCookie
     coinsObj.forEach((myCoin) => {
         createTopCoin(myCoin, 1)
     })
 }
 
-const addCoinButton = document.querySelector('#addCoinButton')
+const getCoinsFromCookie = (cook) =>{
+    console.log(cook)
+    const beforeArray = cook.split("=")
+    if(beforeArray.length>1){
+        const coinsArray = beforeArray[1].split(",")
+        coinsArray.forEach(coin =>{
+            fetchCoin(coin).then(data => {myCoins.push(data);})
+        })
+    }
+    
+    
+    
+}
 
+getCoinsFromCookie(cookie)
 
 
 addCoinButton.addEventListener("click",()=>{
@@ -447,4 +475,7 @@ addCoinButton.addEventListener("click",()=>{
 
 topCoinsBtn.addEventListener('click', () => populateTopCoins(topFiveCoins))
 myCoinsBtn.addEventListener('click', () => populateMyCoins(myCoins))
+resetCoins.addEventListener('click',()=>{myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})
 // addCoinButton.addEventListener('click', addCoinToNav)
+// getCoinsFromCookie(cookie)
+// populateMyCoins(myCoins)
