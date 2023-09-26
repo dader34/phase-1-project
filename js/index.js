@@ -2,6 +2,8 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const coinList = document.querySelector("#results");
+const dropDownSelect = document.querySelector("#chrono")
+let currentCoin;
 
 const fetchAllCoins = () => {
     return fetch("https://api.coincap.io/v2/assets/")
@@ -43,7 +45,10 @@ const renderLi = (coin) => {
     listedCoin.classList.add("listedCoin");
     listedCoin.dataset.id = coin.id;
     listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
-    listedCoin.addEventListener('click', () => { displayCoin(coin) });
+    listedCoin.addEventListener('click', () => {
+        dropDownSelect.selectedIndex = 0 
+        displayCoin(coin) 
+    });
     coinList.appendChild(listedCoin);
 };
 
@@ -160,6 +165,7 @@ const displayCoin = (coin) => {
             priceChange.style.color = 'red'
         }
     })
+    currentCoin = coin
 
     fetchCoinImages(coin)
         .then(coinObj => {
@@ -235,8 +241,8 @@ const createLineGraph = (data, divId) => {
     window.addEventListener('resize', updateDimensions);
 }
 
-const displayCoinGraph = (coin) => {
-    fetchCoinHistory(coin.id.toLowerCase()).then(data => {
+const displayCoinGraph = (coin,interval="m1") => {
+    fetchCoinHistory(coin.id.toLowerCase(),interval).then(data => {
         createLineGraph(data, "#displayCoinGraphDiv")
     })
 }
@@ -291,6 +297,21 @@ document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault()
     filterByName(e.target.Name.value)
 })
+
+dropDownSelect.addEventListener("change",(e)=>{
+    const selection = e.target.value
+    switch(selection){
+      case "day":
+        displayCoinGraph(currentCoin,"m1")
+        break
+      case "month":
+        displayCoinGraph(currentCoin,"h1")
+        break
+      case "year":
+        displayCoinGraph(currentCoin,"d1")
+        break
+    }
+  })
 
 // ! Page Load functions --
 
