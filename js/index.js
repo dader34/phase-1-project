@@ -315,42 +315,41 @@ fetchAllCoins()
 // ! -- Connor's Code --
 
 const renderCoinBadge = () => {
-    document.createElement('span');
+    const fiveCoins = document.querySelector("#fiveCoins")
     const coinBadge = document.createElement('span')
-    coinBadge.classList.add('coinSpan')
     const leftBadge = document.createElement('div')
-    leftBadge.classList.add('leftCoinBadge')
     const rightBadge = document.createElement('div')
-    rightBadge.classList.add('rightCoinBadge')
     const badgeSymbol = document.createElement('h3')
     const badgeImg = document.createElement('img')
     const badgePrice = document.createElement('p')
     const badgeChange = document.createElement('p')
-
+    coinBadge.classList.add('coinSpan')
+    rightBadge.classList.add('rightCoinBadge')
+    leftBadge.classList.add('leftCoinBadge')
     leftBadge.append(badgeImg, badgeSymbol)
     rightBadge.append(badgePrice, badgeChange)
-
     coinBadge.append(leftBadge, rightBadge)
-    document.querySelector("#fiveCoins").appendChild(coinBadge)
+    fiveCoins.appendChild(coinBadge)
     return coinBadge;
 }
 
 const populateTopCoins = (coinsObj) => {
     const topFive = filterByPrice(coinsObj, 0).slice(0, 5)
     topFive.forEach((topCoin) => {
+        const fiveCoins = document.querySelector('#fiveCoins')
         const newBadge = renderCoinBadge()
-        newBadge.querySelector('h3').textContent = topCoin.symbol
-        newBadge.querySelector('p:nth-child(1)').textContent = formatPrice(topCoin.priceUsd)
+        const coinSymbol = newBadge.querySelector('h3')
+        const coinPrice = newBadge.querySelector('p:nth-child(1)')
         const newBadgeChange = newBadge.querySelector('p:nth-child(2)')
+        coinSymbol.textContent = topCoin.symbol
+        coinPrice.textContent = formatPrice(topCoin.priceUsd)
         newBadgeChange.textContent = formatDailyChange(topCoin.changePercent24Hr)
         if (newBadgeChange.textContent.startsWith('↑')) {
             newBadgeChange.style.color = 'green'
         } else {
             newBadgeChange.style.color = 'red'
         }
-
-        newBadge.querySelector('img')
-        document.querySelector('#fiveCoins').appendChild(newBadge)
+        fiveCoins.appendChild(newBadge)
 
         fetchCoinImages(topCoin)
             .then(coinObj => {
