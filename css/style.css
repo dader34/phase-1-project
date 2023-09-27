@@ -34,19 +34,21 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 5px solid black ;
+    /* border: 5px solid black ; */
     grid-area: 2/2/6/3;
     padding: 10px;
     min-width: 200px;
     background-color: #17171a;
     color: white;
+    border-radius: 5px;
 }
 
 #filogo {
     display: inherit;
     flex-grow: 2;
-    overflow-y: hidden;
-    max-width: 230px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     background-image: var(--flatironlogo);
 }
 
@@ -246,7 +248,7 @@ button{
     display: flex;
     flex-direction: column;
     grid-area: 3/3/6/4;
-    border: 5px solid black;
+    /* border: 5px solid black; */
     padding-left: 20px;
     padding-right: 20px;
     overflow: auto;
