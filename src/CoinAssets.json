@@ -6381,7 +6381,7 @@
     },
     {
         "asset_id": "BTCB",
-        "url": "https://s3.eu-central-1.amazonaws.com/bbxt-static-icons/type-id/png_64/78b49544cb314894991d1398e7344d41.png"
+        "url": "https://assets.coincap.io/assets/icons/btcb@2x.png"
     },
     {
         "asset_id": "GXS",
@@ -6559,6 +6559,15 @@
         "asset_id": "NTOK",
         "url": "https://s3.eu-central-1.amazonaws.com/bbxt-static-icons/type-id/png_64/837f4ba63f124d7e99aa4bbf71bbcd7d.png"
     },
+    {
+        "asset_id": "OKB",
+        "url": "https://assets.coincap.io/assets/icons/okb@2x.png"
+    },
+    {
+        "asset_id": "BSV",
+        "url": "https://assets.coincap.io/assets/icons/bsv@2x.png"
+    },
+    
     {
         "asset_id": "ADL",
         "url": "https://s3.eu-central-1.amazonaws.com/bbxt-static-icons/type-id/png_64/ea45420ac4a844308e9edccfc15ce658.png"
