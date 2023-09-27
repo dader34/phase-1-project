@@ -1,5 +1,5 @@
-*{
-   font-family: Inter,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,Helvetica,Arial,sans-serif;
+* {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Helvetica, Arial, sans-serif;
 }
 
 
@@ -18,13 +18,13 @@ h3 {
 
 #wrapper {
     display: grid;
-    grid-template-columns: 1fr 4fr 12fr 4fr 1fr ;
+    grid-template-columns: 1fr 4fr 12fr 4fr 1fr;
     grid-template-rows: 1fr 2fr 5fr 5fr 5fr 1fr;
     grid-template-areas: "a a a a a"
-                         "b b b b b"
-                         "c c c c c"
-                         "d d d d d"
-                         "e e e e e";
+        "b b b b b"
+        "c c c c c"
+        "d d d d d"
+        "e e e e e";
     column-gap: 30px;
     min-width: 1000px;
     height: 100vh;
@@ -75,7 +75,7 @@ h3 {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    top:40%;
+    top: 40%;
     width: 100%;
     height: 25%;
     overflow-y: scroll;
@@ -85,7 +85,7 @@ h3 {
     border: none;
     border-radius: 5px;
     /* border: 3px solid black; */
-    
+
 }
 
 li.listedCoin {
@@ -109,6 +109,7 @@ li.listedCoin:hover {
     border-radius: 5px;
     border: none;
 }
+
 #reset {
     margin-top: 5px;
     background-color: #323546;
@@ -143,7 +144,7 @@ h1 {
     max-height: 100%;
 }
 
-button{
+button {
     background-color: #323546;
     color: white;
     border-radius: 5px;
@@ -172,10 +173,12 @@ button{
     z-index: 0;
     min-height: 50px;
     max-height: 20%;
-    background-color: #17171a;;
+    background-color: #17171a;
+    ;
     border-radius: 5px;
     color: white;
 }
+
 .notification {
     position: fixed;
     top: 15%;
@@ -188,8 +191,10 @@ button{
     border-radius: 5px;
     opacity: 0;
     z-index: 10;
-    transition: right 0.5s ease-in, opacity 0.5s ease-in-out; /* Add opacity transition */
+    transition: right 0.5s ease-in, opacity 0.5s ease-in-out;
+    /* Add opacity transition */
 }
+
 .rightCoinBadge {
     display: inherit;
     flex-direction: column;
@@ -240,7 +245,7 @@ button{
     top: 1%;
     z-index: 1;
     font-size: x-large;
-    background-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
 }
 
 #featuredCoin {
@@ -267,7 +272,7 @@ button{
     flex-grow: 1;
 }
 
-.deleteButton{
+.deleteButton {
     position: absolute;
     top: 0%;
     right: 0%;
@@ -291,7 +296,8 @@ button{
     flex-grow: 6;
 }
 
-#coinAndGraph h2, h4 {
+#coinAndGraph h2,
+h4 {
     margin: 0px;
 }
 
@@ -306,11 +312,12 @@ button{
     font-size: 150%;
 }
 
-#featuredPrice{
-    font-size:200%;
+#featuredPrice {
+    font-size: 200%;
 }
-#featuredChange{
-    font-size:200%;
+
+#featuredChange {
+    font-size: 200%;
 }
 
 #featuredCoinImg {
@@ -377,26 +384,26 @@ button{
 .statSpan p {
     font-size: x-large;
     margin: 0;
-    margin-bottom: 20px 
+    margin-bottom: 20px
 }
 
 .statSpan h1 {
     font-size: xxx-large;
 }
 
-#displayCoinGraphDiv{
+#displayCoinGraphDiv {
     position: absolute;
     width: 60%;
     height: 50%;
-    top:25%;
+    top: 25%;
     left: 35%;
     border: 3px solid black;
 }
 
-.upArrow{
-    color:green;
+.upArrow {
+    color: green;
 }
 
-.downArrow{
+.downArrow {
     color: red;
 }
