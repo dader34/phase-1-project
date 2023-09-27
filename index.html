@@ -20,7 +20,7 @@
             <div id="FilterBox">
                 <h3 >FILTER COINS</h3>
                 <select name="filter" id="filter">
-                    <option value="default">Rank</option>
+                    <option value="rank">Rank</option>
                     <option value="alphabetical">A-Z</option>
                     <option value="biggestDailyGains">Biggest Daily Gains</option>
                     <option value="biggestDailyLosses">Biggest Daily Losses</option>
@@ -36,81 +36,57 @@
                 </form>
             </div>
             <ul name="results" id="results"></ul>
-            <button id="reset">Reset Coins</button>
         </div>
 
         <div id="titleBar">
             <div class="title">CRYPTO SHARK</div>
         </div>
 
-        <div id="fiveCoinNav">
-            <div id="fiveCoinButtons">
-                <button id="myCoinsButton">MY COINS</button>
-                <button id="topCoinsButton">TOP COINS</button>
-            </div>
-            <div id="fiveCoins">
+        <div id="myCoinsDiv">
+            <div id="myCoinsCollection"></div>
+            <button id="reset">Reset Coins</button>
+        </div>
+
+        <div id="filterDiv">
+                <h2 id="filterWindowLabel">FILTER</h2>
+            <div id="filterWindow">
             </div>
         </div>
 
-            <div id="featuredCoin">
-                <div id="coinAndGraph">
-                    <span id="featuredCoinSpan">  
-                        <h2 id="featuredCoinSymbol"></h2>
-                        <h4 id="featuredCoinName"></h4>                 
-                        <img id="coinImg">
-                        <button id="addCoinButton">ADD COIN</button>
-                    </span>
-                    
-                    <span id="graphDiv">
-                        <span id="mainStats">
-                            <span id="featuredPrice"></span>
-                            <span id="featuredChange"></span>
-                        </span>
-                        <div id="displayCoinGraphDiv"></div>
-                        <select name="chrono" id="chrono">
-                            <option value="day">Day</option>
-                            <option value="month">Month</option>
-                            <option value="year">Year</option>
-                        </select>
-                    </span>
-                </div>
-                <div id="stats">
-                    <span class="statSpan">                    
-                        <h2>MKT CAP</h2>
-                        <p>price</p>
-                    </span>
-                    <span class="statSpan">                    
-                        <h2>VOLUME</h2>
-                        <p>volume</p>
-                    </span>
-                    <span class="statSpan">                    
-                        <h2>RANK</h2>
-                        <p>rank</p>
-                    </span>
+        <div id="featuredCoinDiv">
+            <div id="coinAndGraphDiv">
+                <span id="featuredCoinBadge">
+                    <h2 id="featuredSymbol"></h2>
+                    <h4 id="featuredName"></h4>
+                    <img id="featuredImage">
+                    <button id="addCoinButton">ADD COIN</button>
+                </span> 
+                <div id="displayCoinGraphDiv">
+                    <span id="featuredPrice"></span>
+                    <span id="featuredChange"></span>
+                    <div id="graph"></div>
+                    <select name="chrono" id="chrono">
+                        <option value="day">Day</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
                 </div>
             </div>
-        </div>        
-
-        <!-- <div class="coins">
-            <div class="coinCard">
-                
+            <div id="featuredStatsDiv">
+                <span id="featuredCoinCap">
+                    <h2>MKT CAP</h2>
+                    <p></p>
+                </span>
+                <span id="featuredCoinVolume">
+                    <h2>VOLUME</h2>
+                    <p></p>
+                </span>
+                <span id="featuredCoinRank">
+                    <h2>RANK</h2>
+                    <p></p>
+                </span>
             </div>
         </div>
-        <div class="displayedCoin">
-            <div id="displayCoinDiv">
-                <h2 id="coinName"></h2>
-                <div id="container">
-                    <img src="" alt="" id="coinImg">
-                </div>
-                <br>
-                <span class="material-symbols-outlined"></span>
-                <p id="priceChange"></p>
-                <h2 id="coinPrice"></h2>
-            </div>
-            <div id="displayCoinGraphDiv"></div>
-            
-        </div>
-        <div class="playground"></div> -->
     </div>
 </body>
 </html>
