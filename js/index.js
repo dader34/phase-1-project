@@ -10,7 +10,6 @@ const dropDownSelect = document.querySelector("#chrono")
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
 const cookie = document.cookie
-// console.log(cookie)
 //<Variable to decide when to load mycoins tab>//
 let isDoneLoading = false
 //<Variable to store current coin>//
@@ -91,7 +90,6 @@ const populateFilter = (coinsObj) => {
 }
 
 const populateMyCoins = () => {
-    console.log(myCoins)
     myCoins.forEach((coin) => {
         const newCoin = createCoinBadge(coin)
         const deleteButton = document.createElement('button')
@@ -145,13 +143,13 @@ const displayFeaturedCoin = (coin) => {
 }
 
 const displayComparison = (coin) => {
-    //create <p>
     const newMktCap = document.createElement('p')
     newMktCap.classList.add('comparison')
     newMktCap.textContent = formatLargeNum(coin.marketCapUsd)
     document.querySelector('#featuredCoinCap').appendChild(newMktCap)
-    //compare featured coin's value to hovered coin's value
-    if (parseInt(newMktCap.textContent) < document.querySelector('featuredCoinCap h2')) {
+    const mktCapInt = formatCurrency(newMktCap.textContent)
+    debugger
+    if (parseInt(newMktCap.textContent) < parseInt(document.querySelector('#featuredCoinCap h2').textContent)) {
         console.log('y')
     }
     //apply changeUp or changeDown class appropriately
@@ -296,6 +294,13 @@ const formatDailyChange = (priceChange) => {
         return newSlice;
     }
 };
+
+const formatCurrency = (currencyStr) => {
+    let temp = currencyStr.replace(/[^0-9.-]+/g, "");
+    return parseFloat(temp);
+}
+
+// ! ---- Graph Functions ----
 
 //<D3.js function to create graph>//
 const createLineGraph = (data, divId) => {
