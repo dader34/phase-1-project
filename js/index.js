@@ -3,6 +3,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 //<Initialize variables>//
 const coinList = document.querySelector("#results");
 const filterWindow = document.querySelector('#filterWindow')
+const filterWindowLabel = document.querySelector('#filterWindowLabel')
 const myCoinsCollection = document.querySelector('#myCoinsCollection')
 const welcomeMessage = document.querySelector('#welcome')
 const dropDownSelect = document.querySelector("#chrono")
@@ -105,6 +106,9 @@ const populateMyCoins = () => {
                 }
             })
             e.target.parentNode.remove()
+            if (myCoinsCollection.innerHTML === "") {
+                myCoinsCollection.innerHTML = "<h2 id='welcome'>Welcome to Crypto Shark. Add coins to watch here!</h2>"
+            }
         })
         newCoin.appendChild(deleteButton)
         myCoinsCollection.appendChild(newCoin)
@@ -371,9 +375,11 @@ document.querySelector("#filter").addEventListener("change", (e) => {
     switch (e.target.value) {
         case "rank":
             fetchAllCoins().then(populateCoinList).then(populateFilter);
+            filterWindowLabel.textContent = "RANK"
             break;
         case "alphabetical":
             fetchAllCoins().then(filterByAZ).then(populateCoinList).then(populateFilter);
+            filterWindowLabel.textContent = "A-Z"
             break;
 
         case "biggestDailyGains":
@@ -381,7 +387,8 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 0);
                 })
-                .then(populateCoinList).then(populateFilter);
+                .then(populateCoinList).then(populateFilter)
+                .then(filterWindowLabel.textContent = "BIGGEST DAILY GAINS")
             break;
 
         case "biggestDailyLosses":
@@ -389,7 +396,8 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateFilter);
+                .then(populateCoinList).then(populateFilter)
+                .then(filterWindowLabel.textContent = "BIGGEST DAILY LOSSES")
             break;
 
         case "priceHighest":
@@ -397,7 +405,8 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 0);
                 })
-                .then(populateCoinList).then(populateFilter);
+                .then(populateCoinList).then(populateFilter)
+                .then(filterWindowLabel.textContent = "PRICE: HIGH-LOW")
             break;
 
         case "priceLowest":
@@ -405,7 +414,8 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateFilter);
+                .then(populateCoinList).then(populateFilter)
+                .then(filterWindowLabel.textContent = "PRICE: LOW-HIGH")
             break;
     }
 });
@@ -507,4 +517,4 @@ if(isDoneLoading){
 }
 
 //<Event listener for reset button that resets coins from myCoins, resets cookie, and resets fiveCoins div>//
-resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);myCoinsCollection.innerHTML="<h2 id='welcome'>Welcome to Crypto Shark. Add coins to watch here!</h2>"})
+resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins); myCoinsCollection.innerHTML="<h2 id='welcome'>Welcome to Crypto Shark. Add coins to watch here!</h2>"})
