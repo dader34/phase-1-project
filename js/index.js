@@ -5,10 +5,9 @@ const coinList = document.querySelector("#results");
 const filterWindow = document.querySelector('#filterWindow')
 const myCoinsCollection = document.querySelector('#myCoinsCollection')
 const dropDownSelect = document.querySelector("#chrono")
-const coinAndGraphDiv = document.querySelector('#coinAndGraphDiv')
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
-// const cookie = document.cookie
+const cookie = document.cookie
 // console.log(cookie)
 //<Variable to decide when to load mycoins tab>//
 let isDoneLoading = false
@@ -468,8 +467,8 @@ const getCoinsFromCookie = (cook) =>{
 
         // Wait for all coin fetches to complete
         Promise.all(fetchPromises).then(() => {
-            // Set isDoneLoading to true so it activates the my coins tab
-            //there was a glitch where if you clicked on the my coins tab beforea ll promises loaded
+            //Set isDoneLoading to true so it activates the my coins tab
+            //there was a glitch where if you clicked on the my coins tab before all promises loaded
             //then it would cut off the bottom of my coins and overwrite the cookie
             isDoneLoading = true;
 
@@ -478,7 +477,6 @@ const getCoinsFromCookie = (cook) =>{
 }
 
 getCoinsFromCookie(document.cookie)
-
 
 //<Event listener for add coin button that adds coin to cookie, and appends to my coins>//
 addCoinButton.addEventListener("click",()=>{
@@ -499,6 +497,11 @@ addCoinButton.addEventListener("click",()=>{
     notify("You have already chosen this coin", "warn");
   }
 })
+
+//<Load My Coins when page is done loading and has cookies>
+if(isDoneLoading){
+    populateMyCoins(myCoins)
+}
 
 //<Event listener for reset button that resets coins from myCoins, resets cookie, and resets fiveCoins div>//
 resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})
