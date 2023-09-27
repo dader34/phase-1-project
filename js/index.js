@@ -52,7 +52,7 @@ const fetchCoinHistory = (coinName, interval = "m1") => {
 };
 
 //<Gets coin images from local json file, returns logo in png>//
-const fetchCoinImages = (coin) => {
+const fetchCoinImages = (requestedCoin) => {
     return fetch('src/CoinAssets.json')
         .then(resp => resp.json())
         .then(data => {
@@ -113,34 +113,6 @@ const populateMyCoins = () => {
     })
 }
 
-const renderCoinBadge = () => {
-    const coinBadge = document.createElement('span')
-    const badgeSymbol = document.createElement('h3')
-    const badgeImg = document.createElement('img')
-    const badgePrice = document.createElement('p')
-    badgePrice.classList.add('price')
-    const badgeChange = document.createElement('p')
-    badgeChange.classList.add('change')
-    coinBadge.append(badgeSymbol, badgeImg, badgePrice, badgeChange)
-    return coinBadge
-}
-
-const createCoinBadge = (coin) => {
-    const newCoinBadge = renderCoinBadge()
-    newCoinBadge.classList.add('coinBadge')
-    newCoinBadge.querySelector('h3').textContent = coin.symbol        
-    newCoinBadge.querySelector('img').alt = coin.symbol
-    newCoinBadge.querySelector('.price').textContent = formatPrice(coin.priceUsd)
-    const renderedChange = newCoinBadge.querySelector('.change')
-    renderedChange.textContent = formatDailyChange(coin.changePercent24Hr)
-    renderedChange.textContent.startsWith('↑') ? renderedChange.classList.add('changeUp') : renderedChange.classList.add('changeDown')
-    fetchCoinImages(coin)
-    .then(coinObj => {
-        (coinObj) ? newCoinBadge.querySelector('img').src = coinObj.url : newCoinBadge.querySelector('img').src = 'src/download.jpeg'
-    })     
-    return newCoinBadge
-}
-
 const displayFeaturedCoin = (coin) => {
     const coinSymbol = document.querySelector("#featuredSymbol")
     const coinName = document.querySelector("#featuredName")
@@ -180,38 +152,6 @@ addCoinButton.addEventListener("click", () => {
     }
 })
 
-// ! ---- Filter Functions ----
-
-const populateFilter = (coinsObj) => {
-    coinsObj.forEach((coin) => {
-        const newCoin = createCoinBadge(coin)
-        filterWindow.appendChild(newCoin)
-    })
-}
-
-const populateMyCoins = () => {
-    console.log(myCoins)
-    myCoins.forEach((coin) => {
-        const newCoin = createCoinBadge(coin)
-        const deleteButton = document.createElement('button')
-        deleteButton.textContent = 'X'
-        deleteButton.classList.add('deleteButton')
-        // Store newCoin as a property of the deleteButton
-        deleteButton.newCoin = newCoin;
-        deleteButton.addEventListener('click', e => {
-            // Access newCoin via e.target.newCoin
-            myCoins.forEach(myCoin => {
-                if (myCoin.symbol === e.target.newCoin.querySelector('h3').textContent) {
-                    myCoins.splice(myCoins.indexOf(coin), 1)
-                }
-            })
-            e.target.parentNode.remove()
-        })
-        newCoin.appendChild(deleteButton)
-        myCoinsCollection.appendChild(newCoin)
-    })
-}
-
 const renderCoinBadge = () => {
     const coinBadge = document.createElement('span')
     const badgeSymbol = document.createElement('h3')
@@ -240,33 +180,7 @@ const createCoinBadge = (coin) => {
     return newCoinBadge
 }
 
-const displayFeaturedCoin = (coin) => {
-    const coinSymbol = document.querySelector("#featuredSymbol")
-    const coinName = document.querySelector("#featuredName")
-    const image = document.querySelector("#featuredImage")
-    const priceChange = document.querySelector("#featuredChange")
-    const coinPrice = document.querySelector('#featuredPrice')
-    const coinCap = document.querySelector("#featuredCoinCap > p")
-    const coinVolume = document.querySelector("#featuredCoinVolume > p")
-    const coinRank = document.querySelector("#featuredCoinRank > p")
-    coinSymbol.textContent = coin.symbol
-    coinName.textContent = coin.name;
-    coinPrice.textContent = formatPrice(coin.priceUsd)
-    priceChange.textContent = formatDailyChange(coin.changePercent24Hr)
-    priceChange.className = ""
-    priceChange.textContent.startsWith('↑') ? priceChange.classList.add('changeUp') : priceChange.classList.add('changeDown')
-    coinCap.textContent = formatLargeNum(coin.marketCapUsd)
-    coinVolume.textContent = formatLargeNum(coin.volumeUsd24Hr)
-    coinRank.textContent = coin.rank
 
-    currentCoin = coin
-
-    fetchCoinImages(coin)
-    .then(coinObj => {
-        (coinObj) ? image.src = coinObj.url : image.src = 'src/download.jpeg'
-    })     
-    .then(displayCoinGraph(coin))
-}
 
 addCoinButton.addEventListener("click", () => {
     if(!myCoins.includes(currentCoin) && myCoins.length<5){
