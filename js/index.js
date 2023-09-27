@@ -411,12 +411,18 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
     //Logic on wether to add button to element if its in myCoins or not
     if (loadingMyCoins === 1) {
         const deleteButton = document.createElement('button')
+        deleteButton.textContent = "X"
+        deleteButton.classList.toggle("deleteButton")
         deleteButton.addEventListener('click', e => {
             myCoins.forEach(coin => {
                 if (coin.symbol === coinSymbol.textContent) {
                     myCoins.splice(myCoins.indexOf(coin), 1)
                 }
             })
+            const coinsArray = document.cookie.split("=")[1].split(",")
+            coinsArray.splice(coinsArray.indexOf(topCoin.name),1)
+            document.cookie = "cookie=" + coinsArray.join(",")
+            console.log(document.cookie)
             e.target.parentNode.remove()
         })
         newBadge.appendChild(deleteButton)

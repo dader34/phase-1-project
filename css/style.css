@@ -224,6 +224,12 @@ h1 {
     flex-grow: 1;
 }
 
+.deleteButton{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}
+
 .statSpan {
     display: inherit;
     flex-direction: column;
