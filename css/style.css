@@ -251,6 +251,7 @@ button{
     padding-right: 20px;
     overflow: auto;
     background-color: #17171a;
+    border-radius: 5px;
     color: white;
 }
 
