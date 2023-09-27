@@ -215,67 +215,86 @@ const displayCoin = (coin) => {
         .then(displayCoinGraph(coin))
 }
 
-//<D3.js function to create graph>//
+//<D3.js function to create graph>//const createLineGraph = (data, divId) => {
 const createLineGraph = (data, divId) => {
     const parentDiv = document.querySelector(divId);
-    //variable that lets the graph know how low it needs to start
     const minYValue = d3.min(data, d => d.priceUsd);
-    //first and last prices of the day to check if price was 
-    //positive or negative for the day
-    const firstPoint = data[0].priceUsd
-    const lastPoint = data[data.length - 1].priceUsd
-    //function to update graph dimensions on window resize
-    //updateDimensions() -> Void
+    const firstPoint = data[0].priceUsd;
+    const lastPoint = data[data.length - 1].priceUsd;
+
     const updateDimensions = () => {
-        //use requestAnimationFrame to redraw graphs every frame of resize
         window.requestAnimationFrame(() => {
             const parentWidth = parentDiv.clientWidth;
             const parentHeight = parentDiv.clientHeight;
-            // const svgWidth = parentWidth; 
-            // const svgHeight = parentHeight;
 
-            //if svg exists, delete so we can redraw
-            if (parentDiv.querySelector("svg")) parentDiv.querySelector("svg").remove()
-            //create SVG to draw graph on inside of div
+            if (parentDiv.querySelector("svg")) parentDiv.querySelector("svg").remove();
+
             const svg = d3.select(divId)
                 .append('svg')
                 .attr('width', parentWidth)
                 .attr('height', parentHeight)
-                .append('g')
+                .append('g');
 
-            //creates x axis scalar given time
             const xScale = d3.scaleTime()
-                .domain(d3.extent(data, d => new Date(d.time))) // Use d3.extent to get the min and max dates
+                .domain(d3.extent(data, d => new Date(d.time)))
                 .range([0, parentWidth]);
 
-            //creates y axis scalar given data points
             const yScale = d3.scaleLinear()
                 .domain([minYValue, d3.max(data, d => d.priceUsd)])
                 .range([parentHeight, 0]);
 
-            //draw line with given x and y data points
             const line = d3.line()
                 .x(d => xScale(new Date(d.time)))
                 .y(d => yScale(d.priceUsd));
 
-            //append line to svg with css styling attributes
             svg.append('path')
                 .datum(data)
                 .attr('class', 'line')
                 .attr('d', line)
                 .attr('fill', 'none')
-                //turn graph green/red depending on beginning and ending price
                 .attr('stroke', (lastPoint > firstPoint ? "green" : "red"))
                 .attr('stroke-width', 2);
 
+            const tooltip = svg.append('g')
+                .attr('class', 'tooltip')
+                .style('display', 'none');
+
+            tooltip.append('rect')
+                .attr('width', 100)
+                .attr('height', 30)
+                .attr('fill', 'none')
+                .attr('color', '#ffffff')
+                .style('opacity', 0.7);
+
+            tooltip.append('text')
+                .attr('x', 50)
+                .attr('y', 15)
+                .style('text-anchor', 'middle')
+                .attr('font-size', '12px');
+
+                svg.selectAll('.dot')
+                .data(data)
+                .enter().append('circle')
+                .attr('class', 'dot')
+                .attr('cx', d => xScale(new Date(d.time)))
+                .attr('cy', d => yScale(d.priceUsd))
+                .attr('r', 8) // Increase the radius (size) of the dots to 8
+                .on('mousemove', (event, d) => {
+                    const [mouseX, mouseY] = d3.pointer(event);
+            
+                    tooltip.style('display', 'block');
+                    tooltip.select('text').text(`Price: ${formatPrice(d.priceUsd)}`);
+                })
+                .on('mouseout',() => {
+                    tooltip.style('display', 'none');
+                });
         });
     }
 
-    //initial call to scale/create graph
     updateDimensions();
-    //event listener to call resize function on window resize
     window.addEventListener('resize', updateDimensions);
 }
+
 
 //<Function to display graph onto main graph div with varying interval>//
 const displayCoinGraph = (coin,interval="m1") => {

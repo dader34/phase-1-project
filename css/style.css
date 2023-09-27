@@ -290,6 +290,19 @@ button {
     max-height: 100%;
 }
 
+.dot {
+    fill: transparent;
+    stroke: transparent;
+}
+
+.dot:hover{
+    stroke: white;
+}
+
+.tooltip text {
+    fill: white;
+}
+
 #coinAndGraph {
     display: inherit;
     position: relative;
