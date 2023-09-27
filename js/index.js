@@ -15,7 +15,6 @@ let isDoneLoading = false
 //<Variable to store current coin>//
 let currentCoin;
 //<Variables to store top coins and myCoins>//
-let topFiveCoins = []
 let myCoins = []
 
 //<Get all data for all coins and return arr in promise form>//
@@ -35,12 +34,11 @@ const fetchCoin = async (coinName) => {
             lowerCoin === coin.id.toLowerCase() ||
             lowerCoin === coin.name.toLowerCase() ||
             lowerCoin === coin.symbol.toLowerCase()
-        ) {
+        ) {``
             return coin;
         }
     }
 };
-
 
 //<Get coin history given a coin name, returns arr of coin history in promise form>//
 const fetchCoinHistory = (coinName, interval = "m1") => {
@@ -179,8 +177,6 @@ const createCoinBadge = (coin) => {
     })     
     return newCoinBadge
 }
-
-
 
 addCoinButton.addEventListener("click", () => {
     if(!myCoins.includes(currentCoin) && myCoins.length<5){
@@ -413,7 +409,6 @@ document.querySelector("#filter").addEventListener("change", (e) => {
     }
 });
 
-
 document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault()
     //Run submission text through search func
@@ -437,7 +432,7 @@ dropDownSelect.addEventListener("change",(e)=>{
     }
   })
 
-// ! Page Load functions --
+// ! ---- Page Load functions --
 
 fetchAllCoins()
     .then((coinsObj) => {
@@ -449,3 +444,61 @@ fetchAllCoins()
 })
 
 resetCoins.addEventListener('click',()=>{myCoins = []; myCoinsCollection.innerHTML=""})
+
+// ! ---- Cookie Functions ----
+
+//<Given cookie, parse coin names, find their object using fetchCoin, and append them to mycoins>//
+const getCoinsFromCookie = (cook) =>{
+    if(!document.cookie){
+        document.cookie = "cookie="
+    }
+    const beforeArray = cook.split("=")
+    if(beforeArray.length > 1){
+        const coinsArray = beforeArray[1].split(",");
+        const fetchPromises = []; // Store promises for fetching coins
+        coinsArray.forEach(coin => {
+            if (coin) {
+                // Fetch and store the coin data
+                const fetchPromise = fetchCoin(coin).then(data => {
+                    myCoins.push(data);
+                });
+                fetchPromises.push(fetchPromise);
+            }
+        });
+
+        // Wait for all coin fetches to complete
+        Promise.all(fetchPromises).then(() => {
+            // Set isDoneLoading to true so it activates the my coins tab
+            //there was a glitch where if you clicked on the my coins tab beforea ll promises loaded
+            //then it would cut off the bottom of my coins and overwrite the cookie
+            isDoneLoading = true;
+
+        });
+    }
+}
+
+getCoinsFromCookie(document.cookie)
+
+
+//<Event listener for add coin button that adds coin to cookie, and appends to my coins>//
+addCoinButton.addEventListener("click",()=>{
+    const coinExists = myCoins.some((coin) =>
+    // Compare coins by their properties
+    JSON.stringify(coin) === JSON.stringify(currentCoin)
+  );
+
+  if (!coinExists) {
+    if (myCoins.length < 5) {
+      fiveCoins.innerHTML = "";
+      myCoins.push(currentCoin);
+      populateMyCoins(myCoins);
+    } else {
+      notify("You already have 5 personal coins", "error");
+    }
+  } else {
+    notify("You have already chosen this coin", "warn");
+  }
+})
+
+//<Event listener for reset button that resets coins from myCoins, resets cookie, and resets fiveCoins div>//
+resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})

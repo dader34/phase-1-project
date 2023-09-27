@@ -345,6 +345,10 @@ h1 {
     flex-grow: 1;
 }
 
+.changeUp {
+    color: green;
+}
+
 .changeDown {
     color: red;
 }
