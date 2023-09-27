@@ -180,8 +180,7 @@ const createCoinBadge = (coin) => {
 
 addCoinButton.addEventListener("click", () => {
     if(!myCoins.includes(currentCoin) && myCoins.length<5){
-        myCoinsCollection.innerHTML = ''
-        welcomeMessage.remove()
+        welcomeMessage.style.opacity = 0
         myCoins.push(currentCoin)
         populateMyCoins(myCoins)      
     }else{
@@ -445,7 +444,7 @@ fetchAllCoins()
         displayFeaturedCoin(coinsObj[0])
 })
 
-resetCoins.addEventListener('click',()=>{myCoins = []; myCoinsCollection.innerHTML=""})
+resetCoins.addEventListener('click',()=>{myCoins = []; welcomeMessage.style.opacity = 100})
 
 // ! ---- Cookie Functions ----
 
@@ -508,4 +507,4 @@ if(isDoneLoading){
 }
 
 //<Event listener for reset button that resets coins from myCoins, resets cookie, and resets fiveCoins div>//
-resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})
+resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);myCoinsCollection.innerHTML="<h2 id='welcome'>Welcome to Crypto Shark. Add coins to watch here!</h2>"})
