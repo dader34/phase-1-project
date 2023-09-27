@@ -1,354 +1,403 @@
-:root {
-    --flatironlogo: url("https://instructure-uploads.s3.amazonaws.com/account_158020000000000001/attachments/43703/flatiron-icon.png")
-}
-
-body {
-    margin: 0;
-}
-
-h3 {
-    text-align: center;
-}
-
-#wrapper {
-    display: grid;
-    grid-template-columns: 1fr 4fr 12fr 4fr 1fr ;
-    grid-template-rows: 1fr minmax(50px, 75px) minmax(100px, 150px) 10fr 10fr 1fr;
-    grid-template-areas: "a a a a a"
-                         "b b b b b"
-                         "c c c c c"
-                         "d d d d d"
-                         "e e e e e";
-    column-gap: 30px;
-    row-gap: 30px;
-    min-width: 1000px;
-    height: 100vh;
-}
-
-#sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 10px solid black ;
-    grid-area: 2/2/6/3;
-    padding: 10px;
-    min-width: 200px;
-}
-
-#filogo {
-    display: inherit;
-    flex-grow: 2;
-    background-image: var(--flatironlogo);
-}
-
-#search {
-    width: 100%;
-}
-
-#submitSearch {
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    
-}
-
-#results {
-    position: inherit;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    top:40%;
-    width: 95%;
-    height: 25%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background-color: white;
-    flex-grow: 4;
-    border: 3px solid black;
-    align-self: center;
-}
-
-li.listedCoin {
-    position: relative;
-    display: flex;
-    width: 100%;
-    margin-left: 0;
-}
-
-li.listedCoin:hover {
-    background-color: darkblue;
-    color: white;
-    cursor: pointer;
-}
-
-#filter {
-    width: 100%;
-}
-
-#reset {
-    display: inherit;
-    margin-top: 5px;
-    align-self: flex-end;
-}
-
-#titleBar {
-    grid-area: 2/3/3/4;
-    text-align: center;
-    font-size: xxx-large;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-#myCoinsDiv {
-    display: flex;
-    flex-direction: column;
-    grid-area: 3/3/4/4;
-    border: 5px solid black;
-    max-height: 150px;
-}
-
-#myCoinsCollection {
-    display: inherit;
-    min-width: 100%;
-    max-height: 90%;
-}
-
-.coinBadge {
-    position: relative;
-    display: inherit;
-    width: 20%;
-    flex-direction: column;
-    justify-content: space-evenly;
-    text-align: center;
-    flex-grow: 1;
-    margin: 5px;
-    border: 5px solid black;
-    background-color: black;
-    color: white;
-    border-radius: 5px;
-    max-height: 150px;
-}
-
-.coinBadge h2, p {
-    margin: 0px;
-}
-
-.coinBadge > img {
-    max-height: 64px;
-    max-width: 64px;
-    align-self: center;
-}
-
-.deleteButton {
-    display: inherit;
-}
-
-#filterWindow > span {
-    flex-direction: row;
-    width: 100%;
-}
-
-#filterDiv {
-    grid-area: 2/4/6/5;
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
-}
-
-#filterWindow {
-    display: inherit;
-    flex-direction: column;
-    align-content: space-around;
-    overflow: auto;
-    height: 100%;
-}
-
-#filterWindowLabel {
-    text-align: center;
-}
-
-.filterWindowBadge {
-    display: flex;
-    flex-grow: 1;
-    margin: 10px;
-    /* border: 10px solid black; */
-    position: relative;
-    z-index: 0;
-    min-height: 50px;
-    max-height: 20%;
-}
-.notification {
-    position: fixed;
-    top: 15%;
-    right: -100px;
-    transform: translateX(-20%);
-    background-color: #333;
-    border: 2px solid #333;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    opacity: 0;
-    z-index: 10;
-    transition: right 0.5s ease-in, opacity 0.5s ease-in-out; /* Add opacity transition */
-}
-
-.filterWindow img {
-    display: inherit;
-    position: relative;
-    height: 64px;
-    width: 64px;
-    margin: 10px;
-    z-index: 0;
-}
-
-.filterWindow h3 {
-    display: inherit;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-right: auto;
-    background-color: aliceblue;
-}
-
-.filterWindow p {
-    display: inherit;
-    align-self: center;
-    flex-grow: 1;
-    z-index: 1;
-    background-color: aliceblue;
-    margin: 10px;
-}
-
-.filterWindow h3 {
-    text-align: center;
-    position: absolute;
-    top: 5px;
-    z-index: 1;
-    font-size: x-large;
-    background-color: rgba(255,255,255,0);
-}
-
-#featuredCoinDiv {
-    display: flex;
-    flex-direction: column;
-    grid-area: 4/3/6/4;
-    border: 10px solid black;
-    overflow: auto;
-}
-
-#featuredCoinDiv p, h2, h4 {
-    text-align: center;
-}
-
-#coinAndGraphDiv {
-    display: inherit;
-    height: 65%;
-}
-
-.deleteButton{
-    position: absolute;
-    top: 0%;
-    right: 0%;
-}
-
-#coinAndGraphDiv > span {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    border: 5px solid black;
-    background-color: black;
-    color: white;
-    margin: 8px;
-    border-radius: 5px;
-}
-
-#featuredImage {
-    max-width: 64px;
-    max-height: 64px;
-    align-self: center;
-}
-
-#coinAndGraphDiv > span > h2, h4, p {
-    margin: 5px;
-}
-
-#featuredStatsDiv {
-    display: inherit;
-    height: 35%;
-}
-
-.deleteButton{
-    position: absolute;
-    top: 0%;
-    right: 0%;
-}
-
-#displayCoinGraphDiv {
-    display: inherit;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    margin-right: 10px;
-    position: relative;
-}
-
-#displayCoinGraphDiv > svg {
-    display: inherit;
-    height: 150px;
-}
-
-#chrono {
-    display: inherit;
-    max-width: 100%;
-}
-
-#featuredStatsDiv > span {
-    display: inherit;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-#addCoinButton {
-    display: inherit;
-    margin-top: 20px;
-}
-
-#graphDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    width: 75%;
-}
-
-#chrono {
-    position: absolute;
-    display: inherit;
-    width: 70%;
-    top: 77%;
-}
-
-#mainStats {
-    display: inherit;
-    justify-content: space-evenly;
-    width: 100%;
-}
-
-#graph {
-    display: inherit;
-    margin: 20px;
-    flex-grow: 1;
-}
-
-.changeUp {
-    color: green;
-}
-
-.changeDown {
-    color: red;
-}
+*{
+    font-family: Inter,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,Helvetica,Arial,sans-serif;
+ }
+ 
+ 
+ :root {
+     --flatironlogo: url("../src/shark_vinyl_decal.png")
+ }
+ 
+ body {
+     margin: 0;
+     background-color: #11182e;
+ }
+ 
+ h3 {
+     text-align: center;
+ }
+ 
+ #wrapper {
+     display: grid;
+     grid-template-columns: 1fr 4fr 12fr 4fr 1fr ;
+     grid-template-rows: 1fr 2fr 5fr 5fr 5fr 1fr;
+     grid-template-areas: "a a a a a"
+                          "b b b b b"
+                          "c c c c c"
+                          "d d d d d"
+                          "e e e e e";
+     column-gap: 30px;
+     min-width: 1000px;
+     height: 100vh;
+ }
+ 
+ #sidebar {
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     /* border: 5px solid black ; */
+     grid-area: 2/2/6/3;
+     padding: 10px;
+     min-width: 200px;
+     background-color: #17171a;
+     color: white;
+     border-radius: 5px;
+ }
+ 
+ #filogo {
+     display: inherit;
+     flex-grow: 2;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     background-image: var(--flatironlogo);
+ }
+ 
+ #search {
+     width: 100%;
+     background-color: #323546;
+     color: white;
+     border-radius: 5px;
+     border: none;
+ }
+ 
+ #submitSearch {
+     width: 100%;
+     margin-top: 5px;
+     margin-bottom: 5px;
+     background-color: #323546;
+     color: white;
+     border-radius: 5px;
+     border: none;
+ }
+ 
+ #results {
+     position: inherit;
+     margin: 0;
+     padding: 0;
+     list-style-type: none;
+     top:40%;
+     width: 100%;
+     height: 25%;
+     overflow-y: scroll;
+     overflow-x: hidden;
+     background-color: #323546;
+     flex-grow: 4;
+     border: none;
+     border-radius: 5px;
+     /* border: 3px solid black; */
+     
+ }
+ 
+ li.listedCoin {
+     position: relative;
+     display: flex;
+     width: 100%;
+     margin-left: 0;
+     color: white;
+ }
+ 
+ li.listedCoin:hover {
+     background-color: darkblue;
+     color: white;
+     cursor: pointer;
+ }
+ 
+ #filter {
+     width: 100%;
+     background-color: #323546;
+     color: white;
+     border-radius: 5px;
+     border: none;
+ }
+ 
+ #reset {
+     margin-top: 5px;
+     background-color: #323546;
+     color: white;
+     border-radius: 4px;
+     border: none;
+ }
+ 
+ #titleBar {
+     grid-area: 2/3/3/4;
+     text-align: center;
+     font-size: xxx-large;
+     color: white;
+ }
+ 
+ h1 {
+     text-align: center;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     margin-left: 10%;
+     margin-right: 10%;
+ }
+ 
+ #dynamicContent {
+     display: flex;
+ }
+ 
+ #fiveCoinNav {
+     grid-area: 2/4/6/5;
+     display: flex;
+     flex-direction: column;
+     max-height: 100%;
+ }
+ 
+ button{
+     background-color: #323546;
+     color: white;
+     border-radius: 5px;
+     border: none;
+ }
+ 
+ #fiveCoinButtons {
+     display: inherit;
+     justify-content: space-evenly;
+ }
+ 
+ #fiveCoins {
+     display: inherit;
+     flex-direction: column;
+     align-content: space-around;
+     overflow: auto;
+     height: 100%;
+ }
+ 
+ .coinSpan {
+     display: flex;
+     flex-grow: 1;
+     margin: 10px;
+     /* border: 10px solid black; */
+     position: relative;
+     z-index: 0;
+     min-height: 50px;
+     max-height: 20%;
+     background-color: #17171a;;
+     border-radius: 5px;
+     color: white;
+ }
+ .notification {
+     position: fixed;
+     top: 15%;
+     right: -100px;
+     transform: translateX(-20%);
+     background-color: #333;
+     border: 2px solid #333;
+     color: #fff;
+     padding: 10px 20px;
+     border-radius: 5px;
+     opacity: 0;
+     z-index: 10;
+     transition: right 0.5s ease-in, opacity 0.5s ease-in-out; /* Add opacity transition */
+ }
+ .rightCoinBadge {
+     display: inherit;
+     flex-direction: column;
+     margin: 0;
+     margin-left: 10px;
+     align-self: center;
+     overflow: auto;
+ }
+ 
+ .delete {
+     position: absolute;
+     margin-top: -5%;
+     margin-left: 80%;
+     border: 5px solid black;
+     padding: 10px;
+     z-index: 1;
+     background-color: white;
+ }
+ 
+ .coinSpan img {
+     display: inherit;
+     position: relative;
+     height: 64px;
+     width: 64px;
+     margin: 10px;
+     top: 25%;
+     z-index: 0;
+ }
+ 
+ .coinSpan h3 {
+     display: inherit;
+     margin-left: 10px;
+     margin-top: 10px;
+     margin-right: auto;
+ }
+ 
+ .coinSpan p {
+     display: inherit;
+     align-self: center;
+     flex-grow: 1;
+     z-index: 1;
+     margin: 10px;
+ }
+ 
+ .coinSpan h3 {
+     text-align: center;
+     position: absolute;
+     top: 1%;
+     z-index: 1;
+     font-size: x-large;
+     background-color: rgba(255,255,255,0);
+ }
+ 
+ #featuredCoin {
+     display: flex;
+     flex-direction: column;
+     grid-area: 3/3/6/4;
+     /* border: 5px solid black; */
+     padding-left: 20px;
+     padding-right: 20px;
+     overflow: auto;
+     background-color: #17171a;
+     border-radius: 5px;
+     color: white;
+ }
+ 
+ #featuredCoin img {
+     width: 100%;
+     max-width: 150px;
+     padding-top: 20px;
+ }
+ 
+ #stats {
+     display: inherit;
+     flex-grow: 1;
+ }
+ 
+ .deleteButton{
+     position: absolute;
+     top: 0%;
+     right: 0%;
+ }
+ 
+ .statSpan {
+     display: inherit;
+     flex-direction: column;
+     flex-grow: 1;
+     position: relative;
+ }
+ 
+ .statSpan img {
+     padding: 20px;
+     max-height: 100%;
+ }
+ 
+ #coinAndGraph {
+     display: inherit;
+     position: relative;
+     flex-grow: 6;
+ }
+ 
+ #coinAndGraph h2, h4 {
+     margin: 0px;
+ }
+ 
+ #featuredCoinSpan {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 10px;
+     margin-top: auto;
+     margin-bottom: auto;
+     width: 25%;
+     font-size: 150%;
+ }
+ 
+ #featuredPrice{
+     font-size:200%;
+ }
+ #featuredChange{
+     font-size:200%;
+ }
+ 
+ #featuredCoinImg {
+     margin-top: 20px;
+ }
+ 
+ #addCoinButton {
+     display: inherit;
+     margin-top: 20px;
+     background-color: #323546;
+     color: white;
+     border-radius: 5px;
+     border: none;
+ }
+ 
+ #graphDiv {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 10px;
+     width: 100%;
+ }
+ 
+ #chrono {
+     position: absolute;
+     display: inherit;
+     width: 61%;
+     left: 35%;
+     top: 77%;
+     background-color: #17171a;
+     color: white;
+     border: 3px solid black;
+ }
+ 
+ #mainStats {
+     display: inherit;
+     justify-content: space-evenly;
+     width: 100%;
+ }
+ 
+ #graph {
+     display: inherit;
+     margin: 20px;
+     flex-grow: 1;
+ }
+ 
+ .statSpan {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 10px;
+     width: 25%;
+     margin-left: 5px;
+     margin-right: 5px;
+ }
+ 
+ .statSpan h2 {
+     width: 100%;
+     text-align: center;
+     border: 3px solid black;
+     background-color: #323546;
+ }
+ 
+ .statSpan p {
+     font-size: x-large;
+     margin: 0;
+     margin-bottom: 20px 
+ }
+ 
+ .statSpan h1 {
+     font-size: xxx-large;
+ }
+ 
+ #displayCoinGraphDiv{
+     position: absolute;
+     width: 60%;
+     height: 50%;
+     top:25%;
+     left: 35%;
+     border: 3px solid black;
+ }
+ 
+ .upArrow{
+     color:green;
+ }
+ 
+ .downArrow{
+     color: red;
+ }
