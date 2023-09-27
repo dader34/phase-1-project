@@ -425,3 +425,7 @@ h1 {
   #titleBar {
     animation: pop-in 1s ease-out;
   }
+
+  .comparison {
+    opacity: 60%;
+  }

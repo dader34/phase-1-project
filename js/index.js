@@ -85,6 +85,7 @@ const populateCoinList = (coinsObj) => {
 const populateFilter = (coinsObj) => {
     coinsObj.forEach((coin) => {
         const newCoin = createCoinBadge(coin)
+        newCoin.dataset.id = coin.name
         filterWindow.appendChild(newCoin)
     })
 }
@@ -143,7 +144,22 @@ const displayFeaturedCoin = (coin) => {
     .then(displayCoinGraph(coin))
 }
 
+const displayComparison = (coin) => {
+    //create <p>
+    const newMktCap = document.createElement('p')
+    newMktCap.classList.add('comparison')
+    newMktCap.textContent = formatLargeNum(coin.marketCapUsd)
+    document.querySelector('#featuredCoinCap').appendChild(newMktCap)
+    //compare featured coin's value to hovered coin's value
+    if (parseInt(newMktCap.textContent) < document.querySelector('featuredCoinCap h2')) {
+        console.log('y')
+    }
+    //apply changeUp or changeDown class appropriately
+}
 
+const removeComparison = () => {
+
+}
 
 const renderCoinBadge = () => {
     const coinBadge = document.createElement('span')
@@ -169,7 +185,9 @@ const createCoinBadge = (coin) => {
     fetchCoinImages(coin)
     .then(coinObj => {
         (coinObj) ? newCoinBadge.querySelector('img').src = coinObj.url : newCoinBadge.querySelector('img').src = 'src/download.jpeg'
-    })     
+    })
+    newCoinBadge.addEventListener('mouseover', () => displayComparison(coin))
+    newCoinBadge.addEventListener('mouseleave', removeComparison)
     return newCoinBadge
 }
 
