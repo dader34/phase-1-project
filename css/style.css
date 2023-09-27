@@ -277,13 +277,14 @@ h1 {
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    width: 75%;
+    width: 100%;
 }
 
 #chrono {
     position: absolute;
     display: inherit;
-    width: 70%;
+    width: 60.5%;
+    left: 35%;
     top: 77%;
 }
 
