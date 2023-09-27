@@ -296,6 +296,7 @@ button {
 }
 
 .dot:hover{
+    stroke-width: 1px;
     stroke: white;
 }
 

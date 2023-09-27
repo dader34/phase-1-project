@@ -234,6 +234,8 @@ const createLineGraph = (data, divId) => {
                 .attr('width', parentWidth)
                 .attr('height', parentHeight)
                 .append('g');
+            
+                
 
             const xScale = d3.scaleTime()
                 .domain(d3.extent(data, d => new Date(d.time)))
@@ -242,6 +244,8 @@ const createLineGraph = (data, divId) => {
             const yScale = d3.scaleLinear()
                 .domain([minYValue, d3.max(data, d => d.priceUsd)])
                 .range([parentHeight, 0]);
+            
+            
 
             const line = d3.line()
                 .x(d => xScale(new Date(d.time)))
@@ -278,7 +282,7 @@ const createLineGraph = (data, divId) => {
                 .attr('class', 'dot')
                 .attr('cx', d => xScale(new Date(d.time)))
                 .attr('cy', d => yScale(d.priceUsd))
-                .attr('r', 8) // Increase the radius (size) of the dots to 8
+                .attr('r', 7.5) // Increase the radius (size) of the dots to 8
                 .on('mousemove', (event, d) => {
                     const [mouseX, mouseY] = d3.pointer(event);
             
