@@ -143,16 +143,7 @@ const displayFeaturedCoin = (coin) => {
     .then(displayCoinGraph(coin))
 }
 
-addCoinButton.addEventListener("click", () => {
-    if(!myCoins.includes(currentCoin) && myCoins.length<5){
-        myCoinsCollection.innerHTML = ''
-        myCoins.push(currentCoin)
-        populateMyCoins(myCoins)      
-    }else{
-        console.log("test")
-        notify("You already have 5 personal coins","error")
-    }
-})
+
 
 const renderCoinBadge = () => {
     const coinBadge = document.createElement('span')
@@ -181,17 +172,6 @@ const createCoinBadge = (coin) => {
     })     
     return newCoinBadge
 }
-
-addCoinButton.addEventListener("click", () => {
-    if(!myCoins.includes(currentCoin) && myCoins.length<5){
-        welcomeMessage.style.opacity = 0
-        myCoins.push(currentCoin)
-        populateMyCoins(myCoins)      
-    }else{
-        console.log("test")
-        notify("You already have 5 personal coins","error")
-    }
-})
 
 // ! ---- Filter Functions ----
 
@@ -501,7 +481,6 @@ addCoinButton.addEventListener("click",()=>{
     if (myCoins.length < 5) {
       myCoins.push(currentCoin);
       myCoinsCollection.innerHTML = "";
-      myCoinsCollection.style.opacity = 0;
       populateMyCoins(myCoins);
     } else {
       notify("You already have 5 personal coins", "error");
