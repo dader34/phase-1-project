@@ -142,23 +142,41 @@ const displayFeaturedCoin = (coin) => {
     .then(displayCoinGraph(coin))
 }
 
-const displayComparison = (coin) => {
-    const newMktCap = document.createElement('p')
-    newMktCap.classList.add('comparison')
-    newMktCap.textContent = formatLargeNum(coin.marketCapUsd)
-    document.querySelector('#featuredCoinCap').appendChild(newMktCap)
-    const mktCapInt = formatCurrency(newMktCap.textContent)
-    debugger
-    if (parseInt(newMktCap.textContent) < parseInt(document.querySelector('#featuredCoinCap h2').textContent)) {
-        console.log('y')
+const displayComparisons = (coin) => {
+    const compMktCap = document.createElement('p')
+    compMktCap.classList.add('comparison')
+    compMktCap.textContent = formatLargeNum(coin.marketCapUsd)
+    document.querySelector('#featuredCoinCap').appendChild(compMktCap)
+    if (formatCurrency(compMktCap.textContent) < formatCurrency(document.querySelector('#featuredCoinCap p').textContent)) {
+        compMktCap.classList.add('changeDown')
+    } else {
+        compMktCap.classList.add('changeUp')
     }
-    //apply changeUp or changeDown class appropriately
+
+    const compVol = document.createElement('p')
+    compVol.classList.add('comparison')
+    compVol.textContent = formatLargeNum(coin.volumeUsd24Hr)
+    document.querySelector('#featuredCoinVolume').appendChild(compVol)
+    if (formatCurrency(compVol.textContent) < formatCurrency(document.querySelector('#featuredCoinVolume p').textContent)) {
+        compVol.classList.add('changeDown')
+    } else {
+        compVol.classList.add('changeUp')
+    }
+
+    const compRank = document.createElement('p')
+    compRank.classList.add('comparison')
+    compRank.textContent = coin.rank
+    document.querySelector('#featuredCoinRank').appendChild(compRank)
+    if (parseInt(compRank.textContent) > parseInt(document.querySelector('#featuredCoinRank p').textContent)) {
+        compRank.classList.add('changeDown')
+    } else {
+        compRank.classList.add('changeUp')
+    }
 }
 
-const removeComparison = () => {
-
+const removeComparisons = () => {
+    document.querySelectorAll('.comparison').forEach(comp => comp.remove())
 }
-
 const renderCoinBadge = () => {
     const coinBadge = document.createElement('span')
     const badgeSymbol = document.createElement('h3')
@@ -184,10 +202,11 @@ const createCoinBadge = (coin) => {
     .then(coinObj => {
         (coinObj) ? newCoinBadge.querySelector('img').src = coinObj.url : newCoinBadge.querySelector('img').src = 'src/download.jpeg'
     })
-    newCoinBadge.addEventListener('mouseover', () => displayComparison(coin))
-    newCoinBadge.addEventListener('mouseleave', removeComparison)
+    newCoinBadge.addEventListener('mouseover', () => displayComparisons(coin))
+    newCoinBadge.addEventListener('mouseleave', removeComparisons)
     return newCoinBadge
 }
+//TODO this is closure...this coin badge retains knowledge of its creator object long after it has been created, so when the mouseover events are triggered, it can pass that reference to the event listener callback
 
 // ! ---- Filter Functions ----
 
