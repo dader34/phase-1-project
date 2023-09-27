@@ -4,6 +4,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 const coinList = document.querySelector("#results");
 const filterWindow = document.querySelector('#filterWindow')
 const myCoinsCollection = document.querySelector('#myCoinsCollection')
+const welcomeMessage = document.querySelector('#welcome')
 const dropDownSelect = document.querySelector("#chrono")
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
@@ -180,6 +181,7 @@ const createCoinBadge = (coin) => {
 addCoinButton.addEventListener("click", () => {
     if(!myCoins.includes(currentCoin) && myCoins.length<5){
         myCoinsCollection.innerHTML = ''
+        welcomeMessage.remove()
         myCoins.push(currentCoin)
         populateMyCoins(myCoins)      
     }else{
@@ -488,8 +490,9 @@ addCoinButton.addEventListener("click",()=>{
 
   if (!coinExists) {
     if (myCoins.length < 5) {
-      myCoinsCollection.innerHTML = "";
       myCoins.push(currentCoin);
+      myCoinsCollection.innerHTML = "";
+      myCoinsCollection.style.opacity = 0;
       populateMyCoins(myCoins);
     } else {
       notify("You already have 5 personal coins", "error");

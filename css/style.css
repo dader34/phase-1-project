@@ -33,7 +33,7 @@ h3 {
     border: 10px solid black ;
     background-color: black;
     color: white;
-    border-radius: 5%;
+    border-radius: 5px;
     grid-area: 2/2/6/3;
     padding: 10px;
     min-width: 200px;
@@ -108,6 +108,7 @@ li.listedCoin:hover {
     font-size: xxx-large;
     background-color: black;
     color: white;
+    border-radius: 5px;
 }
 
 h1 {
@@ -129,14 +130,19 @@ h1 {
     display: inherit;
     min-width: 100%;
     max-height: 90%;
-    background-color: black;
+    background-color: white;
     color: white;
     flex-grow: 1;
-    justify-content: center;
+    border-radius: 5px;
 }
 
-#myCoinsCollection > h2 {
-    align-self: center;
+#welcome {
+    display: inherit;
+    color: white;
+    background-color: black;
+    margin: 0px;
+    border-radius: 5px;
+    align-items: center;
 }
 
 .coinBadge {
@@ -146,7 +152,6 @@ h1 {
     flex-direction: column;
     justify-content: space-evenly;
     text-align: center;
-    flex-grow: 1;
     margin: 5px;
     border: 5px solid black;
     background-color: black;
@@ -193,20 +198,16 @@ h1 {
 #filterWindowLabel {
     display: inherit;
     width: 100%;
+    align-self: center;
     background-color: black;
     color: white;
+    border-radius: 5px;
 }
 
-.filterWindowBadge {
-    display: flex;
-    flex-grow: 1;
-    margin: 10px;
-    /* border: 10px solid black; */
-    position: relative;
-    z-index: 0;
-    min-height: 50px;
-    max-height: 20%;
+#filterWindow > span {
+    margin-left: 0px;
 }
+
 .notification {
     position: fixed;
     top: 15%;
@@ -222,16 +223,16 @@ h1 {
     transition: right 0.5s ease-in, opacity 0.5s ease-in-out; /* Add opacity transition */
 }
 
-.filterWindow img {
+/* .filterWindow img {
     display: inherit;
     position: relative;
     height: 64px;
     width: 64px;
     margin: 10px;
     z-index: 0;
-}
+} */
 
-.filterWindow h3 {
+/* .filterWindow h3 {
     display: inherit;
     margin-left: 10px;
     margin-top: 10px;
@@ -255,7 +256,7 @@ h1 {
     z-index: 1;
     font-size: x-large;
     background-color: rgba(255,255,255,0);
-}
+} */
 
 #featuredCoinDiv {
     display: flex;
@@ -264,6 +265,8 @@ h1 {
     overflow: auto;
     column-gap: 10px;
     row-gap: 10px;
+    background-color: white;
+    color: white;
 }
 
 #featuredCoinDiv p, h2, h4 {
@@ -274,6 +277,8 @@ h1 {
     display: inherit;
     height: 65%;
     background-color: black;
+    background-color: white;
+    column-gap: 10px;
 }
 
 .deleteButton{
@@ -289,7 +294,6 @@ h1 {
     border: 5px solid black;
     background-color: black;
     color: white;
-    margin: 8px;
     border-radius: 5px;
 }
 
@@ -306,6 +310,8 @@ h1 {
 #featuredStatsDiv {
     display: inherit;
     height: 35%;
+    column-gap: 10px;
+    justify-content: space-between;
 }
 
 .deleteButton{
@@ -319,9 +325,9 @@ h1 {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    margin-right: 10px;
-    margin-left: 10px;
     position: relative;
+    background-color: black;
+    border-radius: 5px;
 }
 
 #displayCoinGraphDiv > svg {
@@ -337,9 +343,9 @@ h1 {
 #featuredStatsDiv > span {
     display: inherit;
     flex-direction: column;
-    flex-grow: 1;
     background-color: black;
-    margin: 10px;
+    border-radius: 5px;
+    min-width: 32%;
 }
 
 #addCoinButton {
