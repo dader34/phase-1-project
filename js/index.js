@@ -366,8 +366,9 @@ const displayCoinGraph = (coin,interval="m1") => {
 //<Event listener for filter options to switch between filters>//
 document.querySelector("#filter").addEventListener("change", (e) => {
     coinList.innerHTML = "";
+    filterWindow.innerHTML = "";
     switch (e.target.value) {
-        case "default":
+        case "rank":
             fetchAllCoins().then(populateCoinList).then(populateFilter);
             break;
         case "alphabetical":
@@ -487,7 +488,7 @@ addCoinButton.addEventListener("click",()=>{
 
   if (!coinExists) {
     if (myCoins.length < 5) {
-      fiveCoins.innerHTML = "";
+      myCoinsCollection.innerHTML = "";
       myCoins.push(currentCoin);
       populateMyCoins(myCoins);
     } else {

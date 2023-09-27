@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    background-color: midnightblue;
+    background-image: url(src/download.jpg);
 }
 
 h3 {
@@ -110,21 +110,6 @@ li.listedCoin:hover {
     color: white;
 }
 
-@keyframes pop-in {
-    from {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  #titleBar {
-    animation: pop-in 1s ease-out;
-  }
-
 h1 {
     text-align: center;
     margin-top: 10px;
@@ -144,6 +129,14 @@ h1 {
     display: inherit;
     min-width: 100%;
     max-height: 90%;
+    background-color: black;
+    color: white;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+#myCoinsCollection > h2 {
+    align-self: center;
 }
 
 .coinBadge {
@@ -186,6 +179,7 @@ h1 {
     display: flex;
     flex-direction: column;
     max-height: 100%;
+    align-content: center;
 }
 
 #filterWindow {
@@ -197,7 +191,8 @@ h1 {
 }
 
 #filterWindowLabel {
-    text-align: center;
+    display: inherit;
+    width: 100%;
     background-color: black;
     color: white;
 }
@@ -396,16 +391,16 @@ h1 {
 }
 
 #submitSearch::before {
- content: "";
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- background: rgba(255, 255, 255, 0.2);
- border-radius: inherit;
- pointer-events: none;
- z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
 }
 
 #submitSearch-Hover {
@@ -432,3 +427,18 @@ h1 {
     transition: width 0.4s ease;
     z-index: -1;
 }
+
+@keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  #titleBar {
+    animation: pop-in 1s ease-out;
+  }
