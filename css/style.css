@@ -44,9 +44,6 @@ h3 {
     display: inherit;
     flex-grow: 2;
     background-image: var(--flatironlogo);
-    display: inherit;
-    flex-grow: 2;
-    background-image: var(--flatironlogo);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -54,6 +51,7 @@ h3 {
 
 #search {
     width: 100%;
+    height: 25px;
 }
 
 #submitSearch {
@@ -95,6 +93,8 @@ li.listedCoin:hover {
 
 #filter {
     width: 100%;
+    margin-bottom: 10px;
+    height: 25px;
 }
 
 #reset {
@@ -105,12 +105,15 @@ li.listedCoin:hover {
 
 #titleBar {
     grid-area: 2/3/3/4;
-    text-align: center;
-    font-size: xxx-large;
-    background-color: black;
+    display: flex;
     color: white;
+    background-color: black;
+    margin: 0px;
     border-radius: 5px;
-    min-width: 550px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    height: 75px;
 }
 
 h1 {
@@ -202,21 +205,20 @@ h1 {
     height: 100%;
 }
 
-#filterWindowLabel {
-    display: inherit;
+#filterWindow > span {
+    margin-left: 0px;
+}
+
+#filterLabel {
+    display: flex;
     color: white;
     background-color: black;
     margin: 0px;
     border-radius: 5px;
     width: 100%;
-    height: 70px;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-#filterWindow > span {
-    margin-left: 0px;
+    height: 75px;
 }
 
 .notification {
