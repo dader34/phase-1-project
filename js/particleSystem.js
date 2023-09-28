@@ -1,3 +1,6 @@
+let enableParticles = true
+let interactivity = true
+
 // Configuration for tsparticles
 const config = {
     "particles": {
@@ -110,6 +113,39 @@ const config = {
     "retina_detect": true
   };
   
+  let particlesContainer = document.getElementById("particlesContainer");
   
-  // Initialize tsparticles
-  tsParticles.load("particlesContainer", config)
+  // Initialize tsParticles
+  let particles;
+  
+  const toggleParticles = () => {
+      if (enableParticles) {
+          particles = tsParticles.load("particlesContainer", config);
+      } else {
+          if (particles) {
+              particlesContainer.innerHTML = ""; // Remove the particle system by clearing the container
+              particles = undefined; // Reset the particles variable
+          }
+      }
+  }
+  
+  toggleParticles(); // Initialize particles
+  
+  // Listen for the "Meta" (⌘) + "M" keypress
+  document.addEventListener("keydown", (k) => {
+    if ((k.metaKey || k.ctrlKey) && k.key === "m") {
+        enableParticles = !enableParticles;
+        toggleParticles();
+    }
+    if ((k.metaKey || k.ctrlKey) && k.key === "k") {
+        interactivity = !interactivity;
+        toggleParticles();
+        if(interactivity){
+            config.interactivity.detect_on = "window"
+        }else{
+            config.interactivity.detect_on = "canvas"
+        }
+        toggleParticles();
+    }
+  });
+  
