@@ -422,6 +422,48 @@ const renderCoinBadge = () => {
 
 //<Given coin obj and myCoins variable, load myCoins or top coins and set text to topCoin attributes>//
 const createTopCoin = (topCoin, loadingMyCoins = 0) => {
+    const formatColor = (textElement) =>{
+        if (textElement.textContent.startsWith('↑')) {
+            textElement.style.color = 'green'
+        } else {
+            textElement.style.color = 'red'
+        }
+    }
+
+
+    const removeCoinFromCookie = (topCoin) => {
+        const coinsArray = document.cookie.split("=")[1].split(",")
+        coinsArray.splice(coinsArray.indexOf(topCoin.name), 1)
+        document.cookie = "cookie=" + coinsArray.join(",")
+    }
+
+
+    const deleteHandler = (e, topCoin) => {
+        myCoins.forEach(coin => {
+            if (coin.symbol === coinSymbol.textContent) {
+                myCoins.splice(myCoins.indexOf(coin), 1)
+            }
+        })
+
+        removeCoinFromCookie(topCoin)
+        e.target.parentNode.remove()
+
+        if (myCoins.length === 0) {
+            populateTopCoins(topFiveCoins)
+        }
+
+    }
+
+    const createDeleteButton = (coin) => {
+        const deleteButton = document.createElement('button')
+        deleteButton.textContent = "X"
+        deleteButton.classList.toggle("deleteButton")
+        deleteButton.addEventListener('click', (e) => {
+            deleteHandler(e, coin)
+        })
+        newBadge.appendChild(deleteButton)
+    }
+
     //Create element references 
     const newBadge = renderCoinBadge()
     const coinSymbol = newBadge.querySelector('h3')
@@ -432,39 +474,24 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
     coinPrice.textContent = formatPrice(topCoin.priceUsd)
     newBadgeChange.textContent = formatDailyChange(topCoin.changePercent24Hr)
     //Logic for up/down arrow for priceChange
-    if (newBadgeChange.textContent.startsWith('↑')) {
-        newBadgeChange.style.color = 'green'
-    } else {
-        newBadgeChange.style.color = 'red'
-    }
+    formatColor(newBadgeChange)
     //Logic on wether to add button to element if its in myCoins or not
     if (loadingMyCoins === 1) {
-        const deleteButton = document.createElement('button')
-        deleteButton.textContent = "X"
-        deleteButton.classList.toggle("deleteButton")
-        deleteButton.addEventListener('click', e => {
-            myCoins.forEach(coin => {
-                if (coin.symbol === coinSymbol.textContent) {
-                    myCoins.splice(myCoins.indexOf(coin), 1)
-                }
-            })
-            const coinsArray = document.cookie.split("=")[1].split(",")
-            coinsArray.splice(coinsArray.indexOf(topCoin.name), 1)
-            document.cookie = "cookie=" + coinsArray.join(",")
-            console.log(document.cookie)
-            e.target.parentNode.remove()
-            if (myCoins.length === 0) populateTopCoins(topFiveCoins)
-        })
-        newBadge.appendChild(deleteButton)
+        createDeleteButton(topCoin)
     }
     newBadge.addEventListener('mouseover', () => displayComparisons(topCoin))
-    newBadge.addEventListener('mouseleave', () => {
-        compPrice.style = 'color: rgba(23, 23, 26)'
-        compMktCap.style = 'color: rgba(23, 23, 26)'
-        compVol.style = 'color: rgba(23, 23, 26)'
-        compRank.style = 'color: rgba(23, 23, 26)'
-    })
+    newBadge.addEventListener('mouseleave', () => mouseLeave())
     fiveCoins.appendChild(newBadge)
+
+
+
+    const mouseLeave = () => {
+        const color = 'color: rgba(23, 23, 26)'
+        compPrice.style = color
+        compMktCap.style = color
+        compVol.style = color
+        compRank.style = color
+    }
 
     const displayComparisons = (coin) => {
         if (coin.name !== currentCoin.name) {

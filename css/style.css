@@ -412,10 +412,15 @@ h4 {
     cursor: pointer;
 }
 
-#mainStats {
-    display: inherit;
-    justify-content: space-evenly;
+#mainStats > span{
+    /* display: inherit; */
+    /* justify-content: left; */
+    /* position: absolute;
+    top: 0%;
+    left: 0%; */
     width: 100%;
+    height: 10%;
+    font-size: xx-large;
 }
 
 #graph {
