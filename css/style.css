@@ -278,9 +278,6 @@ button {
     display: flex;
     flex-direction: column;
     grid-area: 3/3/6/4;
-    /* border: 5px solid black; */
-    padding-left: 20px;
-    padding-right: 20px;
     overflow: auto;
     background-color: rgba(23, 23, 26, 1);
     border-radius: 5px;
@@ -291,8 +288,14 @@ button {
     margin-bottom: 5px;
 }
 
+#featuredCoinName {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 #featuredCoin img {
-    width: 100%;
     max-width: 150px;
     padding-top: 20px;
 }
