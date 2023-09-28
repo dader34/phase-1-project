@@ -378,7 +378,7 @@ const createLineGraph = (data, divId) => {
                 .style('opacity', 0.7);
 
             tooltip.append('text')
-                .attr('x', 50)
+                .attr('x', 60)
                 .attr('y', 15)
                 .style('text-anchor', 'middle')
                 .attr('font-size', '12px');
