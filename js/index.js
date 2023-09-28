@@ -215,8 +215,12 @@ const createLineGraph = (data, divId) => {
 
     const updateDimensions = () => {
         window.requestAnimationFrame(() => {
+            // const margin = {
+            //     top: 20,
+            //     bottom: 30
+            // }
             const parentWidth = parentDiv.clientWidth;
-            const parentHeight = parentDiv.clientHeight;
+            const parentHeight = parentDiv.clientHeight - 15;
 
             if (parentDiv.querySelector("svg")) parentDiv.querySelector("svg").remove();
 
@@ -226,6 +230,8 @@ const createLineGraph = (data, divId) => {
                 .attr('height', parentHeight)
                 .append('g');
             
+            // const g = svg.append("g")
+            // .attr("transform", `translateY(${margin.top})`);
                 
 
             const xScale = d3.scaleTime()

@@ -2,7 +2,9 @@
     font-family: Inter, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Helvetica, Arial, sans-serif;
 }
 
-
+svg {
+    
+}
 
 
 :root {
@@ -452,6 +454,7 @@ h4 {
     left: 35%;
     border: 2px solid black;
     border-radius: 5px;
+    padding-top: 1%;
 }
 
 .upArrow {
