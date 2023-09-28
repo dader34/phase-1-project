@@ -371,7 +371,7 @@ button {
 
 #displayCoinGraphDiv {
     position: absolute;
-    width: 0%;
+    width: 60%;
     height: 50%;
     top: 25%;
     left: 35%;

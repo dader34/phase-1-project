@@ -334,6 +334,7 @@ const createLineGraph = (data, divId) => {
 
     const updateDimensions = () => {
         window.requestAnimationFrame(() => {
+            console.log(parentDiv)
             const parentWidth = parentDiv.clientWidth;
             const parentHeight = parentDiv.clientHeight - 15;
 
