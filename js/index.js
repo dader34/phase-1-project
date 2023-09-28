@@ -81,10 +81,7 @@ const populateCoinList = (coinsObj) => {
 
 //<Given an array of coins, sorts them alphabetically>//
 const filterByAZ = (coinsObj, upOrDown=0) => {
-    const toBeSorted = [];
-    for (let coin of coinsObj) {
-        toBeSorted.push(coin);
-    }
+    const toBeSorted = [...coinsObj]
     toBeSorted.sort((a, b) => {
         return (upOrDown === 0) ? a.name.localeCompare(b.name) : a.symbol.localeCompare(b.symbol);
     });
@@ -93,10 +90,7 @@ const filterByAZ = (coinsObj, upOrDown=0) => {
 
 //<Given a array of coins, sorts them by 24 Gain/loss>//
 const filterByGains = (coinsObj, upOrDown) => {
-    const toBeSorted = [];
-    for (let coin of coinsObj) {
-        toBeSorted.push(coin);
-    }
+    const toBeSorted = [...coinsObj]
     if (upOrDown === 0) {
         toBeSorted.sort((a, b) => {
             return parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr);
@@ -111,10 +105,7 @@ const filterByGains = (coinsObj, upOrDown) => {
 
 //<Given an array of coins, sorts them by price high/low>//
 const filterByPrice = (coinsObj, upOrDown) => {
-    const toBeSorted = [];
-    for (let coin of coinsObj) {
-        toBeSorted.push(coin);
-    }
+    const toBeSorted = [...coinsObj]
     if (upOrDown === 0) {
         toBeSorted.sort((a, b) => {
             return parseFloat(b.priceUsd) - parseFloat(a.priceUsd);
