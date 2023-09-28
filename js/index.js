@@ -413,13 +413,21 @@ document.querySelector("#filter").addEventListener("change", (e) => {
             break;
 
         case "alphabeticalByName":
-            fetchAllCoins().then(filterByAZ).then(populateCoinList).then(populateFilter);
-            filterLabel.textContent = "A-Z"
-            break;
+            fetchAllCoins()
+            .then((coinsObj) => {
+                return filterByAZ(coinsObj, 0);
+            })
+            .then(populateCoinList).then(populateFilter)
+            .then(filterLabel.textContent = "A-Z BY NAME")
+        break;
 
-        case "alphabeticalByName":
-            fetchAllCoins().then(filterByAZ).then(populateCoinList).then(populateFilter);
-            filterLabel.textContent = "A-Z"
+        case "alphabeticalBySymbol":
+            fetchAllCoins()
+                .then((coinsObj) => {
+                    return filterByAZ(coinsObj, 1);
+                })
+                .then(populateCoinList).then(populateFilter)
+                .then(filterLabel.textContent = "A-Z BY SYMBOL")
             break;
 
         case "biggestDailyGains":
