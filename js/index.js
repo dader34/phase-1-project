@@ -316,9 +316,23 @@ document.querySelector("#filter").addEventListener("change", (e) => {
             fetchAllCoins().then(populateCoinList);
             break;
 
-        case "alphabetical":
-            fetchAllCoins().then(filterByAZ).then(populateCoinList);
+        case "alphabeticalByName":
+            fetchAllCoins()
+            .then((coinsObj) => {
+                return filterByAZ(coinsObj, 0);
+            })
+            .then(populateCoinList).then(populateFilter)
+            .then(filterLabel.textContent = "A-Z BY NAME")
             break;
+
+        case "alphabeticalBySymbol":
+            fetchAllCoins()
+                .then((coinsObj) => {
+                    return filterByAZ(coinsObj, 1);
+                })
+                .then(populateCoinList).then(populateFilter)
+                .then(filterLabel.textContent = "A-Z BY SYMBOL")
+                break;
 
         case "biggestDailyGains":
             fetchAllCoins()
@@ -386,7 +400,7 @@ fetchAllCoins()
         populateCoinList(coinsObj)
         displayCoin(coinsObj[0])
         populateTopCoins(coinsObj)
-        filterByPrice(coinsObj, 0).slice(0, 5).forEach(topCoin => {
+        filterByPrice(coinsObj, 0).slice(0, 100).forEach(topCoin => {
             topFiveCoins.push(topCoin)
         })
     })
@@ -467,7 +481,7 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
 //<Given array of coins, populate top 5 coins on to top5 div>//
 const populateTopCoins = (coinsArr) => {
     fiveCoins.innerHTML=""
-    const topFive = filterByPrice(coinsArr, 0).slice(0, 5)
+    const topFive = filterByPrice(coinsArr, 0).slice(0, 100)
     topFive.forEach((coin) => {
         createTopCoin(coin)
     })
