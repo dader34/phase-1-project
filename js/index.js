@@ -156,7 +156,7 @@ const formatLargeNum = (price) =>{
     const newPrice = parseFloat(price).toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 0,
+        minimumFractionDigits: 2,
     })
     return newPrice.slice(0,newPrice.length-3)
 }
@@ -234,8 +234,11 @@ const addDeleteButton = (badge, topCoin) => {
 const attachEventListeners = (badge, topCoin) => {
     badge.addEventListener('mouseover', () => displayComparisons(topCoin));
     badge.addEventListener('mouseleave', () => {
-        // Handle mouseleave logic
-    });
+            const color = 'color: rgba(23, 23, 26)'
+            compMktCap.style = color
+            compVol.style = color
+            compRank.style = color
+    })
 }
 
 // Function to create a coin badge element
@@ -320,6 +323,15 @@ const displayComparisons = (coin) => {
         formatCurrency(compRank.textContent) < formatCurrency(rank.textContent) ? compRank.style = 'color: green' : compRank.style = 'color: red'
     
     }
+}
+
+const removeComparisons = () => {
+    debugger
+    const color = 'color: rgba(23, 23, 26)'
+    // compPrice.style = color
+    compMktCap.style = color
+    compVol.style = color
+    compRank.style = color
 }
 
 // ! ---- Graph Functions ----
@@ -417,13 +429,13 @@ dropDownSelect.addEventListener("change",(e)=>{
     const selection = e.target.value
     //Case for every value of dropdown to change api call for interval of graph (D,M,Y)
     switch(selection){
-      case "day":
+    case "day":
         displayCoinGraph(currentCoin,"m1")
         break
-      case "month":
+    case "month":
         displayCoinGraph(currentCoin,"h1")
         break
-      case "year":
+    case "year":
         displayCoinGraph(currentCoin,"d1")
         break
     }
@@ -534,24 +546,26 @@ const getCoinsFromCookie = (cook) =>{
 
 getCoinsFromCookie(document.cookie)
 
+// ! ---- Notify Functions ----
+
 //<Event listener for add coin button that adds coin to cookie, and appends to my coins>//
 addCoinButton.addEventListener("click",()=>{
     const coinExists = myCoins.some((coin) =>
     // Compare coins by their properties
     JSON.stringify(coin) === JSON.stringify(currentCoin)
-  );
+);
 
-  if (!coinExists) {
+if (!coinExists) {
     if (myCoins.length < 5) {
-      fiveCoins.innerHTML = "";
-      myCoins.push(currentCoin);
-      populateMyCoins(myCoins, 1);
+        fiveCoins.innerHTML = "";
+        myCoins.push(currentCoin);
+        populateMyCoins(myCoins, 1);
     } else {
-      notify("You already have 5 personal coins", "error");
+    notify("You already have 5 personal coins", "error");
     }
-  } else {
-    notify("You have already chosen this coin", "warn");
-  }
+} else {
+notify("You have already chosen this coin", "warn");
+}
 })
 
 // ! ---- Button Functions ----
