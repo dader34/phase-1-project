@@ -8,29 +8,33 @@ const topCoinsBtn = document.querySelector('#topCoinsButton')
 const myCoinsBtn = document.querySelector('#myCoinsButton')
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
-const price = document.querySelector("#stats > span:nth-child(1) > p:nth-child(2)")
-const mktCap = document.querySelector("#stats > span:nth-child(2) > p:nth-child(2)")
-const vol = document.querySelector("#stats > span:nth-child(3) > p:nth-child(2)")
-const rank = document.querySelector("#stats > span:nth-child(4) > p:nth-child(2)")
-const compPrice = document.querySelector("#compPrice")
+//<Variables for featured coin elements>//
+const coinSymbol = document.querySelector("#featuredCoinSpan > h2")
+const coinName = document.querySelector("#featuredCoinSpan > h4")
+const image = document.querySelector("#coinImg")
+const priceChange = document.querySelector("#featuredChange")
+const coinPrice = document.querySelector('#featuredPrice')
+const mktCap = document.querySelector("#stats > span:nth-child(1) > p:nth-child(2)")
+const vol = document.querySelector("#stats > span:nth-child(2) > p:nth-child(2)")
+const rank = document.querySelector("#stats > span:nth-child(3) > p:nth-child(2)")
 const compMktCap = document.querySelector("#compMktCap")
 const compVol = document.querySelector("#compVol")
 const compRank = document.querySelector("#compRank")
-
 //<Variable to decide when to load mycoins tab>//
 let isDoneLoading = false
 //<Variable to store current coin>//
 let currentCoin;
-//<Variables to store top coins and myCoins>//
-let topFiveCoins = []
+//<Variable to store myCoins>//
 let myCoins = []
+
+// ! ---- Fetch Functions ----
 
 //<Get all data for all coins and return arr in promise form>//
 const fetchAllCoins = () => {
     return fetch("https://api.coincap.io/v2/assets/")
         .then((resp) => resp.json())
         .then((body) => body.data)
-        .catch(e => { notify("Error fetching data, please reload", "error") })
+        .catch(e => {notify("Error fetching data, please reload","error")})
 };
 
 //<Using above function, find coin based off id, name, or symbol and return coin obj>//
@@ -48,14 +52,13 @@ const fetchCoin = async (coinName) => {
     }
 };
 
-
 //<Get coin history given a coin name, returns arr of coin history in promise form>//
 const fetchCoinHistory = (coinName, interval = "m1") => {
     const url = `https://api.coincap.io/v2/assets/${coinName}/history?interval=${interval}`;
     return fetch(url)
         .then((resp) => resp.json())
         .then((body) => body.data)
-        .catch(e => { notify("Error fetching graph, please reload", "error") })
+        .catch(e => {notify("Error fetching graph, please reload","error")})
 };
 
 //<Gets coin images from local json file, returns logo in png>//
@@ -67,29 +70,10 @@ const fetchCoinImages = (coin) => {
         })
 }
 
-//<Renders a list item for a coin in the search area>//
-const renderLi = (coin) => {
-    const listedCoin = document.createElement("li");
-    listedCoin.classList.add("listedCoin");
-    listedCoin.dataset.id = coin.id;
-    listedCoin.textContent = `${coin.name} - ${coin.symbol}`;
-    listedCoin.addEventListener('click', () => {
-        dropDownSelect.selectedIndex = 0
-        displayCoin(coin)
-    });
-    coinList.appendChild(listedCoin);
-};
-
-//<Appends multiple list items into search area>//
-const populateCoinList = (coinsObj) => {
-    for (let coin of coinsObj) {
-        renderLi(coin);
-    }
-    return coinsObj
-};
+// ! ---- Filter Functions ----
 
 //<Given an array of coins, sorts them alphabetically>//
-const filterByAZ = (coinsObj, upOrDown = 0) => {
+const filterByAZ = (coinsObj, upOrDown=0) => {
     const toBeSorted = [...coinsObj]
     toBeSorted.sort((a, b) => {
         return (upOrDown === 0) ? a.name.localeCompare(b.name) : a.symbol.localeCompare(b.symbol);
@@ -136,11 +120,13 @@ const filterByName = (coinName) => {
             if (coin.id.toLowerCase().startsWith(lowerCoin) ||
                 coin.name.toLowerCase().startsWith(lowerCoin) ||
                 coin.symbol.toLowerCase().startsWith(lowerCoin)) {
-                renderLi(coin)
+                renderListedCoin(coin)
             }
         })
     })
 }
+
+// ! ---- Format Functions ----
 
 //<Given price, formats it into currency format and changes decimals depending on number>//
 const formatPrice = (price) => {
@@ -152,13 +138,13 @@ const formatPrice = (price) => {
 }
 
 //<Given large num, format number with no decimals>//
-const formatLargeNum = (price) => {
+const formatLargeNum = (price) =>{
     const newPrice = parseFloat(price).toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 0,
+        minimumFractionDigits: 2,
     })
-    return newPrice.slice(0, newPrice.length - 3)
+    return newPrice.slice(0,newPrice.length-3)
 }
 
 //<Given daily change percent, returns arrow up or down + changed + %//>
@@ -168,46 +154,174 @@ const formatDailyChange = (priceChange) => {
     return (slice > 0) ? '↑' + noNegativeSlice + "%" : '↓' + noNegativeSlice + "%";
 };
 
+const formatCurrency = (currencyStr) => {
+    let temp = currencyStr.replace(/[^0-9.-]+/g, "");
+    return parseFloat(temp);
+}
+
+// ! ---- Render/Populate Functions ----
+
+
+//<Renders a list item for a coin in the search area>//
+const renderListedCoin = (coin) => {
+    const listedCoin = document.createElement("li");
+    listedCoin.classList.add("listedCoin");
+    listedCoin.textContent = `${coin.name} - ${coin.symbol}`;
+    listedCoin.addEventListener('click', () => {
+        dropDownSelect.selectedIndex = 0 
+        displayCoin(coin) 
+    });
+    coinList.appendChild(listedCoin);
+};
+
+//<Appends multiple list items into search area>//
+const populateCoinList = (coinsObj) => {
+    for (let coin of coinsObj) {
+        renderListedCoin(coin)
+    }
+    return coinsObj
+};
+
+//TODO Do we need all these divs?
+//<Create default elements for coin badges>//
+const renderCoinBadge = () => {
+    //Element references
+    const coinBadge = document.createElement('span')
+    const leftBadge = document.createElement('div')
+    const rightBadge = document.createElement('div')
+    const badgeSymbol = document.createElement('h3')
+    const badgeImg = document.createElement('img')
+    const badgePrice = document.createElement('p')
+    const badgeChange = document.createElement('p')
+    //Set classes for styling
+    coinBadge.classList.add('coinSpan')
+    rightBadge.classList.add('rightCoinBadge')
+    leftBadge.classList.add('leftCoinBadge')
+    //Append to create html heirarchy
+    leftBadge.append(badgeImg, badgeSymbol)
+    rightBadge.append(badgePrice, badgeChange)
+    coinBadge.append(leftBadge, rightBadge)
+    fiveCoins.appendChild(coinBadge)
+    //Returns finished element
+    return coinBadge;
+}
+
+//<Apply color for increase or decrease over last 24 hrs>
+const setColorForDailyChange = (topCoin) => {
+    return topCoin.changePercent24Hr.split('')[0] === '-' ? 'red' : 'green'
+}
+
+//<Populate elements text with coin attributes>
+const populateCoinBadge = (coinBadge, topCoin) => {
+    coinBadge.querySelector('h3').textContent = topCoin.symbol
+    coinBadge.querySelector('p:nth-child(1)').textContent = formatPrice(topCoin.priceUsd)
+    coinBadge.querySelector('p:nth-child(2)').textContent = formatDailyChange(topCoin.changePercent24Hr)
+    coinBadge.querySelector('p:nth-child(2)').style = `color: ${setColorForDailyChange(topCoin)}`
+}
+
+//<Adds delete button to coin badge>
+const addDeleteButton = (badge, topCoin) => {
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = "X";
+    deleteButton.classList.toggle("deleteButton");
+    deleteButton.addEventListener('click', (e) => {
+        myCoins.forEach(myCoin => {
+            if (myCoin.symbol === e.target.parentNode.querySelector('h3').textContent) {
+                myCoins.splice(myCoins.indexOf(myCoin), 1)
+            }
+        })
+        e.target.parentNode.remove()
+    });
+    badge.appendChild(deleteButton);
+}
+
+//<Attaches comparison event listeners to badge>
+const attachComparers = (badge, topCoin) => {
+    badge.addEventListener('mouseover', () => displayComparisons(topCoin));
+    badge.addEventListener('mouseleave', () => {
+            const color = 'color: rgba(23, 23, 26)'
+            compMktCap.style = color
+            compVol.style = color
+            compRank.style = color
+    })
+}
+
+//<Create a whole coin badge element with data for that coin>
+const createCoinBadge = (topCoin, loadingMyCoins = 0) => {
+    const badge = renderCoinBadge(topCoin);
+    populateCoinBadge(badge, topCoin);
+    if(loadingMyCoins === 1) addDeleteButton(badge, topCoin)
+    attachComparers(badge, topCoin)
+    fetchCoinImages(topCoin)
+    .then(coinObj  => (coinObj) ? badge.querySelector('img').src = coinObj.url : badge.querySelector('img').src = 'src/penny.png')
+    fiveCoins.appendChild(badge);
+    return badge;
+}
+
+//<Given array of coins, populate top 5 coins on to top5 div>//
+const populateFilterList = (coinsObj) => {
+    fiveCoins.innerHTML=""
+    document.querySelector('#reset').style = 'display: none'
+    coinsObj.forEach((coin) => {
+        createCoinBadge(coin, 0)
+    })
+}
+
+//<Given array of coins, populate my coins and set cookie to my coins for persistance>//
+const populateMyCoins = (coinsObj) => {
+    fiveCoins.innerHTML=""
+    document.querySelector('#reset').style = 'display: flex'
+    let cookieCoins = []
+        myCoins.forEach(coin =>{
+            if(coin){
+                cookieCoins.push(coin.name)
+            }
+        })
+        const beforeCookie = cookieCoins.join(",")
+        const newCookie = "cookie=" + beforeCookie
+        document.cookie = newCookie
+    coinsObj.forEach((myCoin) => {
+        createCoinBadge(myCoin, 1)
+    })
+}
+
 //<Given coin object, display coin onto main div with all of data, and creats graph>//
 const displayCoin = (coin) => {
-    //Element references
-    const coinSymbol = document.querySelector("#featuredCoinSpan > h2")
-    const coinName = document.querySelector("#featuredCoinSpan > h4")
-    const image = document.querySelector("#coinImg")
-    const priceChange = document.querySelector("#featuredChange")
-    const coinPrice = document.querySelector("#stats > span:nth-child(1) > p:nth-child(2)")
-    const coinCap = document.querySelector("#stats > span:nth-child(2) > p")
-    const coinVolume = document.querySelector("#stats > span:nth-child(3) > p")
-    const coinRank = document.querySelector("#stats > span:nth-child(4) > p")
     //Set text value of elements to coin attributes
-    coinCap.textContent = formatLargeNum(coin.marketCapUsd)
-    coinVolume.textContent = formatLargeNum(coin.volumeUsd24Hr)
-    coinRank.textContent = coin.rank
+    mktCap.textContent = formatLargeNum(coin.marketCapUsd)
+    vol.textContent = formatLargeNum(coin.volumeUsd24Hr)
+    rank.textContent = coin.rank
     coinSymbol.textContent = coin.symbol
     coinName.textContent = coin.name;
+    image.alt = coin.symbol
     coinPrice.textContent = formatPrice(coin.priceUsd)
     //get daily change and then run it through format for arrow and color
     priceChange.textContent = formatDailyChange(coin.changePercent24Hr)
-    if (priceChange.textContent.includes('↑')) {
-        priceChange.style.color = 'green'
-    } else {
-        priceChange.style.color = 'red'
-    }
+    priceChange.style = `color: ${setColorForDailyChange(coin)}`
     currentCoin = coin
     //Gets coin images
     fetchCoinImages(coin)
-        .then(coinObj => {
-            //if crypto img exists, set image url to crypto img
-            if (coinObj) {
-                image.src = coinObj.url
-            } else {
-                image.src = 'src/download.jpeg'
-            }
-            image.alt = coin.symbol
-        })
-
+        .then(coinObj  => (coinObj) ? image.src = coinObj.url : image.src = 'src/penny.png')
+        //TODO I broke this
         .then(displayCoinGraph(coin))
 }
+
+// ! ---- Compare Functions ----
+
+const displayComparisons = (coin) => {
+    if (coin.name !== currentCoin.name) {
+        compMktCap.textContent = formatLargeNum(coin.marketCapUsd)
+        compVol.textContent = formatLargeNum(coin.volumeUsd24Hr)
+        compRank.textContent = coin.rank
+        
+        formatCurrency(compMktCap.textContent) < formatCurrency(mktCap.textContent) ? compMktCap.style = 'color: red' : compMktCap.style = 'color: green'
+        formatCurrency(compVol.textContent) < formatCurrency(vol.textContent) ? compVol.style = 'color: red' : compVol.style = 'color: green'
+        formatCurrency(compRank.textContent) < formatCurrency(rank.textContent) ? compRank.style = 'color: green' : compRank.style = 'color: red'
+    
+    }
+}
+
+// ! ---- Graph Functions ----
 
 //<D3.js function to create graph>//const createLineGraph = (data, divId) => {
 const createLineGraph = (data, divId) => {
@@ -229,8 +343,6 @@ const createLineGraph = (data, divId) => {
                 .attr('height', parentHeight)
                 .append('g');
 
-
-
             const xScale = d3.scaleTime()
                 .domain(d3.extent(data, d => new Date(d.time)))
                 .range([0, parentWidth]);
@@ -238,8 +350,6 @@ const createLineGraph = (data, divId) => {
             const yScale = d3.scaleLinear()
                 .domain([minYValue, d3.max(data, d => d.priceUsd)])
                 .range([parentHeight, 0]);
-
-
 
             const line = d3.line()
                 .x(d => xScale(new Date(d.time)))
@@ -265,12 +375,12 @@ const createLineGraph = (data, divId) => {
                 .style('opacity', 0.7);
 
             tooltip.append('text')
-                .attr('x', 50)
+                .attr('x', 60)
                 .attr('y', 15)
                 .style('text-anchor', 'middle')
                 .attr('font-size', '12px');
 
-            svg.selectAll('.dot')
+                svg.selectAll('.dot')
                 .data(data)
                 .enter().append('circle')
                 .attr('class', 'dot')
@@ -279,11 +389,11 @@ const createLineGraph = (data, divId) => {
                 .attr('r', 7.5) // Increase the radius (size) of the dots to 8
                 .on('mousemove', (event, d) => {
                     const [mouseX, mouseY] = d3.pointer(event);
-
+            
                     tooltip.style('display', 'block');
                     tooltip.select('text').text(`Price: ${formatPrice(d.priceUsd)}`);
                 })
-                .on('mouseout', () => {
+                .on('mouseout',() => {
                     tooltip.style('display', 'none');
                 });
         });
@@ -293,29 +403,48 @@ const createLineGraph = (data, divId) => {
     window.addEventListener('resize', updateDimensions);
 }
 
-
 //<Function to display graph onto main graph div with varying interval>//
-const displayCoinGraph = (coin, interval = "m1") => {
+const displayCoinGraph = (coin,interval="m1") => {
     //Get coin history and append graph to div
-    fetchCoinHistory(coin.id.toLowerCase(), interval).then(data => {
+    fetchCoinHistory(coin.id.toLowerCase(),interval).then(data => {
         createLineGraph(data, "#displayCoinGraphDiv")
     })
 }
+
+//<Event listener for graph interval change>//
+dropDownSelect.addEventListener("change",(e)=>{
+    const selection = e.target.value
+    //Case for every value of dropdown to change api call for interval of graph (D,M,Y)
+    switch(selection){
+    case "day":
+        displayCoinGraph(currentCoin,"m1")
+        break
+    case "month":
+        displayCoinGraph(currentCoin,"h1")
+        break
+    case "year":
+        displayCoinGraph(currentCoin,"d1")
+        break
+    }
+  })
+
+// ! ---- Filter Dropdown Functions ----
+
 //<Event listener for filter options to switch between filters>//
 document.querySelector("#filter").addEventListener("change", (e) => {
     coinList.innerHTML = "";
     //Case for every value of filter dropdown, and respected filter function to filter efficiently
     switch (e.target.value) {
         case "default":
-            fetchAllCoins().then(populateCoinList);
+            fetchAllCoins().then(populateCoinList).then(populateFilterList);
             break;
 
         case "alphabeticalByName":
             fetchAllCoins()
-                .then((coinsObj) => {
-                    return filterByAZ(coinsObj, 0);
-                })
-                .then(populateCoinList).then(populateTopCoins)
+            .then((coinsObj) => {
+                return filterByAZ(coinsObj, 0);
+            })
+            .then(populateCoinList).then(populateFilterList)
             break;
 
         case "alphabeticalBySymbol":
@@ -323,15 +452,15 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByAZ(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateTopCoins)
-            break;
+                .then(populateCoinList).then(populateFilterList)
+                break;
 
         case "biggestDailyGains":
             fetchAllCoins()
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 0);
                 })
-                .then(populateCoinList).then(populateTopCoins);
+                .then(populateCoinList).then(populateFilterList);
             break;
 
         case "biggestDailyLosses":
@@ -339,7 +468,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateTopCoins);
+                .then(populateCoinList).then(populateFilterList);
             break;
 
         case "priceHighest":
@@ -347,7 +476,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 0);
                 })
-                .then(populateCoinList).then(populateTopCoins);
+                .then(populateCoinList).then(populateFilterList);
             break;
 
         case "priceLowest":
@@ -355,10 +484,12 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateTopCoins);
+                .then(populateCoinList).then(populateFilterList);
             break;
     }
 });
+
+// ! ---- Search Functions ----
 
 //<Search event listener for submission so results can be filtered>//
 document.querySelector("form").addEventListener("submit", (e) => {
@@ -367,207 +498,24 @@ document.querySelector("form").addEventListener("submit", (e) => {
     filterByName(e.target.Name.value)
 })
 
-//<Event listener for graph interval change>//
-dropDownSelect.addEventListener("change", (e) => {
-    const selection = e.target.value
-    //Case for every value of dropdown to change api call for interval of graph (D,M,Y)
-    switch (selection) {
-        case "day":
-            displayCoinGraph(currentCoin, "m1")
-            break
-        case "month":
-            displayCoinGraph(currentCoin, "h1")
-            break
-        case "year":
-            displayCoinGraph(currentCoin, "d1")
-            break
-    }
-})
-
-// ! Page Load functions --
-//<Fetch all coins and append them on page load>//
-fetchAllCoins()
-    .then((coinsObj) => {
-        //Display all coin info given coins array
-        populateCoinList(coinsObj)
-        displayCoin(coinsObj[0])
-        populateTopCoins(coinsObj)
-        filterByPrice(coinsObj, 0).slice(0, 100).forEach(topCoin => {
-            topFiveCoins.push(topCoin)
-        })
-    })
-
-//<Create default elements for coin badges>//
-const renderCoinBadge = () => {
-    //Element references
-    const coinBadge = document.createElement('span')
-    const leftBadge = document.createElement('div')
-    const rightBadge = document.createElement('div')
-    const badgeSymbol = document.createElement('h3')
-    const badgeImg = document.createElement('img')
-    const badgePrice = document.createElement('p')
-    const badgeChange = document.createElement('p')
-    //Set classes for styling
-    coinBadge.classList.add('coinSpan')
-    rightBadge.classList.add('rightCoinBadge')
-    leftBadge.classList.add('leftCoinBadge')
-    //Append to create html heirarchy
-    leftBadge.append(badgeImg, badgeSymbol)
-    rightBadge.append(badgePrice, badgeChange)
-    coinBadge.append(leftBadge, rightBadge)
-    fiveCoins.appendChild(coinBadge)
-    //Returns finished element
-    return coinBadge;
-}
-
-//<Given coin obj and myCoins variable, load myCoins or top coins and set text to topCoin attributes>//
-const createTopCoin = (topCoin, loadingMyCoins = 0) => {
-    const formatColor = (textElement) =>{
-        if (textElement.textContent.startsWith('↑')) {
-            textElement.style.color = 'green'
-        } else {
-            textElement.style.color = 'red'
-        }
-    }
-
-
-    const removeCoinFromCookie = (topCoin) => {
-        const coinsArray = document.cookie.split("=")[1].split(",")
-        coinsArray.splice(coinsArray.indexOf(topCoin.name), 1)
-        document.cookie = "cookie=" + coinsArray.join(",")
-    }
-
-
-    const deleteHandler = (e, topCoin) => {
-        myCoins.forEach(coin => {
-            if (coin.symbol === coinSymbol.textContent) {
-                myCoins.splice(myCoins.indexOf(coin), 1)
-            }
-        })
-
-        removeCoinFromCookie(topCoin)
-        e.target.parentNode.remove()
-
-        if (myCoins.length === 0) {
-            populateTopCoins(topFiveCoins)
-        }
-
-    }
-
-    const createDeleteButton = (coin) => {
-        const deleteButton = document.createElement('button')
-        deleteButton.textContent = "X"
-        deleteButton.classList.toggle("deleteButton")
-        deleteButton.addEventListener('click', (e) => {
-            deleteHandler(e, coin)
-        })
-        newBadge.appendChild(deleteButton)
-    }
-
-    //Create element references 
-    const newBadge = renderCoinBadge()
-    const coinSymbol = newBadge.querySelector('h3')
-    const coinPrice = newBadge.querySelector('p:nth-child(1)')
-    const newBadgeChange = newBadge.querySelector('p:nth-child(2)')
-    //Populate elements text with coin attributes
-    coinSymbol.textContent = topCoin.symbol
-    coinPrice.textContent = formatPrice(topCoin.priceUsd)
-    newBadgeChange.textContent = formatDailyChange(topCoin.changePercent24Hr)
-    //Logic for up/down arrow for priceChange
-    formatColor(newBadgeChange)
-    //Logic on wether to add button to element if its in myCoins or not
-    if (loadingMyCoins === 1) {
-        createDeleteButton(topCoin)
-    }
-    newBadge.addEventListener('mouseover', () => displayComparisons(topCoin))
-    newBadge.addEventListener('mouseleave', () => mouseLeave())
-    fiveCoins.appendChild(newBadge)
-
-
-
-    const mouseLeave = () => {
-        const color = 'color: rgba(23, 23, 26)'
-        compPrice.style = color
-        compMktCap.style = color
-        compVol.style = color
-        compRank.style = color
-    }
-
-    const displayComparisons = (coin) => {
-        if (coin.name !== currentCoin.name) {
-            compPrice.textContent = formatPrice(coin.priceUsd)
-            compMktCap.textContent = formatLargeNum(coin.marketCapUsd)
-            compVol.textContent = formatLargeNum(coin.volumeUsd24Hr)
-            compRank.textContent = coin.rank
-
-            formatCurrency(compPrice.textContent) < formatCurrency(price.textContent) ? compPrice.style = 'color: red' : compPrice.style = 'color: green'
-            formatCurrency(compMktCap.textContent) < formatCurrency(mktCap.textContent) ? compMktCap.style = 'color: red' : compMktCap.style = 'color: green'
-            formatCurrency(compVol.textContent) < formatCurrency(vol.textContent) ? compVol.style = 'color: red' : compVol.style = 'color: green'
-            formatCurrency(compRank.textContent) < formatCurrency(rank.textContent) ? compRank.style = 'color: green' : compRank.style = 'color: red'
-
-        }
-    }
-
-    const formatCurrency = (currencyStr) => {
-        let temp = currencyStr.replace(/[^0-9.-]+/g, "");
-        return parseFloat(temp);
-    }
-
-    //Add images to coins using fetchCoinImages
-    fetchCoinImages(topCoin)
-        .then(coinObj => {
-            if (coinObj) {
-                newBadge.querySelector('img').src = coinObj.url
-            } else {
-                newBadge.querySelector('img').src = 'src/download.jpeg'
-            }
-            // newBadge.querySelector('img').alt = coinObj.symbol
-        })
-}
-
-//<Given array of coins, populate top 5 coins on to top5 div>//
-const populateTopCoins = (coinsArr) => {
-    fiveCoins.innerHTML = ""
-    document.querySelector('#reset').style = 'display: none'
-    coinsArr.forEach((coin) => {
-        createTopCoin(coin)
-    })
-}
-
-//<Given array of coins, populate my coins and set cookie to my coins for persistance>//
-const populateMyCoins = (coinsObj) => {
-    fiveCoins.innerHTML = ""
-    document.querySelector('#reset').style = 'display: flex'
-    let cookieCoins = []
-    myCoins.forEach(coin => {
-        if (coin) {
-            cookieCoins.push(coin.name)
-        }
-    })
-    const beforeCookie = cookieCoins.join(",")
-    const newCookie = "cookie=" + beforeCookie
-    document.cookie = newCookie
-    coinsObj.forEach((myCoin) => {
-        createTopCoin(myCoin, 1)
-    })
-
-
-}
+// ! ---- Cookie Functions ----
 
 //<Given cookie, parse coin names, find their object using fetchCoin, and append them to mycoins>//
-const getCoinsFromCookie = (cook) => {
-    if (!document.cookie) {
+const getCoinsFromCookie = (cook) =>{
+    if(!document.cookie){
         document.cookie = "cookie="
     }
     const beforeArray = cook.split("=")
-    if (beforeArray.length > 1) {
+    if(beforeArray.length > 1){
         const coinsArray = beforeArray[1].split(",");
         const fetchPromises = []; // Store promises for fetching coins
         coinsArray.forEach(coin => {
             if (coin) {
                 // Fetch and store the coin data
                 const fetchPromise = fetchCoin(coin).then(data => {
-                    myCoins.push(data);
+                    if(data){
+                        myCoins.push(data);
+                    }
                 });
                 fetchPromises.push(fetchPromise);
             }
@@ -584,40 +532,53 @@ const getCoinsFromCookie = (cook) => {
     }
 }
 
-
-
-
-
-
-
 getCoinsFromCookie(document.cookie)
 
-//<Event listener for add coin button that adds coin to cookie, and appends to my coins>//
-addCoinButton.addEventListener("click", () => {
-    const coinExists = myCoins.some((coin) =>
-        // Compare coins by their properties
-        JSON.stringify(coin) === JSON.stringify(currentCoin)
-    );
+// ! ---- Notify Functions ----
 
-    if (!coinExists) {
-        if (myCoins.length < 5) {
-            fiveCoins.innerHTML = "";
-            myCoins.push(currentCoin);
-            populateMyCoins(myCoins);
-        } else {
-            notify("You already have 5 personal coins", "error");
-        }
+//<Event listener for add coin button that adds coin to cookie, and appends to my coins>//
+addCoinButton.addEventListener("click",()=>{
+    const coinExists = myCoins.some((coin) =>
+    // Compare coins by their properties
+    JSON.stringify(coin) === JSON.stringify(currentCoin)
+);
+
+if (!coinExists) {
+    if (myCoins.length < 5) {
+        fiveCoins.innerHTML = "";
+        myCoins.push(currentCoin);
+        populateMyCoins(myCoins, 1);
     } else {
-        notify("You have already chosen this coin", "warn");
+    notify("You already have 5 personal coins", "error");
     }
+} else {
+notify("You have already chosen this coin", "warn");
+}
 })
+
+// ! ---- Button Functions ----
 
 //<Event listener for top coins button that switches to display top 5 coins>//
-topCoinsBtn.addEventListener('click', () => populateTopCoins(topFiveCoins))
+topCoinsBtn.addEventListener('click', () => {
+    fetchAllCoins()
+    .then(populateFilterList)
+})
 myCoinsBtn.addEventListener('click', () => {
-    if (isDoneLoading) {
-        populateMyCoins(myCoins)
+    if(isDoneLoading){
+    populateMyCoins(myCoins)
     }
 })
+
 //<Event listener for reset button that resets coins from myCoins, resets cookie, and resets fiveCoins div>//
-resetCoins.addEventListener('click', () => { document.cookie = "cookie="; myCoins = []; populateCoinList(myCoins); fiveCoins.innerHTML = "" })
+resetCoins.addEventListener('click',()=>{document.cookie="cookie=";myCoins = [];populateCoinList(myCoins);fiveCoins.innerHTML=""})
+
+// ! ---- Page Load functions ----
+
+//<Fetch all coins and append them on page load>//
+fetchAllCoins()
+    .then((coinsObj) => {
+        //Display all coin info given coins array
+        populateCoinList(coinsObj)
+        displayCoin(coinsObj[0])
+        populateFilterList(coinsObj, 0)
+    })
