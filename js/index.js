@@ -215,10 +215,6 @@ const createLineGraph = (data, divId) => {
 
     const updateDimensions = () => {
         window.requestAnimationFrame(() => {
-            // const margin = {
-            //     top: 20,
-            //     bottom: 30
-            // }
             const parentWidth = parentDiv.clientWidth;
             const parentHeight = parentDiv.clientHeight - 15;
 
@@ -229,9 +225,7 @@ const createLineGraph = (data, divId) => {
                 .attr('width', parentWidth)
                 .attr('height', parentHeight)
                 .append('g');
-            
-            // const g = svg.append("g")
-            // .attr("transform", `translateY(${margin.top})`);
+
                 
 
             const xScale = d3.scaleTime()
