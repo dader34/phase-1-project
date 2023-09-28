@@ -255,7 +255,7 @@ const createCoinBadge = (topCoin, loadingMyCoins = 0) => {
     if(loadingMyCoins === 1) addDeleteButton(badge, topCoin)
     attachComparers(badge, topCoin)
     fetchCoinImages(topCoin)
-    .then(coinObj  => (coinObj) ? badge.querySelector('img').src = coinObj.url : badge.querySelector('img').src = 'src/download.jpeg')
+    .then(coinObj  => (coinObj) ? badge.querySelector('img').src = coinObj.url : badge.querySelector('img').src = 'src/penny.png')
     fiveCoins.appendChild(badge);
     return badge;
 }
@@ -303,7 +303,7 @@ const displayCoin = (coin) => {
     currentCoin = coin
     //Gets coin images
     fetchCoinImages(coin)
-        .then(coinObj  => (coinObj) ? image.src = coinObj.url : image.src = 'src/download.jpeg')
+        .then(coinObj  => (coinObj) ? image.src = coinObj.url : image.src = 'src/penny.png')
         //TODO I broke this
         .then(displayCoinGraph(coin))
 }
@@ -428,7 +428,7 @@ dropDownSelect.addEventListener("change",(e)=>{
         displayCoinGraph(currentCoin,"d1")
         break
     }
-})
+  })
 
 // ! ---- Filter Dropdown Functions ----
 
