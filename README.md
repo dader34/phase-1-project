@@ -26,11 +26,12 @@ All this is possible through our dynamic website, powered by cutting-edge API's.
 * Launch: Navigate into the git folder with cd, then type *Code .* to launch the VsCode editor.
 
 >* Mac Users:
+* Open the terminal and navigate to the folder containing the cloned git repo.
 * Launch the HTML file using *open index.html*.
 * If you run into any CORS policy issues, run the site using the *Live Server* extension on VsCode.
 
->* WSL Users
-* Open Ubuntu or the platform you used to create the directory.
+>* Windows Users
+* Open powershell or wsl and navigate to the folder containing the cloned git repo.
 * Type explorer.exe index.html to open Crypto Shark.
 * If you run into any CORS policy issues, follow the steps mentioned above in the mac section.
 
