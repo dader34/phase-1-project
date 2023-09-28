@@ -68,6 +68,7 @@ const fetchCoinImages = (coin) => {
         .then(data => {
             return data.find(element => element['asset_id'] === coin.symbol)
         })
+        .catch(e => notify(e,"error"))
 }
 
 // ! ---- Filter Functions ----

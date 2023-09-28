@@ -387,7 +387,7 @@ button {
 }
 
 #particlesContainer {
-    position: absolute; /* Position the container */
+    position: fixed; /* Position the container */
     top: 0;
     left: 0;
     width: 100%;
