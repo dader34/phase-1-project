@@ -8,6 +8,12 @@ const topCoinsBtn = document.querySelector('#topCoinsButton')
 const myCoinsBtn = document.querySelector('#myCoinsButton')
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
+//<Variables for featured coin elements>//
+const coinSymbol = document.querySelector("#featuredCoinSpan > h2")
+const coinName = document.querySelector("#featuredCoinSpan > h4")
+const image = document.querySelector("#coinImg")
+const priceChange = document.querySelector("#featuredChange")
+const coinPrice = document.querySelector('#featuredPrice')
 const mktCap = document.querySelector("#stats > span:nth-child(1) > p:nth-child(2)")
 const vol = document.querySelector("#stats > span:nth-child(2) > p:nth-child(2)")
 const rank = document.querySelector("#stats > span:nth-child(3) > p:nth-child(2)")
@@ -18,7 +24,7 @@ const compRank = document.querySelector("#compRank")
 let isDoneLoading = false
 //<Variable to store current coin>//
 let currentCoin;
-//<Variables to store top coins and myCoins>//
+//<Variable to store myCoins>//
 let myCoins = []
 
 // ! ---- Fetch Functions ----
@@ -63,26 +69,6 @@ const fetchCoinImages = (coin) => {
             return data.find(element => element['asset_id'] === coin.symbol)
         })
 }
-
-//<Renders a list item for a coin in the search area>//
-const renderListedCoin = (coin) => {
-    const listedCoin = document.createElement("li");
-    listedCoin.classList.add("listedCoin");
-    listedCoin.textContent = `${coin.name} - ${coin.symbol}`;
-    listedCoin.addEventListener('click', () => {
-        dropDownSelect.selectedIndex = 0 
-        displayCoin(coin) 
-    });
-    coinList.appendChild(listedCoin);
-};
-
-//<Appends multiple list items into search area>//
-const populateCoinList = (coinsObj) => {
-    for (let coin of coinsObj) {
-        renderListedCoin(coin)
-    }
-    return coinsObj
-};
 
 // ! ---- Filter Functions ----
 
@@ -175,6 +161,27 @@ const formatCurrency = (currencyStr) => {
 
 // ! ---- Render/Populate Functions ----
 
+
+//<Renders a list item for a coin in the search area>//
+const renderListedCoin = (coin) => {
+    const listedCoin = document.createElement("li");
+    listedCoin.classList.add("listedCoin");
+    listedCoin.textContent = `${coin.name} - ${coin.symbol}`;
+    listedCoin.addEventListener('click', () => {
+        dropDownSelect.selectedIndex = 0 
+        displayCoin(coin) 
+    });
+    coinList.appendChild(listedCoin);
+};
+
+//<Appends multiple list items into search area>//
+const populateCoinList = (coinsObj) => {
+    for (let coin of coinsObj) {
+        renderListedCoin(coin)
+    }
+    return coinsObj
+};
+
 //TODO Do we need all these divs?
 //<Create default elements for coin badges>//
 const renderCoinBadge = () => {
@@ -199,12 +206,12 @@ const renderCoinBadge = () => {
     return coinBadge;
 }
 
-// Function to set the color of the badge change based on the content
+//<Apply color for increase or decrease over last 24 hrs>
 const setColorForDailyChange = (topCoin) => {
     return topCoin.changePercent24Hr.split('')[0] === '-' ? 'red' : 'green'
 }
 
-//Populate elements text with coin attributes
+//<Populate elements text with coin attributes>
 const populateCoinBadge = (coinBadge, topCoin) => {
     coinBadge.querySelector('h3').textContent = topCoin.symbol
     coinBadge.querySelector('p:nth-child(1)').textContent = formatPrice(topCoin.priceUsd)
@@ -212,7 +219,7 @@ const populateCoinBadge = (coinBadge, topCoin) => {
     coinBadge.querySelector('p:nth-child(2)').style = `color: ${setColorForDailyChange(topCoin)}`
 }
 
-// Function to add a delete button to the badge if loadingMyCoins is 1
+//<Adds delete button to coin badge>
 const addDeleteButton = (badge, topCoin) => {
     const deleteButton = document.createElement('button');
     deleteButton.textContent = "X";
@@ -230,8 +237,8 @@ const addDeleteButton = (badge, topCoin) => {
     badge.appendChild(deleteButton);
 }
 
-// Function to attach event listeners to the badge
-const attachEventListeners = (badge, topCoin) => {
+//<Attaches comparison event listeners to badge>
+const attachComparers = (badge, topCoin) => {
     badge.addEventListener('mouseover', () => displayComparisons(topCoin));
     badge.addEventListener('mouseleave', () => {
             const color = 'color: rgba(23, 23, 26)'
@@ -241,12 +248,12 @@ const attachEventListeners = (badge, topCoin) => {
     })
 }
 
-// Function to create a coin badge element
+//<Create a whole coin badge element with data for that coin>
 const createCoinBadge = (topCoin, loadingMyCoins = 0) => {
     const badge = renderCoinBadge(topCoin);
     populateCoinBadge(badge, topCoin);
     if(loadingMyCoins === 1) addDeleteButton(badge, topCoin)
-    attachEventListeners(badge, topCoin)
+    attachComparers(badge, topCoin)
     fetchCoinImages(topCoin)
     .then(coinObj  => (coinObj) ? badge.querySelector('img').src = coinObj.url : badge.querySelector('img').src = 'src/download.jpeg')
     fiveCoins.appendChild(badge);
@@ -282,19 +289,10 @@ const populateMyCoins = (coinsObj) => {
 
 //<Given coin object, display coin onto main div with all of data, and creats graph>//
 const displayCoin = (coin) => {
-    //Element references
-    const coinSymbol = document.querySelector("#featuredCoinSpan > h2")
-    const coinName = document.querySelector("#featuredCoinSpan > h4")
-    const image = document.querySelector("#coinImg")
-    const priceChange = document.querySelector("#featuredChange")
-    const coinPrice = document.querySelector('#featuredPrice')
-    const coinCap = document.querySelector("#stats > span:nth-child(1) > p")
-    const coinVolume = document.querySelector("#stats > span:nth-child(2) > p")
-    const coinRank = document.querySelector("#stats > span:nth-child(3) > p")
     //Set text value of elements to coin attributes
-    coinCap.textContent = formatLargeNum(coin.marketCapUsd)
-    coinVolume.textContent = formatLargeNum(coin.volumeUsd24Hr)
-    coinRank.textContent = coin.rank
+    mktCap.textContent = formatLargeNum(coin.marketCapUsd)
+    vol.textContent = formatLargeNum(coin.volumeUsd24Hr)
+    rank.textContent = coin.rank
     coinSymbol.textContent = coin.symbol
     coinName.textContent = coin.name;
     image.alt = coin.symbol
@@ -323,15 +321,6 @@ const displayComparisons = (coin) => {
         formatCurrency(compRank.textContent) < formatCurrency(rank.textContent) ? compRank.style = 'color: green' : compRank.style = 'color: red'
     
     }
-}
-
-const removeComparisons = () => {
-    debugger
-    const color = 'color: rgba(23, 23, 26)'
-    // compPrice.style = color
-    compMktCap.style = color
-    compVol.style = color
-    compRank.style = color
 }
 
 // ! ---- Graph Functions ----
@@ -439,7 +428,7 @@ dropDownSelect.addEventListener("change",(e)=>{
         displayCoinGraph(currentCoin,"d1")
         break
     }
-  })
+})
 
 // ! ---- Filter Dropdown Functions ----
 
