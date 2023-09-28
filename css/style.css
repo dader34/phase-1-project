@@ -335,6 +335,7 @@ button {
     cursor: pointer;
 }
 
+
 #mainStats {
     display: inherit;
     justify-content: space-evenly;
@@ -364,8 +365,8 @@ button {
 }
 
 .statSpan p {
-    font-size: 150%;
-    margin: 5px;
+    font-size: 1.5vw;
+    margin: 0;
     margin-bottom: 20px
 }
 

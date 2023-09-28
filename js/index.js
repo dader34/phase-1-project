@@ -334,7 +334,6 @@ const createLineGraph = (data, divId) => {
 
     const updateDimensions = () => {
         window.requestAnimationFrame(() => {
-            console.log(parentDiv)
             const parentWidth = parentDiv.clientWidth;
             const parentHeight = parentDiv.clientHeight - 15;
 
@@ -378,7 +377,7 @@ const createLineGraph = (data, divId) => {
                 .style('opacity', 0.7);
 
             tooltip.append('text')
-                .attr('x', 60)
+                .attr('x', 50)
                 .attr('y', 15)
                 .style('text-anchor', 'middle')
                 .attr('font-size', '12px');
