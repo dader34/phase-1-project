@@ -10,6 +10,8 @@
 body {
     margin: 0;
     background-color: #11182e;
+    overflow: hidden;
+    position: relative;
 }
 
 h3 {
@@ -38,9 +40,10 @@ h3 {
     grid-area: 2/2/6/3;
     padding: 10px;
     min-width: 200px;
-    background-color: #17171a;
     color: white;
-    border-radius: 5px;
+    /* border-radius: 5px; */
+    background-color: rgba(23, 23, 26);
+    opacity: 0.9;
 }
 
 #filogo {
@@ -58,6 +61,7 @@ h3 {
     color: white;
     border-radius: 5px;
     border: none;
+    
 }
 
 #submitSearch {
@@ -68,6 +72,7 @@ h3 {
     color: white;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
 }
 
 #results {
@@ -108,6 +113,7 @@ li.listedCoin:hover {
     color: white;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
 }
 
 #reset {
@@ -118,12 +124,25 @@ li.listedCoin:hover {
     border: none;
 }
 
+@keyframes popIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
 #titleBar {
     grid-area: 2/3/3/4;
     text-align: center;
     font-size: xxx-large;
     color: white;
+    animation: popIn 1.5s ease-out;
 }
+
 
 h1 {
     text-align: center;
@@ -149,6 +168,7 @@ button {
     color: white;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
 }
 
 #fiveCoinButtons {
@@ -173,8 +193,7 @@ button {
     z-index: 0;
     min-height: 50px;
     max-height: 20%;
-    background-color: #17171a;
-    ;
+    background-color: rgba(23, 23, 26, 0.9);
     border-radius: 5px;
     color: white;
 }
@@ -256,9 +275,10 @@ button {
     padding-left: 20px;
     padding-right: 20px;
     overflow: auto;
-    background-color: #17171a;
+    background-color: rgba(23, 23, 26, 1);
     border-radius: 5px;
     color: white;
+    opacity: 0.9;
 }
 
 #featuredCoin img {
@@ -294,6 +314,16 @@ button {
     fill: transparent;
     stroke: transparent;
 }
+
+#particlesContainer {
+    position: absolute; /* Position the container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
 
 .dot:hover{
     stroke-width: 1px;
@@ -353,17 +383,20 @@ h4 {
     align-items: center;
     padding: 10px;
     width: 100%;
+    
 }
 
 #chrono {
     position: absolute;
     display: inherit;
     width: 61%;
-    left: 35%;
+    left: 34.9%;
     top: 77%;
     background-color: #17171a;
     color: white;
     border: 3px solid black;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #mainStats {
@@ -411,7 +444,8 @@ h4 {
     height: 50%;
     top: 25%;
     left: 35%;
-    border: 3px solid black;
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 .upArrow {
