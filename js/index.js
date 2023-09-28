@@ -465,6 +465,7 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
 //<Given array of coins, populate top 5 coins on to top5 div>//
 const populateTopCoins = (coinsArr) => {
     fiveCoins.innerHTML=""
+    document.querySelector('#reset').style = 'display: none'
     coinsArr.forEach((coin) => {
         createTopCoin(coin)
     })
@@ -473,6 +474,7 @@ const populateTopCoins = (coinsArr) => {
 //<Given array of coins, populate my coins and set cookie to my coins for persistance>//
 const populateMyCoins = (coinsObj) => {
     fiveCoins.innerHTML=""
+    document.querySelector('#reset').style = 'display: flex'
     let cookieCoins = []
         myCoins.forEach(coin =>{
             if(coin){

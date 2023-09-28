@@ -175,6 +175,8 @@ button {
 
 #fiveCoinButtons {
     display: inherit;
+    flex-wrap: wrap;
+    padding: 8%;
     justify-content: space-evenly;
 }
 
