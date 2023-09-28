@@ -479,8 +479,7 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
 //<Given array of coins, populate top 5 coins on to top5 div>//
 const populateTopCoins = (coinsArr) => {
     fiveCoins.innerHTML=""
-    const topFive = filterByPrice(coinsArr, 0).slice(0, 100)
-    topFive.forEach((coin) => {
+    coinsArr.forEach((coin) => {
         createTopCoin(coin)
     })
 }
