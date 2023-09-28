@@ -35,6 +35,24 @@ All this is possible through our dynamic website, powered by cutting-edge API's.
 * Type explorer.exe index.html to open Crypto Shark.
 * If you run into any CORS policy issues, follow the steps mentioned above in the mac section.
 
+# Usage Instructions
+## Search
+* You can search for individual or multiple cryptos on the left side of the screen using the search bar or the filter dropdown.
+* Press search or enter to search for a specific name, id, or symbol.
+* Any coin that you click on the left will be populated to the center display, including a graph and stats.
+## Center Display
+* You can change the graph's interval to Day, Month, or Year.
+* Hover over the graph with your mouse to see price points at a certain time.
+* Press the *Add coin* button on the main display to add a coin to your personal watch list, press the X on the card to remove them.
+## Personal Coins
+* You can have a max of 5 personal coins, and they persist through page reload using cookies.
+* Be careful not to edit your cookies or it may lead to unintended consequences
+* Hovering over a coin card will compare the coin in the main display to the one you are mousing over.
+
+>* Special instructions
+* Use CMD + M to toggle animations, and CMD + K to toggle mouse interactivity with the background.
+* Windows users use ctrl instead of command.
+
 
 
 ## Visual Operations
