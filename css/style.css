@@ -2,12 +2,6 @@
     font-family: Inter, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Helvetica, Arial, sans-serif;
 }
 
-img {
-    /* background-color: transparent; */
-    box-shadow: 0 0 20px 4px #48abe0;
-    border-radius: 55%;
-}
-
 :root {
     --flatironlogo: url("../src/shark_vinyl_decal.png")
 }
@@ -381,9 +375,6 @@ h4 {
 
 #coinImg {
     width: 100%;
-    background-color: transparent;
-    box-shadow: 0 0 20px 4px #48abe0;
-    border-radius: 55%;
 }
 
 #addCoinButton {
@@ -459,7 +450,7 @@ h4 {
 
 #displayCoinGraphDiv {
     position: absolute;
-    width: 60%;
+    width: 0%;
     height: 50%;
     top: 25%;
     left: 35%;
