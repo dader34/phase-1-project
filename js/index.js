@@ -230,7 +230,11 @@ const addDeleteButton = (badge, topCoin) => {
             if (myCoin.symbol === e.target.parentNode.querySelector('h3').textContent) {
                 myCoins.splice(myCoins.indexOf(myCoin), 1)
             }
-        })
+        })  
+        const coinsArray = document.cookie.split("=")[1].split(",") 
+        console.log(document.cookie.split("=")[1])
+        coinsArray.splice(coinsArray.indexOf(topCoin.name),1)
+        document.cookie = "cookie=" + coinsArray.join(",")
         e.target.parentNode.remove()
     });
     badge.appendChild(deleteButton);
