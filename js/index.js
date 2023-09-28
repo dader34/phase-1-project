@@ -8,6 +8,12 @@ const topCoinsBtn = document.querySelector('#topCoinsButton')
 const myCoinsBtn = document.querySelector('#myCoinsButton')
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
+const mktCap = document.querySelector("#stats > span:nth-child(1) > p:nth-child(2)")
+const vol = document.querySelector("#stats > span:nth-child(2) > p:nth-child(2)")
+const rank = document.querySelector("#stats > span:nth-child(3) > p:nth-child(2)")
+const compMktCap = document.querySelector("#compMktCap")
+const compVol = document.querySelector("#compVol")
+const compRank = document.querySelector("#compRank")
 //<Variable to decide when to load mycoins tab>//
 let isDoneLoading = false
 //<Variable to store current coin>//
@@ -448,7 +454,31 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
         })
         newBadge.appendChild(deleteButton)
     }
+    newBadge.addEventListener('mouseover', () => displayComparisons(topCoin))
+    newBadge.addEventListener('mouseleave', () => {
+        compMktCap.style = 'color: rgba(23, 23, 26)'
+        compVol.style = 'color: rgba(23, 23, 26)'
+        compRank.style = 'color: rgba(23, 23, 26)'
+    })
     fiveCoins.appendChild(newBadge)
+
+const displayComparisons = (coin) => {
+    if (coin.name !== currentCoin.name) {
+        compMktCap.textContent = formatLargeNum(coin.marketCapUsd)
+        compVol.textContent = formatLargeNum(coin.volumeUsd24Hr)
+        compRank.textContent = coin.rank
+        
+        formatCurrency(compMktCap.textContent) < formatCurrency(mktCap.textContent) ? compMktCap.style = 'color: red' : compMktCap.style = 'color: green'
+        formatCurrency(compVol.textContent) < formatCurrency(vol.textContent) ? compVol.style = 'color: red' : compVol.style = 'color: green'
+        formatCurrency(compRank.textContent) < formatCurrency(rank.textContent) ? compRank.style = 'color: green' : compRank.style = 'color: red'
+    
+    }
+}
+
+const formatCurrency = (currencyStr) => {
+    let temp = currencyStr.replace(/[^0-9.-]+/g, "");
+    return parseFloat(temp);
+}
 
     //Add images to coins using fetchCoinImages
     fetchCoinImages(topCoin)
