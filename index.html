@@ -33,7 +33,7 @@
 
         <div id="myCoinsDiv">
             <div id="myCoinsCollection">
-                <h3 id="welcome">Welcome to Crypto Shark. Add coins to watch here!</h3>
+                <h4 id="welcome">Welcome to Crypto Shark. Add coins to watch here!</h4>
             </div>
             <button id="reset">Reset Coins</button>
         </div>
@@ -43,7 +43,8 @@
                 <h2 id="filterLabel">FILTER COINS</h2>
                 <select name="filter" id="filter">
                     <option value="rank">Rank</option>
-                    <option value="alphabetical">A-Z</option>
+                    <option value="alphabeticalByName">A-Z by Name</option>
+                    <option value="alphabeticalBySymbol">A-Z by Symbol</option>
                     <option value="biggestDailyGains">Biggest Daily Gains</option>
                     <option value="biggestDailyLosses">Biggest Daily Losses</option>
                     <option value="priceHighest">Price: High to Low</option>
@@ -55,7 +56,7 @@
 
         <div id="featuredCoinDiv">
             <div id="coinAndGraphDiv">
-                <span id="featuredCoinBadge">
+                <span class="featuredCoinBadge">
                     <h2 id="featuredSymbol"></h2>
                     <h4 id="featuredName"></h4>
                     <img id="featuredImage">

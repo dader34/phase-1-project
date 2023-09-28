@@ -6,6 +6,7 @@
 body {
     margin: 0;
     background-image: var(--background);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h3 {
@@ -152,6 +153,8 @@ h1 {
     width: 100%;
     align-items: center;
     justify-content: space-around;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .coinBadge {
