@@ -69,7 +69,7 @@ const renderLi = (coin) => {
     const listedCoin = document.createElement("li");
     listedCoin.classList.add("listedCoin");
     listedCoin.dataset.id = coin.id;
-    listedCoin.textContent = `${coin.name} -- ${coin.symbol}`;
+    listedCoin.textContent = `${coin.name} - ${coin.symbol}`;
     listedCoin.addEventListener('click', () => {
         dropDownSelect.selectedIndex = 0 
         displayCoin(coin) 
