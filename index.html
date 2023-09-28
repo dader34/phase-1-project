@@ -36,7 +36,7 @@
             <div id="searchBox">
                 <h3>SEARCH COINS</h3>
                 <form>
-                    <input type="search" id="search" name="Name" placeholder="search">
+                    <input type="search" id="search" name="Name" placeholder="Search for coins">
                     <input type="submit" id="submitSearch" value="SEARCH">
                 </form>
             </div>
@@ -60,15 +60,17 @@
             <div id="featuredCoin">
                 <div id="coinAndGraph">
                     <span id="featuredCoinSpan">  
-                        <span id="mainStats">
-                            <span id="featuredChange"></span>
-                        </span>
                         <h2 id="featuredCoinSymbol"></h2>
                         <h4 id="featuredCoinName"></h4>                 
                         <img id="coinImg">
                         <button id="addCoinButton">ADD COIN</button>
                     </span>
+                    
                     <span id="graphDiv">
+                        <span id="mainStats">
+                            <span id="featuredPrice"></span>
+                            <span id="featuredChange"></span>
+                        </span>
                         <div id="displayCoinGraphDiv"></div>
                         <select name="chrono" id="chrono">
                             <option value="day">Day</option>
@@ -78,11 +80,6 @@
                     </span>
                 </div>
                 <div id="stats">
-                    <span class="statSpan">                    
-                        <h2>PRICE</h2>
-                        <p>price</p>
-                        <p id="compPrice" style="color:rgba(23, 23, 26)">0</p>
-                    </span>
                     <span class="statSpan">                    
                         <h2>MKT CAP</h2>
                         <p>price</p>
@@ -98,7 +95,6 @@
                         <p>rank</p>
                         <p id="compRank" style="color:rgba(23, 23, 26)">0</p>
                     </span>
-                    
                 </div>
             </div>
         </div>        
