@@ -279,6 +279,7 @@ button {
     border-radius: 5px;
     color: white;
     opacity: 0.9;
+    min-width: auto;
 }
 
 #featuredCoin img {
@@ -426,10 +427,11 @@ h4 {
     text-align: center;
     border: 3px solid black;
     background-color: #323546;
+    text-wrap: nowrap;
 }
 
 .statSpan p {
-    font-size: x-large;
+    font-size: 150%;
     margin: 0;
     margin-bottom: 20px
 }

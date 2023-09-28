@@ -1,6 +1,6 @@
 # **Get Your Day Started Right — Don't Wake Up Virtually Broke!**
 
-## Welcome to Cha-Ching Dannor Dom, your go-to cryptocurrency exchange platform designed to ensure you're financially prepared for the day ahead.
+## Welcome to Crypto Shark, your go-to cryptocurrency viewing platform designed to ensure you're financially prepared for the day ahead.
 
 > **What Can You Do with Crypto Shark?**
 
@@ -71,6 +71,7 @@ etc if more.
 
 ## **Other Sources**
 * [StickyLife](https://www.stickylife.com/) - Shark image
+* [tsParticles](https://particles.js.org/) - Particles and effects
 
 ## If you would like to follow our growth, feel free to check out our other projects!
 * [Dominic DeCelle's Projects:](https://github.com/irevisionize)
