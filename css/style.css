@@ -2,10 +2,11 @@
     font-family: Inter, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Helvetica, Arial, sans-serif;
 }
 
-svg {
-    
+img {
+    /* background-color: transparent; */
+    box-shadow: 0 0 20px 4px #48abe0;
+    border-radius: 55%;
 }
-
 
 :root {
     --flatironlogo: url("../src/shark_vinyl_decal.png")
@@ -131,14 +132,14 @@ li.listedCoin:hover {
 
 @keyframes popIn {
     from {
-      opacity: 0;
-      transform: scale(0.8);
+    opacity: 0;
+    transform: scale(0.8);
     }
     to {
-      opacity: 1;
-      transform: scale(1);
+        opacity: 1;
+        transform: scale(1);
     }
-  }
+}
 
 #titleBar {
     grid-area: 2/3/3/4;
@@ -297,7 +298,6 @@ button {
 
 #featuredCoin img {
     max-width: 150px;
-    padding-top: 20px;
 }
 
 #stats {
@@ -350,7 +350,7 @@ button {
 #coinAndGraph {
     display: inherit;
     position: relative;
-    flex-grow: 6;
+    flex-grow: 2;
 }
 
 #coinAndGraph h2,
@@ -365,8 +365,10 @@ h4 {
     padding: 10px;
     margin-top: auto;
     margin-bottom: auto;
-    width: 25%;
+    margin-left: 10px;
+    width: 35%;
     font-size: 150%;
+    row-gap: 10px;
 }
 
 #featuredPrice {
@@ -377,8 +379,11 @@ h4 {
     font-size: 200%;
 }
 
-#featuredCoinImg {
-    margin-top: 20px;
+#coinImg {
+    width: 100%;
+    background-color: transparent;
+    box-shadow: 0 0 20px 4px #48abe0;
+    border-radius: 55%;
 }
 
 #addCoinButton {
