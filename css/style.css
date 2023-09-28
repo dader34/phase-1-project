@@ -187,7 +187,7 @@ button {
 .coinSpan {
     display: flex;
     flex-grow: 1;
-    margin: 10px;
+    margin: 5px;
     /* border: 10px solid black; */
     position: relative;
     z-index: 0;

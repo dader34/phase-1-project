@@ -80,13 +80,13 @@ const populateCoinList = (coinsObj) => {
 };
 
 //<Given an array of coins, sorts them alphabetically>//
-const filterByAZ = (coinsObj) => {
+const filterByAZ = (coinsObj, upOrDown=0) => {
     const toBeSorted = [];
     for (let coin of coinsObj) {
         toBeSorted.push(coin);
     }
     toBeSorted.sort((a, b) => {
-        return a.name.localeCompare(b.name);
+        return (upOrDown === 0) ? a.name.localeCompare(b.name) : a.symbol.localeCompare(b.symbol);
     });
     return toBeSorted;
 };
@@ -321,8 +321,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
             .then((coinsObj) => {
                 return filterByAZ(coinsObj, 0);
             })
-            .then(populateCoinList).then(populateFilter)
-            .then(filterLabel.textContent = "A-Z BY NAME")
+            .then(populateCoinList).then(populateTopCoins)
             break;
 
         case "alphabeticalBySymbol":
@@ -330,8 +329,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByAZ(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateFilter)
-                .then(filterLabel.textContent = "A-Z BY SYMBOL")
+                .then(populateCoinList).then(populateTopCoins)
                 break;
 
         case "biggestDailyGains":
@@ -339,7 +337,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 0);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
 
         case "biggestDailyLosses":
@@ -347,7 +345,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 1);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
 
         case "priceHighest":
@@ -355,7 +353,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 0);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
 
         case "priceLowest":
@@ -363,7 +361,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 1);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
     }
 });
