@@ -459,6 +459,7 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
             document.cookie = "cookie=" + coinsArray.join(",")
             console.log(document.cookie)
             e.target.parentNode.remove()
+            if (myCoins.length === 0) populateTopCoins(topFiveCoins)
         })
         newBadge.appendChild(deleteButton)
     }

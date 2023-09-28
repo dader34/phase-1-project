@@ -3,6 +3,8 @@
 }
 
 
+
+
 :root {
     --flatironlogo: url("../src/shark_vinyl_decal.png")
 }
@@ -195,6 +197,7 @@ button {
     background-color: rgba(23, 23, 26, 0.9);
     border-radius: 5px;
     color: white;
+    max-height: 17%;
 }
 
 .notification {
