@@ -25,7 +25,8 @@
                 <h3 >FILTER COINS</h3>
                 <select name="filter" id="filter">
                     <option value="default">Rank</option>
-                    <option value="alphabetical">A-Z</option>
+                    <option value="alphabeticalByName">A-Z by Name</option>
+                    <option value="alphabeticalBySymbol">A-Z by Symbol</option>
                     <option value="biggestDailyGains">Biggest Daily Gains</option>
                     <option value="biggestDailyLosses">Biggest Daily Losses</option>
                     <option value="priceHighest">Price: High to Low</option>
@@ -40,7 +41,6 @@
                 </form>
             </div>
             <ul name="results" id="results"></ul>
-            <button id="reset">Reset Coins</button>
         </div>
 
         <div id="titleBar">
@@ -50,7 +50,8 @@
         <div id="fiveCoinNav">
             <div id="fiveCoinButtons">
                 <button id="myCoinsButton">MY COINS</button>
-                <button id="topCoinsButton">TOP COINS</button>
+                <button id="topCoinsButton">ALL COINS</button>
+                <button id="reset" style="display: none">RESET COINS</button>
             </div>
             <div id="fiveCoins">
             </div>
@@ -82,14 +83,17 @@
                     <span class="statSpan">                    
                         <h2>MKT CAP</h2>
                         <p>price</p>
+                        <p id="compMktCap" style="color:rgba(23, 23, 26)">0</p>
                     </span>
                     <span class="statSpan">                    
                         <h2>VOLUME</h2>
                         <p>volume</p>
+                        <p id="compVol" style="color:rgba(23, 23, 26)">0</p>
                     </span>
                     <span class="statSpan">                    
                         <h2>RANK</h2>
                         <p>rank</p>
+                        <p id="compRank" style="color:rgba(23, 23, 26)">0</p>
                     </span>
                 </div>
             </div>

@@ -8,6 +8,12 @@ const topCoinsBtn = document.querySelector('#topCoinsButton')
 const myCoinsBtn = document.querySelector('#myCoinsButton')
 const addCoinButton = document.querySelector('#addCoinButton')
 const resetCoins = document.querySelector("#reset")
+const mktCap = document.querySelector("#stats > span:nth-child(1) > p:nth-child(2)")
+const vol = document.querySelector("#stats > span:nth-child(2) > p:nth-child(2)")
+const rank = document.querySelector("#stats > span:nth-child(3) > p:nth-child(2)")
+const compMktCap = document.querySelector("#compMktCap")
+const compVol = document.querySelector("#compVol")
+const compRank = document.querySelector("#compRank")
 //<Variable to decide when to load mycoins tab>//
 let isDoneLoading = false
 //<Variable to store current coin>//
@@ -80,23 +86,17 @@ const populateCoinList = (coinsObj) => {
 };
 
 //<Given an array of coins, sorts them alphabetically>//
-const filterByAZ = (coinsObj) => {
-    const toBeSorted = [];
-    for (let coin of coinsObj) {
-        toBeSorted.push(coin);
-    }
+const filterByAZ = (coinsObj, upOrDown=0) => {
+    const toBeSorted = [...coinsObj]
     toBeSorted.sort((a, b) => {
-        return a.name.localeCompare(b.name);
+        return (upOrDown === 0) ? a.name.localeCompare(b.name) : a.symbol.localeCompare(b.symbol);
     });
     return toBeSorted;
 };
 
 //<Given a array of coins, sorts them by 24 Gain/loss>//
 const filterByGains = (coinsObj, upOrDown) => {
-    const toBeSorted = [];
-    for (let coin of coinsObj) {
-        toBeSorted.push(coin);
-    }
+    const toBeSorted = [...coinsObj]
     if (upOrDown === 0) {
         toBeSorted.sort((a, b) => {
             return parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr);
@@ -111,10 +111,7 @@ const filterByGains = (coinsObj, upOrDown) => {
 
 //<Given an array of coins, sorts them by price high/low>//
 const filterByPrice = (coinsObj, upOrDown) => {
-    const toBeSorted = [];
-    for (let coin of coinsObj) {
-        toBeSorted.push(coin);
-    }
+    const toBeSorted = [...coinsObj]
     if (upOrDown === 0) {
         toBeSorted.sort((a, b) => {
             return parseFloat(b.priceUsd) - parseFloat(a.priceUsd);
@@ -165,13 +162,7 @@ const formatLargeNum = (price) =>{
 const formatDailyChange = (priceChange) => {
     const slice = priceChange.slice(0, 4);
     const noNegativeSlice = priceChange.replace("-", "").slice(0, 4)
-    if (slice > 0) {
-        const newSlice = '↑' + noNegativeSlice + "%";
-        return newSlice;
-    } else {
-        const newSlice = '↓' + noNegativeSlice + "%";
-        return newSlice;
-    }
+    return (slice > 0) ? '↑' + noNegativeSlice + "%" : '↓' + noNegativeSlice + "%";
 };
 
 //<Given coin object, display coin onto main div with all of data, and creats graph>//
@@ -225,7 +216,7 @@ const createLineGraph = (data, divId) => {
     const updateDimensions = () => {
         window.requestAnimationFrame(() => {
             const parentWidth = parentDiv.clientWidth;
-            const parentHeight = parentDiv.clientHeight;
+            const parentHeight = parentDiv.clientHeight - 15;
 
             if (parentDiv.querySelector("svg")) parentDiv.querySelector("svg").remove();
 
@@ -234,7 +225,7 @@ const createLineGraph = (data, divId) => {
                 .attr('width', parentWidth)
                 .attr('height', parentHeight)
                 .append('g');
-            
+
                 
 
             const xScale = d3.scaleTime()
@@ -321,8 +312,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
             .then((coinsObj) => {
                 return filterByAZ(coinsObj, 0);
             })
-            .then(populateCoinList).then(populateFilter)
-            .then(filterLabel.textContent = "A-Z BY NAME")
+            .then(populateCoinList).then(populateTopCoins)
             break;
 
         case "alphabeticalBySymbol":
@@ -330,8 +320,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByAZ(coinsObj, 1);
                 })
-                .then(populateCoinList).then(populateFilter)
-                .then(filterLabel.textContent = "A-Z BY SYMBOL")
+                .then(populateCoinList).then(populateTopCoins)
                 break;
 
         case "biggestDailyGains":
@@ -339,7 +328,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 0);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
 
         case "biggestDailyLosses":
@@ -347,7 +336,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByGains(coinsObj, 1);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
 
         case "priceHighest":
@@ -355,7 +344,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 0);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
 
         case "priceLowest":
@@ -363,7 +352,7 @@ document.querySelector("#filter").addEventListener("change", (e) => {
                 .then((coinsObj) => {
                     return filterByPrice(coinsObj, 1);
                 })
-                .then(populateCoinList);
+                .then(populateCoinList).then(populateTopCoins);
             break;
     }
 });
@@ -461,10 +450,35 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
             document.cookie = "cookie=" + coinsArray.join(",")
             console.log(document.cookie)
             e.target.parentNode.remove()
+            if (myCoins.length === 0) populateTopCoins(topFiveCoins)
         })
         newBadge.appendChild(deleteButton)
     }
+    newBadge.addEventListener('mouseover', () => displayComparisons(topCoin))
+    newBadge.addEventListener('mouseleave', () => {
+        compMktCap.style = 'color: rgba(23, 23, 26)'
+        compVol.style = 'color: rgba(23, 23, 26)'
+        compRank.style = 'color: rgba(23, 23, 26)'
+    })
     fiveCoins.appendChild(newBadge)
+
+const displayComparisons = (coin) => {
+    if (coin.name !== currentCoin.name) {
+        compMktCap.textContent = formatLargeNum(coin.marketCapUsd)
+        compVol.textContent = formatLargeNum(coin.volumeUsd24Hr)
+        compRank.textContent = coin.rank
+        
+        formatCurrency(compMktCap.textContent) < formatCurrency(mktCap.textContent) ? compMktCap.style = 'color: red' : compMktCap.style = 'color: green'
+        formatCurrency(compVol.textContent) < formatCurrency(vol.textContent) ? compVol.style = 'color: red' : compVol.style = 'color: green'
+        formatCurrency(compRank.textContent) < formatCurrency(rank.textContent) ? compRank.style = 'color: green' : compRank.style = 'color: red'
+    
+    }
+}
+
+const formatCurrency = (currencyStr) => {
+    let temp = currencyStr.replace(/[^0-9.-]+/g, "");
+    return parseFloat(temp);
+}
 
     //Add images to coins using fetchCoinImages
     fetchCoinImages(topCoin)
@@ -481,8 +495,8 @@ const createTopCoin = (topCoin, loadingMyCoins = 0) => {
 //<Given array of coins, populate top 5 coins on to top5 div>//
 const populateTopCoins = (coinsArr) => {
     fiveCoins.innerHTML=""
-    const topFive = filterByPrice(coinsArr, 0).slice(0, 100)
-    topFive.forEach((coin) => {
+    document.querySelector('#reset').style = 'display: none'
+    coinsArr.forEach((coin) => {
         createTopCoin(coin)
     })
 }
@@ -490,6 +504,7 @@ const populateTopCoins = (coinsArr) => {
 //<Given array of coins, populate my coins and set cookie to my coins for persistance>//
 const populateMyCoins = (coinsObj) => {
     fiveCoins.innerHTML=""
+    document.querySelector('#reset').style = 'display: flex'
     let cookieCoins = []
         myCoins.forEach(coin =>{
             if(coin){

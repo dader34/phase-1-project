@@ -20,8 +20,10 @@ const notify = (text="notification",type="okay") =>{
 }
   notification.style.right = '20px';
   notification.style.opacity = '1'; // Fade in by setting opacity to 1
+  notification.style.top = '15%'
   remove = setTimeout(() => {
     notification.style.right = '-100px'; // Hiding the notification
     notification.style.opacity = '0'; // Fade out by setting opacity to 0
+    notification.style.top = '1000px'
   }, 1750);
 }
