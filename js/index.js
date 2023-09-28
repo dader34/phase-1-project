@@ -156,13 +156,7 @@ const formatLargeNum = (price) =>{
 const formatDailyChange = (priceChange) => {
     const slice = priceChange.slice(0, 4);
     const noNegativeSlice = priceChange.replace("-", "").slice(0, 4)
-    if (slice > 0) {
-        const newSlice = '↑' + noNegativeSlice + "%";
-        return newSlice;
-    } else {
-        const newSlice = '↓' + noNegativeSlice + "%";
-        return newSlice;
-    }
+    return (slice > 0) ? '↑' + noNegativeSlice + "%" : '↓' + noNegativeSlice + "%";
 };
 
 //<Given coin object, display coin onto main div with all of data, and creats graph>//
