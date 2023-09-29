@@ -62,7 +62,15 @@ All this is possible through our dynamic website, powered by cutting-edge API's.
 3. ![](src/sr3.gif)
 4. ![](src/sr4.png)
 5. ![](src/sr5.png)
-etc if more.
+6. Compare coins from "All Coins" with currently displayed coin:
+![](src/comparison-view.png)
+7. Display all coins from the API through different filter options:
+![](src/filter-options-view.png)
+8. Search for a specific coin:
+![](src/search-view.png)
+9. Display in real-time the price for a certain date on a coin's price history graph:
+![](src/graph-price-by-date-view.png)
+
 
 
 
