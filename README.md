@@ -57,11 +57,11 @@ All this is possible through our dynamic website, powered by cutting-edge API's.
 
 ## Visual Operations
 
-1.
-2.
-3.
-4.
-5.
+1. ![](src/sr1.gif)
+2. ![](src/sr2.gif)
+3. ![](src/sr3.gif)
+4. ![](src/sr4.png)
+5. ![](src/sr5.png)
 etc if more.
 
 
